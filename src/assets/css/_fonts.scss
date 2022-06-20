@@ -1,0 +1,143 @@
+@font-face {
+    font-family: airbnb;
+    src: url(../fonts/AirbnbCerealLight.ttf) format("truetype");
+    font-weight: 200;
+}
+@font-face {
+    font-family: airbnb;
+    src: url(../fonts/AirbnbCerealBook.ttf) format("truetype");
+    font-weight: 400;
+}
+@font-face {
+    font-family: airbnb;
+    src: url(../fonts/AirbnbCerealMedium.ttf) format("truetype");
+    font-weight: 500;
+}
+@font-face {
+    font-family: airbnb;
+    src: url(../fonts/AirbnbCerealBold.ttf) format("truetype");
+    font-weight: 600;
+}
+@font-face {
+    font-family: airbnb;
+    src: url(../fonts/AirbnbCerealExtraBold.ttf) format("truetype");
+    font-weight: 700;
+}
+@font-face {
+    font-family: airbnb;
+    src: url(../fonts/AirbnbCerealBlack.ttf) format("truetype");
+    font-weight: 900;
+}
+
+
+// start font size
+.fs-12{
+    font-size: 12px;
+}
+.fs-14{
+    font-size: 14px;
+}
+.fs-15{
+  font-size: 15px;
+}
+.fs-16{
+    font-size: 16px;
+}
+.fs-18{
+    font-size: 18px;
+}
+.fs-20{
+    font-size: 20px;
+}
+.fs-22{
+    font-size: 22px;
+}
+.fs-24{
+    font-size: 24px;
+}
+.fs-28{
+  font-size: 28px;
+}
+.fs-32{
+    font-size: 32px;
+}
+.fs-44{
+  font-size: 44px;
+}
+.fs-48{
+    font-size: 48px;
+}
+.fs-56{
+    font-size: 56px;
+}
+
+// start font weight
+.fw-100{
+  font-weight: 100;
+}
+.fw-400{
+    font-weight: 400;
+}
+.fw-500{
+    font-weight: 500;
+}
+.fw-600{
+    font-weight: 600;
+}
+.fw-800{
+    font-weight: 800;
+}
+
+// start font color
+.text-c-1{
+    color: $color-primary;
+}
+.text-c-2{
+    color: $color-secondary;
+}
+.text-c-3{
+    color: $color-gray-1;
+}
+.text-c-4{
+    color: $color-gray-2;
+}
+.text-c-5{
+    color: $color-gray-3;
+}
+.text-c-0{
+  color: $color-white;
+}
+.text-c-link{
+    color: $color-cta-primary;
+}
+.text-c-title{
+    color: $color-land-title;
+}
+
+// line-height
+.line-n{
+    line-height: normal;
+}
+.line-14{
+    line-height: 14px;
+}
+.line-24{
+    line-height: 24px;
+}
+.line-26{
+  line-height: 26px;
+}
+.line-36{
+    line-height: 36px;
+}
+
+// align
+.v-align-in{
+    vertical-align: inherit;
+}
+.v-align-m{
+    vertical-align: middle;
+}
+
+//pointer
+.pointer{cursor: pointer;}

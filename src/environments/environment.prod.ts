@@ -1,0 +1,33 @@
+export const environment = {
+  production: true,
+  firebase: {
+    apiKey: 'AIzaSyA395JXk_lp0T-vF3zNHEDZlA_13e5u5Gk',
+    authDomain: 'digitalbear.firebaseapp.com',
+    projectId: 'digitalbear',
+    storageBucket: 'digitalbear.appspot.com',
+    messagingSenderId: '1044195431119',
+    appId: '1:1044195431119:web:26f97d4212584489499dba',
+    measurementId: 'G-Y1DW1P4JL2',
+    vapidKey:
+      'BLuHG7n9t41KWq_o9sTLWdl9TmnJRL-FyGR3daNpcxeHejWzmQZXA8BMh1BwZQDARmXicyF9e2yZfwNUsUEWuHA',
+  },
+  //mahammaApiBaseUrl: 'https://localhost:44388/api/',
+  mahammaApiBaseUrl: 'http://mahammaapi.mahamma.com/api/',
+  // mahammaApiBaseUrl: 'http://83.96.95.14/api/Mahamma.Api/api/',
+  // mahammaApiBaseUrl: 'http://83.96.95.14:8020/api/Mahamma.Api/api/',
+  //mahammaIdentityApiBaseUrl: 'https://localhost:44353/api/',
+  mahammaIdentityApiBaseUrl: 'http://mahammaidentityapi.mahamma.com/api/',
+  // mahammaIdentityApiBaseUrl: 'http://83.96.95.14:8020/api/Mahamma.Identity.Api/api/',
+  // mahammaIdentityApiBaseUrl: 'http://83.96.95.14/api/Mahamma.Identity.Api/api/',
+  //mahammaDocumentApiBaseUrl: 'https://localhost:44355/api/',
+  mahammaDocumentApiBaseUrl: 'http://mahammadocumentapi.mahamma.com/api/',
+  // mahammaDocumentApiBaseUrl: 'http://83.96.95.14:8020/api/Mahamma.DocumentApi/api/',
+  // mahammaDocumentApiBaseUrl: 'http://83.96.95.14/api/Mahamma.DocumentApi/api/',
+  // mahammaNotificationBaseUrl:'https://localhost:44337/api/',
+  // mahammaNotificationBaseUrl:'http://mahamma.com/api/Mahamma.Notification.Api',
+  // mahammaNotificationBaseUrl:'http://83.96.95.14:8020/api/Mahamma.Notification.Api',
+  // mahammaNotificationBaseUrl:'http://83.96.95.14/api/Mahamma.Notification.Api',
+  mahammaNotificationBaseUrl: 'http://mahammanotificationapi.mahamma.com',
+  googleClientId:
+    '1044195431119-vtfgd6ecet4osrsqsbp0t7n4oavduubf.apps.googleusercontent.com',
+};

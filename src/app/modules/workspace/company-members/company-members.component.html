@@ -1,0 +1,29 @@
+<div class="workspaces mt-83 d-block">
+  <div class="col-12 d-flex justify-content-between align-items-center mb-35">
+    <div class="workspace-name">
+      <span class="fs-20 fw-500 text-c-3">{{'Members' | translate}}</span>
+    </div>
+    <div class="new-workspace d-flex">
+      <a class="btn btn-secondary fs-14" data-bs-toggle="modal" (click)="createInvitation()"
+        *ngIf="CheckActionPrivilage(SystemActions.AssignMember)"
+        data-bs-target="#new-workspace">
+        {{'InviteMember' | translate}}
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div style="cursor: pointer;" (click)="openMemberProfile(user.id)" class=" col-4"
+      *ngFor="let user of userService.items$ | async; let i = index">
+      <div class="workspace d-flex bg-white p-3 mb-4">
+        <div class="avatar me-3 ">
+          <div class="member-profile-img pointer">
+            <img [src]="user.profileImage" />
+          </div>
+        </div>
+        <span class="mb-0 fs-16 fw-400 text-c-1 member-name pointer">
+          {{user.fullName}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

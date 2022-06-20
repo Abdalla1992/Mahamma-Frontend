@@ -1,0 +1,27 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <a (click)="modal.close()" class="text-decoration-none fs-24 text-c-1" data-bs-dismiss="modal"
+            aria-label="Close"><span class="icon-delete-disabled"></span>
+        </a>
+        <span class="modal-title fs-32 fw-400 text-c-1 text-center w-100" id="new-taskLabel">
+          {{'UpdateProgressPercentage' | translate}}
+       </span>
+    </div>
+    <form action="#" [formGroup]="formGroup">
+        <div class="modal-body row">
+            <div class="mb-4 col-12">
+                <label for="Progress-Percentage" class="form-label">{{'ProgressPercentage' | translate}}<i style="color: red;">*</i></label>
+                <input type="text" formControlName="progressPercentage" class="form-control" id="Progress-Percentage"
+                    [class.is-invalid]="isControlInvalid('progressPercentage',formGroup)" >
+            </div>
+        </div>
+    </form>
+    <div class="modal-footer">
+        <ng-container>
+            <button type="submit"  class="btn btn-primary" (click)="save()"
+                [disabled]="formGroup.invalid">
+                {{'SaveProgressPercentage' | translate }}
+            </button>
+        </ng-container>
+    </div>
+</div>

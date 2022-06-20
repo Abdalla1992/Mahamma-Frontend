@@ -1,0 +1,182 @@
+<section class="how-works bg-gray-6">
+  <div class="container-fluid">
+      <div class="row title mb-5">
+          <div class="col-xl-6 col-lg-7">
+              <span class="fs-32 fw-700 text-c-title line-36 mb-10 py-12">
+                {{'how-work-title' | translate }}
+              </span>
+              <p class="fs-20 fw-400 text-c-3 mb-0 py-20 line-36">
+               {{'how-work-header' | translate }}
+              </p>
+          </div>
+      </div>
+      <!-- <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel">
+          <div class="row">
+              <div class="col-3">
+                  <div class="carousel-indicators">
+                      <a href="#" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active fs-20" aria-current="true" aria-label="Slide 1">Customize Workspace</a>
+                      <a href="#" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2" class="fs-20">Invite Team</a>
+                      <a href="#" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3" class="fs-20">Get the Work Done</a>Invite Team Get the Work Done
+                  </div>
+              </div>
+              <div class="col-9">
+                  <!-- <div class="carousel-inner">
+                      <div class="carousel-item active">
+                          <div class="row">
+                              <div class="col-5">
+                                  <div class="carousel-caption d-none d-md-block">
+                                      <p class="fs-24 line-36">Choose what better for organizing Your work.</p>
+                                      <p class="fs-20 mt-3 line-36">
+                                        You’ll never forget anything again with our smartest features
+                                      </p>
+                                  </div>
+                              </div>
+                              <div class="col-7">
+                                  <img src="assets/images/landing/img-2.png" class="d-block w-100" alt="..">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="carousel-item">
+                          <div class="row">
+                              <div class="col-5">
+                                  <div class="carousel-caption d-none d-md-block">
+                                      <p>
+                                        use your email and assign the tasks with specific due date and See how your team can structure work to turn all your goals into actionable plans
+                                      </p>
+                                  </div>
+                              </div>
+                              <div class="col-7">
+                                  <img src="assets/images/landing/img-2.png" class="d-block w-100" alt="..">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="carousel-item">
+                          <div class="row">
+                              <div class="col-5">
+                                  <div class="carousel-caption d-none d-md-block">
+                                      <h5>Share your lists and give tasks to others to get things done faster</h5>
+                                  </div>
+                              </div>
+                              <div class="col-4">
+                                  <img src="assets/images/landing/img-6.png" class="d-block w-65" alt="..">
+                              </div>
+                          </div>
+                      </div>
+                  </div> -->
+            <!-- </div>
+        </div>
+    </div>       -->
+      <!-- test -->
+      <!-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="../../../../assets/images/landing/img-7.png" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="..." class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="..." class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div> -->
+      <div class="row">
+        <div class="col-7">
+          <ngb-carousel *ngIf="images">
+            <ng-template ngbSlide>
+              <div class="d-flex caption1 mt-2">
+                <div class="row">
+                  <div class="col-5">
+                    <span class="fs-20 secondary">{{'how-work-customize' | translate}}</span>
+                  </div>
+                  <div class="col-6">
+                    <div class="carousel-caption">
+                      <span class="fs-22 cta-primary line-36">{{'how-work1' | translate }}</span>
+                      <p class="secondary fs-18 mt-3 line-24">{{'how-work2' | translate}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template ngbSlide>
+              <div class="d-flex caption2">
+                <div class="row">
+                  <div class="col-3">
+                    <span class="fs-20 secondary">{{'how-work-invite' | translate }}</span>
+                  </div>
+                  <div class="col-7">
+                    <div class="carousel-caption">
+                      <p class="fs-22 cta-primary line-36">{{'how-work-team' | translate}}</p>
+                      <p class="secondary fs-18 mt-3 line-24">{{'how-work-content' | translate}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template ngbSlide>
+              <div class="d-flex caption3">
+                <div class="row">
+                  <div class="col-4">
+                    <span class="fs-20 secondary">{{'how-work-team1' | translate }}</span>
+                  </div>
+                  <div class="col-7">
+                    <div class="carousel-caption">
+                      <p class="fs-22 cta-primary line-36"> {{'how-work-team2' | translate }}</p>
+                      <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-carousel>
+        </div>
+        <div class="col-5 caption-img">
+          <img src="assets/images/landing/img-2.png"  alt=".."  style="position: relative;
+          right: -6px;
+          width: 114%;
+          bottom: 40px;">
+        </div>
+        </div>
+        <!-- <ng-template ngbSlide>
+          <div class="d-flex caption1">
+            <span class="fs-20 secondary">Customize Workspace </span>
+            <div class="carousel-caption">
+              <span class="fs-24 cta-primary">Choose what’s better for your organization and work flow</span>
+              <p>You’ll never forget anything again with our smartest features</p>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template ngbSlide>
+          <div class="d-flex caption2">
+            <span class="fs-20 secondary">Invite Team</span>
+            <div class="carousel-caption">
+              <span class="fs-24 cta-primary">Second slide label</span>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template ngbSlide>
+          <div class="d-flex caption3">
+            <span class="fs-20 secondary">Get the Work Done</span>
+            <div class="carousel-caption">
+              <span class="fs-24 cta-primary">Second slide label</span>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-carousel> -->
+  </div>
+</section>

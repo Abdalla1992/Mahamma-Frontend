@@ -1,0 +1,147 @@
+$color-cta-primary:#32A15A;
+$color-cta-primary-hover:#28864a;
+$color-cta-secondary:#D6ECDE;
+$color-cta-secondary-hover:#c4e0ce;
+$color-primary:#010503;
+$color-secondary:#343735;
+$color-gray-1:#808281;
+$color-gray-2:#999B9A;
+$color-gray-3:#B3B4B3;
+$color-gray-4:#D6D7D7;
+$color-gray-5:#F9F9F9;
+$color-gray-6:#FBFCFB;
+$color-gray-8: #d6d7d766;
+$color-gray-7:#32A15A0D;
+$color-title: #010205;
+$color-danger: #FF7584;
+$color-success: #32A15A;
+$color-light-success:#32A15A33;
+$color-mention: #1c5ac0;
+
+$color-white:#FFFFFF;
+$color-land-title:#0F301B;
+$color-plan-bg:#F4FAF6;
+$color-menu: #fbfbfc69;
+
+
+// status colors
+$color-success:#4EE5B2;
+$color-success-bg:#EAFAF4;
+$color-warning:#FEDF75;
+$color-warning-bg:#FCF9EE;
+$color-error:#FF7584;
+$color-error-hover:#ef6977;
+$color-error-bg:#FCEEEF;
+$color-disable-bg:#EDEEED;
+$color-avatar: #8DC73F;
+
+// background colors
+.bg-cta-primary{
+    background-color: $color-cta-primary;
+}
+.bg-cta-primary-hover{
+    background-color: $color-cta-primary-hover;
+}
+.bg-cta-secondary{
+    background-color: $color-cta-secondary;
+}
+.bg-cta-secondary-hover{
+    background-color: $color-cta-secondary-hover;
+}
+
+.bg-c-primary{
+    background-color: $color-primary;
+}
+.bg-c-secondary{
+    background-color: $color-secondary;
+}
+.bg-gray-1{
+    background-color: $color-gray-1;
+}
+.bg-gray-2{
+    background-color: $color-gray-2;
+}
+.bg-gray-3{
+    background-color: $color-gray-3;
+}
+.bg-gray-4{
+    background-color: $color-gray-4;
+}
+.bg-gray-5{
+    background-color: $color-gray-5;
+}
+.bg-gray-6{
+    background-color: $color-gray-6;
+}
+.bg-gray-7{
+    background-color: $color-gray-7;
+}
+.bg-gray-8{
+  background-color: $color-gray-8;
+}
+.bg-c-success{
+    background-color: $color-success;
+}
+.bg-c-warning{
+    background-color: $color-warning;
+}
+.bg-c-error{
+    background-color: $color-error;
+}
+.bg-c-disable{
+    background-color: $color-disable-bg;
+}
+.bg-c-plan{
+    background-color: $color-plan-bg;
+}
+.bg-light-success{
+  background-color:$color-light-success
+}
+.bg-menu{
+  background-color: $color-menu
+}
+.cta-primary{
+  color: $color-cta-primary;
+}
+.danger{
+  color: $color-danger;
+}
+.success{
+  color: $color-success;
+}
+.secondary{
+  color:$color-secondary
+}
+.c-primary{
+  color: $color-primary;
+}
+.c-white{
+  color: $color-cta-secondary;
+}
+.c-gray-1{
+  color: $color-gray-1
+}
+.white{
+  color: $color-white;
+}
+.bg-white{
+  background-color: $color-white;
+}
+.c-gray-2{
+  color: $color-gray-2;
+}
+.mention{
+  color: $color-mention;
+}
+.c-black{
+  color: $color-title;
+}
+.color-gray-4{
+  color: $color-gray-4
+}
+.c-avatar{
+  color: $color-avatar;
+}
+.c-gray-3{
+  color: $color-gray-3
+}

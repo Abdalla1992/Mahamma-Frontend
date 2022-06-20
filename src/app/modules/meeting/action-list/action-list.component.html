@@ -1,0 +1,108 @@
+<div class="meetings-section bg-white radius-8 mt-4 p-16">
+  <div class="d-flex align-items-center justify-content-between">
+    <span class="fs-18 fw-500 text-c-4">{{'action-list' | translate}}</span>
+  </div>
+  <div class="table-container mt-16" >
+    <div class="custom-table folw-hidden">
+        <div class="table-head">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="cell">
+                {{'action-item-title' | translate}}
+              </div>
+            </div>
+
+            <div class="col-lg-2 d-flex justify-content-center">
+              <div class="cell">
+                {{'assigned-to' | translate}}
+              </div>
+            </div>
+            <div class="col-lg-2 d-flex justify-content-center">
+              <div class="cell">
+                {{'action-item-type' | translate}}
+              </div>
+            </div>
+            <div class="col-lg-1 d-flex justify-content-end">
+              <div class="cell ">
+                {{'progress-status' | translate}}
+              </div>
+            </div>
+            <div class="col-lg-1">
+              <div class="cell d-flex justify-content-end">
+                {{'action' | translate}}
+              </div>
+            </div>
+          </div>
+          </div>
+        <div class="table-row" *ngFor="let minuteOfMeeting of minutesOfMeeting">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="cell" routerLink="/profile-meeting">
+                <span class="c-gray-1">
+                  {{minuteOfMeeting.actionTitle}}
+                </span>
+              </div>
+            </div>
+            <div class="col-lg-2 d-flex justify-content-center">
+              <div class="cell assignee">
+                <span *ngFor="let member of minuteOfMeeting.members" title="{{'Members' | translate }}"><img [src]="member.profileImage" alt=""></span>
+              </div>
+            </div>
+            <div class="col-lg-2 d-flex justify-content-center">
+              <div class="cell">
+                <span class="c-gray-1">
+                  {{MinuteOfMeetingLevel[minuteOfMeeting.actionLevel] | translate }}
+                </span>
+              </div>
+            </div>
+            <div class="col-lg-1">
+              <div class="cell d-flex justify-content-end">
+                <circle-progress
+                [percent]="minuteOfMeeting.progressPercentage"
+                [radius]="20"
+                [outerStrokeWidth]="4"
+                [innerStrokeWidth]="8"
+                [outerStrokeColor]="'#78C000'"
+                [animation]="true"
+                [animationDuration]="300"
+                [showInnerStroke]="false"
+                [animationDuration]="3300"
+                [showSubtitle]="false"
+                [unitsFontSize]="'15'"
+                [titleFontSize]="'14'"
+              ></circle-progress>
+              </div>
+            </div>
+            <div class="col-lg-1 ">
+              <div class="cell d-flex justify-content-end" >
+                <a  class="d-flex align-items-center fs-16 fw-400 text-c-2 text-decoration-none">
+                  <div ngbDropdown class="d-inline-block ms-32 ">
+                    <span  id="project-action" ngbDropdownToggle>
+                      <span class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none"></span>
+                    </span>
+                    <div ngbDropdownMenu aria-labelledby="project-action">
+                      <button ngbDropdownItem>
+                        <div class="dropdown-item d-flex align-items-center" (click)="updateMinuteOfMeeting(minuteOfMeeting.id, minuteOfMeeting.actionLevel, minuteOfMeeting.workspaceId, minuteOfMeeting.projectId, minuteOfMeeting.taskId, minuteOfMeeting.parentTaskId, minuteOfMeeting.description)">
+                          <span class="icon-pen-edit fs-20 me-12"></span>
+                          <span class="text-c-1" >{{'UpdateMeeting' | translate}}</span>
+                        </div>
+                      </button>
+                      <button ngbDropdownItem>
+                        <div class="dropdown-item  d-flex align-items-center" (click)="deleteMom(minuteOfMeeting.id)">
+                          <span class="icon-trash fs-20 me-12"></span>
+                          <a class="text-c-1">{{'DeleteMeeting' | translate}} </a>
+                            <!-- <button type="submit" class="btn btn-danger btn-elevate" (click)="Delete()" [hidden]="!showDelete">
+                              Delete
+                          </button> -->
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

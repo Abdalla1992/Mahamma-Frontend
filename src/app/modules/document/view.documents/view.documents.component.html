@@ -1,0 +1,115 @@
+<app-side-nav></app-side-nav>
+<div class="page-wrapper pb-4">
+  <div class="">
+    <div class="row">
+      <div class="col-lg-3 col-4 px-4">
+        <app-my-work></app-my-work>
+      </div>
+      <div class="col-lg-8 col-6 px-4 mt-24">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="header mt-4 d-flex align-items-center justify-content-between">
+              <div>
+                  <p class="fs-32 fw-400 text-c-4 mb-0" style="cursor: pointer;" (click)="navigateToProjectFiles(projectId)">{{projectTaskSubtaskNames?.projectName}} files</p>
+                  <div class="d-flex align-items-center" *ngIf="projectTaskSubtaskNames?.taskName">
+                      <span class="icon-tree-connect fs-24 text-c-4 me-2"></span>
+                      <span class="fs-18 fw-400 text-c-1 mb-0" style="cursor: pointer;" (click)="navigateToTask(taskId)">{{projectTaskSubtaskNames?.taskName}}</span>
+                  </div>
+                  <div class="d-flex align-items-center" *ngIf="projectTaskSubtaskNames?.subtaskName">
+                    <span class="icon-tree-connect fs-24 text-c-4 me-2"></span>
+                    <span class="fs-18 fw-400 text-c-1 mb-0" style="cursor: pointer;" (click)="navigateToTask(taskId)">{{projectTaskSubtaskNames?.subtaskName}}</span>
+                </div>
+                <div class="d-flex align-items-center" *ngIf="folderId">
+                  <span class="icon-tree-connect fs-24 text-c-4 me-2"></span>
+                  <span class="fs-18 fw-400 text-c-1 mb-0" style="cursor: pointer;">{{folderName}}</span>
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4  search" [formGroup]="filterGroup">
+            <div class="" title="{{'search-keyword' | translate}}">
+              <input type="text" class="form-control bg-white" formControlName="fileName" placeholder="{{'search' | translate}}">
+              <span class="icon-search-loupe"></span>
+            </div>
+          </div>
+
+          <div class="col-lg-4" *ngIf="!folderId">
+            <div>
+            <div class="btn btn-primary" (click)="CreateFolder()">Add Folder</div>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <app-upload-document (filesUploaded)="handleUploadedFiles($event)"></app-upload-document>
+          </div>
+          <div class="col-12 mt-16" *ngIf="folderResponse.length > 0 && !folderId">
+            <div class="folders">
+              <span class="fs-16 fw-500 c-gray-1 mb-0">{{'Folders' | translate }}</span>
+              <div class="row mt-16" >
+                <div class="col-lg-4 col-md-4 col-sm-12" *ngFor="let folderList of folderResponse ; let i = index">
+                  <div class="folder fs-16 bg-white raduis-10 p12" id="folder1" (click)="openFolder(folderList.id)">
+                    <span class="icon-Folder fs-18"></span>
+                    <span class="fs-18 px-2">{{folderList.name}}</span>
+                  </div>
+                  <div class="d-flex align-items-center fs-16 fw-400 text-c-2 text-decoration-none">
+                    <div ngbDropdown class="d-inline-block ms-32 ">
+                      <span id="project-action" ngbDropdownToggle>
+                        <span class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none"></span>
+                      </span>
+                      <div ngbDropdownMenu aria-labelledby="project-action">
+                        <button ngbDropdownItem>
+                          <div class="dropdown-item p-0 d-flex align-items-center mb-1" (click)="renameFolder(folderList.id, folderList.name)">
+                            <span class="icon-list-task-checkmark fs-16"></span>
+                            <span class="c-primary  px-2 fs-16">{{'RenameFolder' | translate }}</span>
+                          </div>
+                        </button>
+                        <button ngbDropdownItem>
+                          <div class="dropdown-item p-0 d-flex align-items-center mb-1"
+                            (click)="deleteFolder(folderList.id)">
+                            <span class="icon-suitcase-portfolio fs-16 c-primary"></span>
+                            <span class="c-primary px-2 fs-16">{{'DeleteFolder' | translate }}</span>
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+         </div>
+         <div class="col-lg-12 mt-20">
+          <div class="row workspaces">
+            <div class="col-12 d-flex justify-content-between align-items-center">
+              <span class="fs-16 fw-500 text-c-3 py-2">{{'Files' | translate }}</span>
+            </div>
+          </div>
+          <div class="row file">
+            <div *ngFor="let projectFile of projectAttachmentService.items$ | async; let i = index" class="col-lg-3 view-all-file"
+            (contextmenu)="onContextMenu($event, projectFile.id)">
+              <a [href]="projectFile.fileUrl" target="_blank" class="c-primary fs-14 fw-500">
+                <ngx-dropzone-preview>
+                  <ngx-dropzone-label class="file-img">
+                    <img src="https://i1.wp.com/problogger.com/wp-content/uploads/2016/07/4-Rs-screenshot.jpg?ssl=1" alt="">
+                  </ngx-dropzone-label>
+                  <ngx-dropzone-label class="file-name c-primary fw-500">{{ projectFile.fileName | slice:0:7}}</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+              </a>
+              <span class="icon-documents-file-word fs-20"></span>
+              <span class="icon-trash icon-trash-file fs-20 fw-700 c-gray-1" (click)="removeFile(projectFile)" *ngIf="CheckActionPrivilage(SystemActions.DeleteFile)"></span>
+            </div>
+          </div>
+        </div>
+
+      <div style="visibility: hidden; position: fixed"
+        [style.left]="contextMenuPosition.x"
+        [style.top]="contextMenuPosition.y"
+        [matMenuTriggerFor]="contextMenu">
+      </div>
+      <mat-menu #contextMenu="matMenu">
+        <ng-template matMenuContent let-attachmentId="attachmentId">
+          <button mat-menu-item (click)="moveFile(attachmentId)">Move File</button>
+        </ng-template>
+      </mat-menu>
+
+  </div>
+</div>

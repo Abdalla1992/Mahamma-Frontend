@@ -1,0 +1,56 @@
+<!-- project activity Modal -->
+<div class="modal-content">
+  <div class="modal-header">
+      <a (click)="modal.close()" class="text-decoration-none fs-24 text-c-1" data-bs-dismiss="modal"
+          aria-label="Close"><span class="icon-delete-disabled"></span></a>
+      <h5 class="modal-title fs-32 fw-400 text-c-1 text-center w-100" id="project-activityLabel">
+        {{'work-activity' | translate}}</h5>
+  </div>
+  <div class="modal-body">
+      <div class="table-container">
+          <div class="custom-table">
+              <div class="table-head">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <div class="cell">
+                      {{'Action' | translate }}
+                    </div>
+                    <div class="cell">
+                      {{'work-activity' | translate }}
+                    </div>
+                  </div>
+                  <div>
+                    <div class="cell">
+                      {{'Members' | translate}}
+                  </div>
+                  <div class="cell">
+                      {{'Date' | translate }}
+                  </div>
+                  </div>
+                </div>
+              </div>
+              <div  class="table-row">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <div class="cell">
+                      Task Name
+                    </div>
+                    <div class="cell ">
+                      Change status to done
+                    </div>
+                  </div>
+                  <div>
+                    <div class="cell date">
+                      Aug 15 12:24pm
+                    </div>
+                    <div class="cell icon">
+                        <span class="icon-dots-menu"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="modal-footer"></div>
+</div>

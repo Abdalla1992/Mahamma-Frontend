@@ -1,0 +1,109 @@
+<!-- <div class="create-project">
+  <div class="container">
+    <div class="header">
+        <div class="icon">
+          <a (click)="closeDialog()">
+            <i class="fa fa-times"></i>
+          </a>
+        </div>
+        <div class="title">
+          <span class="fs-32">Create New Project</span>
+        </div>
+    </div>
+    <div class="content">
+      <div class="modal-body">
+        <div class="col-12">
+            <label  class="form-label text-c-1">Project Name</label>
+            <input type="text" class="form-control" placeholder="Project Name">
+        </div>
+        <div class="col-12">
+            <label  class="form-label text-c-1">Description</label>
+            <textarea class="form-control" placeholder="Enter Description" style="height: 100px"></textarea>
+        </div>
+        <div class=" col-12">
+          <label  class="form-label text-c-1">Assignee Members</label>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Assignee Members" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <button class="btn btn-secondary fs-18" type="button" id="button-addon2" (click)="showMember()">Button</button>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="members d-flex" *ngIf="member">
+            <div class="member">
+              <img src="../../../../assets/images/profile-pic.png" alt="">
+              <i class="fas fa-times"></i>
+            </div>
+            <div class="member">
+              <img src="../../../../assets/images/profile-pic.png" alt="">
+              <i class="fas fa-times"></i>
+            </div>
+            <div class="member">
+              <img src="../../../../assets/images/profile-pic.png" alt="">
+              <i class="fas fa-times"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-5">
+          <label  class="form-label text-c-1">Due Date</label>
+          <input type="date" class="form-control" placeholder="add Date">
+      </div>
+        <a mat-button class="btn btn-primary fs-18 ">Create Project</a>
+    </div>
+    </div>
+  </div>
+</div> -->
+<div class="modal fade show" id="new-project" tabindex="-1" aria-labelledby="new-projectLabel" aria-modal="true"
+    role="dialog" style="display: block; padding-left: 0px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header" *ngIf="entity">
+              <a href="#" class="text-decoration-none fs-24 text-c-1" data-bs-dismiss="modal" aria-label="Close"><span
+                      class="icon-delete-disabled"></span>
+              </a>
+              <!-- <h5 *ngIf="!entity.id" class="modal-title fs-32 fw-400 text-c-1 text-center w-100"
+                  id="new-projectLabel">Create New Project</h5> -->
+                  <h5 class="modal-title fs-32 fw-400 text-c-1 text-center w-100"
+                  id="new-projectLabel">{{'CreateNewProject' | translate}}</h5>
+              <!-- <h5 *ngIf="entity.id" class="modal-title fs-32 fw-400 text-c-1 text-center w-100"
+                  id="new-projectLabel">Edit Project</h5> -->
+          </div>
+            <form action="#">
+                <div class="modal-body row">
+                    <div class="mb-4 col-12">
+                        <label for="Project-Name" class="form-label">Project Name</label>
+                        <input type="text" formControlName="name" class="form-control" id="Project-Name"
+                            [class.is-invalid]="isControlInvalid('name',form_Group)" placeholder="Ex. first Project">
+                    </div>
+                    <div class="mb-4  col-12">
+                      <label for="Project-Name" class="form-label">Description</label>
+                      <input type="text" formControlName="name" class="form-control" id="Project-Name"
+                          [class.is-invalid]="isControlInvalid('name',form_Group)" placeholder="Ex. first project">
+                  </div>
+                  <div class="mb-4 col-12">
+                      <label for="Workspace-Name" class="form-label">Add Members</label>
+                      <div class="input-group mb-3">
+                          <input type="text" class="form-control" placeholder="Add One Member Or more"
+                              aria-label="add-member" aria-describedby="button-add"
+                              [class.is-invalid]="isControlInvalid('member',formGroup)" formControlName="member">
+                          <button class="btn btn-secondary" type="button" id="button-add">Add</button>
+                      </div>
+                  </div>
+                  <div class="mb-4 col-5">
+                    <label  class="form-label text-c-1">Due Date</label>
+                    <div>
+                      <input type="text" class="form-control" placeholder="add Date">
+                      <!-- <span class="icon-Calendar"></span> -->
+                    </div>
+                </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <ng-container>
+                    <button type="submit" class="btn btn-primary" (click)="save()" [disabled]="formGroup.invalid">
+                        {{'Save' | translate}}
+                    </button>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

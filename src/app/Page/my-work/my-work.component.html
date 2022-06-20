@@ -1,0 +1,166 @@
+<div class="hv-91 fixed">
+  <div class="workspace-nav pt-18">
+    <div class="workspace-title d-flex align-items-center justify-content-between mb-3">
+      <div style="cursor: pointer;" class="d-flex align-items-center">
+        <!-- <div class="avatar me-12">
+                <p class="fs-16 mb-0 text-c-1 text-center line-24">A</p>
+            </div> -->
+        <div class="avatar me-3 bg-cta-primary" [style.background]="workspace?.color">
+          <span class="fs-24 mb-0 text-c-0 px-1 py-2 text-center"><img [src]="workspace?.imageUrl"
+              style="width: 70%;height: 70%;" /></span>
+        </div>
+        <span (click)="navigateToWorkspaceProfile(workspaceId)" class="mb-0 fs-16 fw-400 text-c-1 title">{{workspace?.name}}</span>
+      </div>
+      <div ngbDropdown class="d-inline-block  workspace-dropdown">
+        <span id="project-action" ngbDropdownToggle>
+          <span class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none"></span>
+        </span>
+        <div ngbDropdownMenu aria-labelledby="project-action">
+          <div class="dropdown-menu-end p-4">
+            <span class="fs-16 fw-500 text-c-3 mb-4">{{'MyWorkspaces' | translate}}</span>
+            <button ngbDropdownItem *ngFor="let workspaceItem of workspaceList">
+              <a (click)="navigateToWorkspaceProfile(workspaceItem.id)" class="dropdown-item p-0 mb-1 mt-1">
+                <div class="d-flex align-items-center">
+                  <div class="avatar me-3 bg-cta-primary" [style.background]="workspaceItem?.color">
+                    <span class="fs-24 mb-0 text-c-0 px-1 py-2 text-center"><img [src]="workspaceItem?.imageUrl"
+                        style="width: 70%;height: 70%;" /></span>
+                  </div>
+                  <span class="mb-0 fs-16 fw-400 text-c-1 px-1">{{workspaceItem.name}}</span>
+                </div>
+              </a>
+            </button>
+            <button ngbDropdownItem>
+              <div class="row">
+                <div class="col-6">
+                  <a (click)="openAddWorkspace()" class="btn btn-outline px-2 py-12 fs-16 d-block">{{'AddNew' |
+                    translate}}</a>
+                </div>
+                <div class="col-6 ">
+                  <a routerLink='/workspace' class="btn btn-primary px-2 py-12 fs-16 d- show-all">{{'BrowseAll'
+                    |translate}}</a>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="space-nav bg-white radius-8">
+      <div class="dropend mb-4 p24">
+        <a class="btn btn-secondary pointer" *ngIf="CheckActionPrivilage(SystemActions.AddProject)">
+          <span class="icon-plus fw-600 fs-20 line-14 v-align-in cta-primary "></span>
+          <span class="cta-primary fs-18" (click)="openAddPoroject()">{{'NewProject' | translate}}</span>
+        </a>
+        <!-- <div ngbDropdownMenu class="project-dropdown">
+          <button ngbDropdownItem>
+            <div class="dropdown-item p-0 d-flex align-items-center mb-3">
+              <span class="icon-suitcase-portfolio fs-24 text-c-1"></span>
+              <span (click)="openAddPoroject()" class="fs-16 text-c-1 ms-12">{{'NewProject' | translate}}</span>
+            </div>
+          </button>
+          <button ngbDropdownItem>
+                <div class="dropdown-item p-0 d-flex align-items-center mb-3">
+                  <span class="icon-chart-square fs-24 text-c-1"></span>
+                  <span class="fs-16 text-c-1 ms-12">New Dashboard</span>
+                </div>
+              </button>
+              <button ngbDropdownItem>
+                <div class="dropdown-item p-0 d-flex align-items-center mb-3">
+                  <span class="icon-Folder fs-24 text-c-1"></span>
+                  <span class="fs-16 text-c-1 ms-12">New Folder</span>
+                </div>
+              </button>
+        </div> -->
+      </div>
+      <!-- <a routerLink ="project-profile/profile" class="fs-16 fw-400 text-c-3 text-decoration-none d-flex align-items-center mb-4">
+            <span class="icon-Notebook-Check-list fs-24 "></span>
+            <span class="line-n d-inline-block ms-12">My Work</span>
+        </a> -->
+        <div class="project-items p16">
+          <a class="fs-16 fw-400 text-c-3 text-decoration-none d-flex align-items-center mb-3 active" routerLink="/my-work-notes">
+            <span class="icon-Notebook-Check-list fs-24 "></span>
+            <span class="line-n d-inline-block ms-12 pointer">{{'MyWork' | translate}}</span>
+          </a>
+          <a class="fs-16 fw-400 text-c-3 text-decoration-none d-flex align-items-center mb-3 active">
+            <span class="icon-suitcase-portfolio fs-24 "></span>
+            <span (click)="redirectToWorkspaceProfile()" class="line-n d-inline-block ms-12 pointer">{{'Projects' | translate}}</span>
+          </a>
+        </div>
+      <!-- <a  class="fs-16 fw-400 text-c-3 text-decoration-none d-flex align-items-center mb-3">
+            <span class="icon-chart-square fs-24 "></span>
+            <span class="line-n d-inline-block ms-12">Dashboard</span>
+        </a> -->
+      <!-- <div class="folder mb-3">
+            <a  class="fs-16 fw-400 text-c-3 text-decoration-none d-flex align-items-center mb-2" data-bs-toggle="collapse" data-bs-target="#folder-collapse" aria-expanded="true">
+                <span class="icon-Folder fs-24 "></span>
+                <span class="line-n d-inline-block ms-12">Folder</span>
+            </a>
+            <div class="collapse " id="folder-collapse">
+                <ul class=" list-unstyled fw-normal ps-4">
+                    <li>
+                        <a  class="fs-16 fw-400 text-c-3 text-decoration-none d-flex align-items-center mb-3">
+                            <span class="icon-suitcase-portfolio fs-24 "></span>
+                            <span class="line-n d-inline-block ms-12">Project</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a  class="fs-16 fw-400 text-c-3 text-decoration-none d-flex align-items-center mb-3">
+                            <span class="icon-chart-square fs-24 "></span>
+                            <span class="line-n d-inline-block ms-12">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a  class="fs-16 fw-400 text-c-3 text-decoration-none d-flex align-items-center mb-3">
+                            <span class="icon-suitcase-portfolio fs-24 "></span>
+                            <span class="line-n d-inline-block ms-12">Project</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <a  class="fs-16 fw-400 text-c-3 text-decoration-none d-flex align-items-center">
+            <span class="icon-suitcase-portfolio fs-24 "></span>
+            <span class="line-n d-inline-block ms-12">Project</span>
+        </a> -->
+    </div>
+  </div>
+
+  <div class="workspace-team">
+    <div class="team-title d-flex align-items-center justify-content-between">
+      <span class="fs-16 fw-400 c-primary">{{'WorkspaceTeam' | translate}}</span>
+      <a (click)="editWorkspaceMember()" class="text-decoration-none font-24 text-c-3">
+        <span class="icon-pen-edit fs-16"></span>
+      </a>
+    </div>
+    <div [formGroup]="assignMemberGroup" class="team-members bg-white radius-8">
+      <!-- <input type="text" class="form-control mb-3" placeholder="Invite member"> -->
+      <mat-form-field class="form-control mat-form" appearance="outline"
+        style="background-color: transparent; border: none;" *ngIf="CheckActionPrivilage(SystemActions.AssignMember)">
+        <input [matAutocomplete]="userFullName" placeholder="{{'invite-member' | translate}}" matInput formControlName="member" name="member"
+          (input)="AutoCompleteChange($event)" >
+        <!-- <span class="input-item">{{fc.corporateName.value}}</span> -->
+        <!-- <mat-error *ngIf=" fc.accountNumber.errors?.required" class="mat-error">
+                {{ 'requiredv' | translate }}</mat-error>
+            <mat-error *ngIf=" fc.accountNumber.errors?.notText" class="mat-error">
+                {{ 'InvalidText' | translate }}</mat-error> -->
+      </mat-form-field>
+      <mat-autocomplete #userFullName="matAutocomplete" (optionSelected)='Selectautocomplete($event.option.value)'>
+        <ng-container>
+          <mat-option class="span-autocomplete" *ngFor="let user of userList" [value]="user">
+            <span>{{ user.fullName }} </span>
+          </mat-option>
+        </ng-container>
+      </mat-autocomplete>
+      <div *ngFor="let member of workspace?.members"
+        class="member d-flex align-items-center justify-content-between">
+        <a (click)="openMemberProfile(member.userId)" class="d-flex align-items-center text-decoration-none text-c-1">
+          <img [src]="member.profileImage" alt="">
+          <p class="mb-0 px-2">{{member.fullName}}</p>
+        </a>
+        <a *ngIf="editWSMembers" (click)="removeWSMember(member.userId)">
+          <span class="icon-trash fs-18 text-c-3 px-1"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

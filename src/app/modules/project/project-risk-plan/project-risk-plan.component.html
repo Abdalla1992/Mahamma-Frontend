@@ -1,0 +1,126 @@
+<app-side-nav></app-side-nav>
+<div class="page-wrapper pb-4">
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div *ngIf="!isReadOnly" class="col-lg-3 col-4">
+                <app-my-work [workspaceId]="project.workSpaceId"></app-my-work>
+            </div>
+            <div class="col-lg-9 col-8">
+                <app-project-header [project]="project"></app-project-header>
+
+                <div class="disc-files-section bg-white p-4 radius-8 mt-4">
+                    <div class="row discription">
+                        <div class="col-12">
+                            <span class="fs-16 fw-500 text-c-4 mb-3">{{'Project.RiskPlan' | translate }}</span>
+                        </div>
+
+                        <form [formGroup]="formGroup">
+                            <div class="modal-body row">
+                                <div class="mb-4 col-12">
+                                    <label for="issue" class="form-label">{{'Project.RiskPlan.Issue' | translate }}</label>
+                                    <input type="text" formControlName="issue" class="form-control" id="issue"
+                                        [class.is-invalid]="isControlInvalid('issue',formGroup)"
+                                        placeholder="Issue">
+                                </div>
+                                <div class="mb-4 col-12">
+                                    <label for="impact" class="form-label">{{'Project.RiskPlan.Impact' | translate }}</label>
+                                    <input type="text" formControlName="impact" class="form-control"
+                                        id="impact" [class.is-invalid]="isControlInvalid('impact',formGroup)"
+                                        placeholder="Impact">
+                                </div>
+                                <div class="mb-4 col-12">
+                                    <label for="action" class="form-label">{{'Project.RiskPlan.Action' | translate }}</label>
+                                    <input type="text" formControlName="action" class="form-control"
+                                        id="action" [class.is-invalid]="isControlInvalid('action',formGroup)"
+                                        placeholder="Action">
+                                </div>
+                                <div class="mb-4 col-12">
+                                    <label for="owner" class="form-label">{{'Project.RiskPlan.Owner' | translate }}</label>
+                                    <input type="text" formControlName="owner" class="form-control"
+                                        id="owner" [class.is-invalid]="isControlInvalid('owner',formGroup)"
+                                        placeholder="Owner">
+                                </div>
+                            </div>
+                        </form>
+                        <div class="modal-footer">
+                            <ng-container>
+                                <button type="submit" class="btn btn-primary"
+                                    (click)="save()" [disabled]="formGroup.invalid">
+                                    {{'save' | translate }}
+                                </button>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="disc-files-section bg-white p-4 radius-8 mt-4">
+                    <div class="tasks-section mt-4 p-4 bg-white radius-8">
+                        <div *ngIf="!isReadOnly" class="d-flex align-items-center justify-content-between mb-4 col-4">
+                            <a class="btn btn-primary px-2 d-flex align-items-center" (click)="createNewPlan()">
+                                <span class="icon-plus fs-22 me-1 white"></span>
+                                <span class="white fs-18">{{'NewRiskPlan' | translate}}</span>
+                            </a>
+                        </div>
+                        <div class="table-container view-card">
+                            <div class="custom-table">
+                                <div class="table-head">
+                                    <div class="cell">
+                                        {{'Project.RiskPlan.Issue'| translate}}
+                                    </div>
+                                    <div class="cell">
+                                         {{'Project.RiskPlan.Impact'| translate}}
+                                    </div>
+                                    <div class="cell">
+                                         {{'Project.RiskPlan.Action'| translate}}
+                                    </div>
+                                    <div class="cell">
+                                         {{'Project.RiskPlan.Owner'| translate}}
+                                    </div>
+                                </div>
+                                <div *ngFor="let plan of riskPlans" class="table-row">
+                                    <div class="cell">
+                                        <span>{{plan.issue}}</span>
+                                    </div>
+                                    <div class="cell">
+                                        <span>{{plan.impact}}</span>
+                                    </div>
+                                    <div class="cell">
+                                        <span>{{plan.action}}</span>
+                                    </div>
+                                    <div class="cell">
+                                        <span>{{plan.owner}}</span>
+                                    </div>
+                                    <div class="actions">
+                                      <a class="d-flex align-items-center fs-16 fw-400 text-c-2 text-decoration-none">
+                                          <div ngbDropdown class="d-inline-block ms-32 ">
+                                              <span id="project-action" ngbDropdownToggle>
+                                                  <span class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none"></span>
+                                              </span>
+                                              <div class="dropDownAppearance" ngbDropdownMenu aria-labelledby="project-action">
+                                                  <button ngbDropdownItem>
+                                                      <div class="dropdown-item p-0 d-flex align-items-center mb-1"
+                                                          (click)="updatePlan(plan)">
+                                                          <span class="icon-pen-edit fs-24 me-12"></span>
+                                                          <a class="text-c-1">{{'UpdateRiskPlan' | translate }}</a>
+                                                      </div>
+                                                  </button>
+                                                  <button ngbDropdownItem>
+                                                      <div class="dropdown-item p-0 d-flex align-items-center mb-1"
+                                                          (click)="deletePlan(plan.id)">
+                                                          <span class="icon-trash fs-24 me-12"></span>
+                                                          <a class="text-c-1">{{'DeleteRiskPlan' | translate }}</a>
+                                                      </div>
+                                                  </button>
+                                              </div>
+                                          </div>
+                                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

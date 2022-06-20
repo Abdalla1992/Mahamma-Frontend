@@ -1,0 +1,78 @@
+<div class="account">
+  <form novalidate class="form-login" [formGroup]="newAccountFormGroup" (ngSubmit)="createAccount()"
+    (keydown.enter)="$event.preventDefault()" (keydown.enter)="createAccount()">
+    <div class="modal-body pb-0" id="new-account" tabindex="-1" aria-labelledby="new-projectLabel" aria-modal="true"
+      role="dialog">
+      <div class="row mt-88">
+        <div class="col-8 offset-2">
+          <span class="fs-24 fw-500 text-c-1 line-36">
+           {{'signup-welcome' | translate}}<br>
+            {{'signup-qoute' | translate}}
+          </span>
+          <div class="row mt-5">
+            <div class="col-12">
+              <a class="btn-create-with" (click)="onSignIn()">
+                <img src="assets/images/google-logo.svg" alt="" style="float: left;">
+                <span class="px-2">{{'google' | translate}}</span>
+              </a>
+            </div>
+          </div>
+          <div class="or-line fs-18 c-gray-4 m-24">
+            <span class="p-12">{{'or'  | translate}}</span>
+          </div>          
+          <div class="" style="margin-bottom: 16px;">
+            <label class="form-label text-c-1">{{'email' | translate}}</label>
+            <input type="text" class="form-control fs-16" email formControlName="email"
+              placeholder="Ex.Name@company.com" autocomplete="off"
+              [class.is-invalid]="isControlInvalid('email',newAccountFormGroup)">
+            <div class="invalid-feedback fs-14 py-1" *ngIf="controlHasError('required', 'email', newAccountFormGroup)">
+              {{'email-required' | translate}}
+            </div>
+            <div class="invalid-feedback fs-14 py-1" *ngIf="controlHasError('pattern', 'email', newAccountFormGroup)">
+              {{'valid-mail' | translate }}
+            </div>
+          </div>
+          <div class="show-password" style="margin-bottom: 0px;">
+            <label class="form-label text-c-1">{{'Password' | translate}}</label>
+            <input [type]="fieldTextType ? 'text' : 'password'" formControlName="password" class="form-control fs-16"
+              placeholder="Enter password" autocomplete="off"
+              [class.is-invalid]="isControlInvalid('password',newAccountFormGroup)">
+            <i href="#" class="fs-12 fa" [ngClass]="{
+            'fa-eye-slash': !fieldTextType,
+            'fa-eye': fieldTextType
+          }" (click)="toggleFieldTextType()"></i>
+            <div class="invalid-feedback fs-14 py-1" *ngIf="controlHasError('minlength', 'password', newAccountFormGroup)">
+              - {{'passwordLengthValidation' | translate}}
+            </div>
+            <div class="invalid-feedback fs-14 py-1" *ngIf="controlHasError('pattern', 'password', newAccountFormGroup)">
+              - {{'passwordValidation' | translate}}
+            </div>
+
+          </div>
+          <div class="show-password mt-16">
+            <label class="form-label text-c-1">{{'ConfirmPassword' | translate }}</label>
+            <input [type]="fieldTextType ? 'text' : 'password'" formControlName="confirmPassword" class="form-control"
+              placeholder="Enter password" autocomplete="off"
+              [class.is-invalid]="isControlInvalid('confirmPassword', newAccountFormGroup)">
+            <i href="#" class=" fs-12 fa" [ngClass]="{'fa-eye-slash': !fieldTextType,'fa-eye': fieldTextType}"
+              (click)="toggleFieldTextType()"></i>
+
+            <div class="invalid-feedback fs-14 py-1" *ngIf="controlHasError('notEqual', 'confirmPassword', newAccountFormGroup)">
+              - {{'passwordDoesntMatch' | translate}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer d-block p-0">
+      <ng-container>
+        <button class="btn-primary btn btn-block fs-18 w-62">
+          {{'CreateAccount' | translate}}
+        </button>
+        <p>{{'have-account' | translate}}
+          <a data-bs-toggle="modal" (click)="openLogin()" data-bs-target="#login">{{'login' | translate}}</a>
+        </p>
+      </ng-container>
+    </div>
+  </form>
+</div>

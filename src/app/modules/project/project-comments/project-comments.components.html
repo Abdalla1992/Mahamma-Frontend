@@ -1,0 +1,146 @@
+<div class="comments-section mt-4 p-24 bg-white radius-8">
+  <h4 class="fs-16  text-c-4">{{'Comments' | translate}}</h4>
+  <div class="add-comment mt-24">
+    <div class="row">
+      <div class="col-lg-1">
+        <div class="avatar mt-7">
+          <img [src]="currentUser.profileImage" alt="">
+        </div>
+      </div>
+      <div [formGroup]="commentForm" class="col-lg-11">
+        <input type="text" formControlName="addComment" #inputRef
+          (keyup.enter)="addComment($any($event.target).value)"
+          class="form-control" placeholder="{{'AddComment' | translate }} . . .">
+        <i class="fas fa-paperclip"></i>
+        <flx-mentions [textInputElement]="inputRef"
+                [menuTemplate]="menuTemplate"
+                [triggerCharacter]="'@'"
+                [getChoiceLabel]="getChoiceLabel"
+                (search)="loadChoices($event)"
+                (selectedChoicesChange)="onSelectedChoicesChange($event)"
+                (menuShow)="onMenuShow()"
+                (menuHide)="onMenuHide()"
+                ></flx-mentions>
+        <ng-template #menuTemplate
+                  let-selectChoice="selectChoice">
+        <ul flxLoader
+            class="flx-selectable-list list-group"
+            [class.loader-only]="!choices.length && loading">
+
+          <li *ngFor="let user of choices"
+              class="flx-selectable-list-item list-group-item mention fw-500"
+              (click)="selectChoice(user)">
+            <span title="{{user.fullName}}" class="mention fw-500">{{user.fullName}}</span>
+          </li>
+         </ul>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="comment-container" id="comments">
+    <div *ngFor="let comment of commentList" >
+      <div class="row pt-24">
+        <div class="col-lg-1">
+          <div class="avatar">
+            <img [src]="comment.member?.profileImage" alt="">
+          </div>
+        </div>
+        <div class="col-lg-11">
+          <div class="comment radius-8">
+            <h3 class="fs-16 fw-700 text-c-3">{{comment.member?.fullName}}</h3>
+            <p class="fs-16  c-primary pt-12" [innerHTML]="comment.comment">
+              <!-- <a class="text-decoration-none fw-500 pr-2">{{comment.member?.fullName}}</a> -->
+            </p>
+          </div>
+          <div class="comment-actions d-flex align-items-center mt-8">
+            <a class="text-decoration-none pointer" (click)="likeComment(comment.id)">
+              <!-- <span class="icon-like"></span> -->
+              <span class="icon-like fs-18 text-c-1" [ngClass]="comment.isLikedByCurrentUser ? 'active': 'notActive'"></span>
+            </a>
+            <span class="likes-count fs-14 text-c-1 px-1 fw-500">{{comment.likesCount}}</span>
+            <span class="text-c-1 fs-14">.</span>
+            <!-- <span class="me-3">.</span>
+            <a class="fs-14 fw-500 text-c-2 text-decoration-none me-3">Reply</a> -->
+            <div class="comment-time fs-14 fw-400 text-c-1 pointer" (click)="showReplay()">
+              {{'Reply' | translate}}
+              <span class="fs-14 text-c-1 fw-500 px-1">5</span>
+            </div>
+            <span class="text-c-1">.</span>
+            <span class="comment-time fs-14 fw-400 text-c-3 ">{{comment.creationDuration}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 mt-19 replay-container" *ngIf="replayComment">
+        <div class="row">
+          <div class="col-lg-12 mb-9  reply pl-0">
+            <div class="comment-container" id="replies-{{comment.id}}">
+              <div *ngFor="let reply of comment.replies" class="row">
+                <div class="col-lg-1">
+                  <div class="avatar">
+                    <img [src]="reply.member?.profileImage" alt="">
+                  </div>
+                </div>
+                <div class="col-lg-11">
+                  <div class="comment radius-8" >
+                    <span class="fs-16 fw-500 text-c-3 ">{{reply.member?.fullName}}</span>
+                    <p class="fs-16 fw-400 text-c-1 pt-12" [innerHTML]="reply.comment">
+                    </p>
+                  </div>
+                  <div class="comment-actions d-flex align-items-center mt-8">
+                    <div class=" text-decoration-none pointer" (click)="likeComment(reply.id)">
+                      <!-- <i class="far fa-thumbs-up fs-16 pb-2" [ngClass]="{'active': isActiveLike,'notActive' : !isActiveLike}"></i> -->
+                      <span class="icon-like fs-18 text-c-1" [ngClass]="reply.isLikedByCurrentUser ? 'active': 'notActive'">
+                      </span>
+                      <span class="likes-count fs-14 text-c-1">{{reply.likesCount}}</span>
+                      <span class="text-c-1 fs-14">.</span>
+                    </div>
+
+                    <div class="comment-time fs-14 fw-400 text-c-1 pointer"> {{'Reply' | translate}}</div>
+                    <span class="text-c-1">.</span>
+                    <span class="comment-time fs-14 fw-400 text-c-3 ">{{comment.creationDuration}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12 pl-0">
+            <div class="row">
+              <div class="col-lg-1 mt-7">
+                <div class="avatar">
+                  <img [src]="currentUser.profileImage" alt="">
+                </div>
+              </div>
+              <div class="col-lg-11">
+                <div class="add-replay">
+                  <input type="text" [value]="" (keyup.enter)="addComment($any($event.target).value, comment.id)" #inputRef
+                  class="form-control" placeholder="{{'add-replay' | translate}} . . . ">
+                <flx-mentions [textInputElement]="inputRef"
+                  [menuTemplate]="menuTemplate"
+                  [triggerCharacter]="'@'"
+                  [getChoiceLabel]="getChoiceLabel"
+                  (search)="loadChoices($event)"
+                  (selectedChoicesChange)="onSelectedChoicesChange($event)"
+                  (menuShow)="onMenuShow()"
+                  (menuHide)="onMenuHide()"></flx-mentions>
+                </div>
+              </div>
+              <ng-template #menuTemplate
+                          let-selectChoice="selectChoice">
+                <ul flxLoader
+                    class="flx-selectable-list"
+                    [class.loader-only]="!choices.length && loading">
+
+                  <li *ngFor="let user of choices"
+                      class="flx-selectable-list-item"
+                      (click)="selectChoice(user)">
+                    <span title="{{user.fullName}}">{{user.fullName}}</span>
+                  </li>
+                </ul>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<div class="comments-section mt-4 p-4 bg-white radius-8">
+  <h4 class="fs-16 fw-500 text-c-4 mb-4">{{'Comments' | translate }}</h4>
+  <div class="add-comment">
+      <div class="row mb-32 align-items-center">
+          <div class="col-auto">
+            <div class="avatar">
+              <img src="assets/images/profile-pic.png" alt="">
+            </div>
+          </div>
+          <div class="col">
+            <input type="text" [value]="" class="form-control" placeholder="AddComment ..." (keyup.enter)="comment=$any($event.target).value">
+          </div>
+      </div>
+  </div>
+  <div class="comment-container" *ngIf="comment">
+      <div class="row">
+          <div class="col-auto">
+              <div class="avatar">
+                <img src="assets/images/profile-pic.png" alt="">
+              </div>
+          </div>
+          <div class="col">
+            <div class="comment p-3 radius-8">
+              <h5 class="fs-16 fw-500 mb-12 text-c-3 " *ngIf="member">{{'MemberName' | translate}}</h5>
+              <p class="fs-16 fw-400 text-c-1 mb-0">
+                <a href="#" class="text-decoration-none">{{'username' | translate }}</a>
+                {{comment}}
+
+              </p>
+            </div>
+            <div class="comment-actions d-flex align-items-center ps-3 pt-1">
+                <a href="#" class="text-c-1 fs-24 text-decoration-none me-1">
+                    <span class="icon-like"></span>
+                </a>
+                <span class="likes-count fs-16 text-c-1 me-3">12</span>
+                <span class="me-3">.</span>
+                <a (click)="addReplay()" class="fs-14 fw-500 text-c-2 text-decoration-none me-3">{{'Reply' | translate }}</a>
+                <span class="me-3">.</span>
+                <span class="comment-time fs-14 fw-400 text-c-3 ">16 {{'h' | translate}}</span>
+            </div>
+            <div class="comment-container reply mt-3">
+                <div class="row">
+                  <div class="col-12" *ngIf="commentReplay">
+                      <div class="comment p-3 radius-8">
+                          <span class="fs-16 fw-500 mb-12 text-c-3 ">{{'MemberName' | translate }}</span>
+                          <p class="fs-16 fw-400 text-c-1 mb-0">
+                            <a href="#" class="text-decoration-none">@mohamed Samir</a>
+                              {{commentReplay}}
+                          </p>
+                      </div>
+                      <div class="comment-actions d-flex align-items-center ps-3 pt-1">
+                          <a class="text-c-1 fs-24 text-decoration-none me-1">
+                              <span class="icon-like"></span>
+                          </a>
+                          <span class="likes-count fs-16 text-c-1 me-3">12</span>
+                          <span class="me-3">.</span>
+                          <a class="fs-14 fw-500 text-c-2 text-decoration-none me-3">{{'Reply' | translate }}</a>
+                          <span class="me-3">.</span>
+                          <span class="comment-time fs-14 fw-400 text-c-3 ">12 {{"h" | translate}}</span>
+                      </div>
+                  </div>
+                  <div class="col-auto"  *ngIf="comment">
+                    <div class="row">
+                      <div class="col-auto">
+                        <div class="avatar">
+                          <img src="assets/images/profile-pic.png" alt="">
+                        </div>
+                      </div>
+                      <div class="col">
+                        <input type="text" [value]="" class="form-control" placeholder="AddReplay ..." (keyup.enter)="commentReplay=$any($event.target).value" >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="header mt-4 d-flex align-items-center justify-content-between">
+  <div>
+      <p class="fs-14 fw-400 text-c-4 mb-0">{{'TaskName' | translate }}</p>
+      <div class="d-flex align-items-center">
+          <span class="icon-tree-connect fs-24 text-c-4 me-2"></span>
+          <h3 class="fs-18 fw-400 text-c-1 mb-0">{{'SubTasksName' | translate }}</h3>
+      </div>
+  </div>
+  <div class="d-flex align-items-center">
+      <a data-bs-toggle="modal" (click)="create()" data-bs-target="#new-project" class="d-flex align-items-center ms-32  fs-16 fw-400 text-c-0 text-decoration-none " data-bs-toggle="modal" data-bs-target="#project-activity" class="btn btn-primary ms-32">
+        {{'SubmitTask' | translate }}
+      </a>
+      <a data-bs-toggle="modal"  data-bs-target="#new-project" class="d-flex align-items-center ms-32  fs-16 fw-400 text-c-0 text-decoration-none " data-bs-toggle="modal" data-bs-target="#project-activity">
+        <a  class="d-flex align-items-center fs-16 fw-400 text-c-2 text-decoration-none">
+          <div ngbDropdown class="d-inline-block ms-32 ">
+            <span  id="project-action" ngbDropdownToggle>
+              <span class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none"></span>
+            </span>
+            <div ngbDropdownMenu aria-labelledby="project-action" >
+              <!-- <button ngbDropdownItem >
+                <div class="dropdown-item p-0 d-flex align-items-center mb-3">
+                  <span class="icon-grid-layout-1 fs-24 me-12"></span>
+                  <span class="text-c-1">Customize Layout</span>
+                </div>
+              </button> -->
+              <!-- <button ngbDropdownItem>
+                <div class="dropdown-item p-0 d-flex align-items-center mb-3">
+                  <span class="icon-link-big fs-24 me-12"></span>
+                  <span class="text-c-1">Integrations</span>
+                </div>
+              </button> -->
+              <button ngbDropdownItem>
+                <div class="dropdown-item p-0 d-flex align-items-center mb-3">
+                  <span class="icon-folder-archive fs-24 me-12"></span>
+                  <span class="text-c-1" >
+                    {{'ArchiveSubTask' | translate }}
+                  </span>
+                </div>
+              </button>
+              <button ngbDropdownItem>
+                <div class="dropdown-item p-0 d-flex align-items-center mb-3">
+                  <span class="icon-trash fs-24 me-12"></span>
+                  <a class="text-c-1">{{'DeleteSubTask' | translate }}</a>
+                    <!-- <button type="submit" class="btn btn-danger btn-elevate" (click)="Delete()" [hidden]="!showDelete">
+                      Delete
+                  </button> -->
+                </div>
+              </button>
+            </div>
+          </div>
+        </a>
+      </a>
+</div>

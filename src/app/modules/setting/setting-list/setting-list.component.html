@@ -1,0 +1,18 @@
+<div class="workspace-nav mt-4">
+  <div class="space-nav bg-white p-4 radius-8">
+      <a routerLink='/setting/general-setting' routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  class="fs-16 fw-400 text-c-3 text-decoration-none d-flex align-items-center mb-4">
+          <span class="icon-setting fs-24 general-setting-icon"></span>
+          <span class="line-n d-inline-block ms-12">{{'GeneralSetting'| translate}}</span>
+      </a>
+      <a routerLink='/setting/notifications-setting' routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="fs-16 fw-400 text-c-3 text-decoration-none d-flex align-items-center mb-3">
+          <span class="icon-notification fs-24 "></span>
+          <span class="line-n d-inline-block ms-12">{{'notifications' | translate}}</span>
+      </a>
+      <a routerLink='/setting/permissions' routerLinkActive="active"
+          *ngIf="CheckActionPrivilage(SystemActions.ViewRole)"   [routerLinkActiveOptions]="{exact: true}" class="fs-16 fw-400 text-c-3 text-decoration-none d-flex align-items-center mb-3">
+          <span class="icon-permission fs-24 general-setting-icon"></span>
+          <span class="line-n d-inline-block ms-12">{{'Permissions' | translate}}</span>
+      </a>
+  </div>
+</div>
+

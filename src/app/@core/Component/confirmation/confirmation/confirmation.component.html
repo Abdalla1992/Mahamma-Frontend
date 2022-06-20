@@ -1,0 +1,25 @@
+<div class="modal-content">
+    <div class="modal-header py-12">
+        <h4 class="modal-title fs-32">{{messageTitle}}</h4>
+    </div>
+
+
+    <div class="modal-body">
+        <p class="fs-18">
+            {{messageBody}}
+        </p>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-elevate mr-2" ngbAutofocus (click)="modal.dismiss()">
+            Cancel
+        </button>
+        <button type="submit" class="btn btn-danger btn-elevate" (click)="Delete()" [hidden]="!showDelete">
+            Delete
+        </button>
+        <button type="submit" class="btn btn-primary btn-elevate" (click)="OK()" [hidden]="!showOk">
+            OK
+        </button>
+    </div>
+
+</div>

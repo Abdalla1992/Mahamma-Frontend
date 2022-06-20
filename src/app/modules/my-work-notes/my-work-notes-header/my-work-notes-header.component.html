@@ -1,0 +1,11 @@
+<div class="header mt-4 d-flex align-items-center justify-content-between">
+  <span class="fs-32 fw-400 text-c-1 mb-0">{{'MyWork' | translate}}</span>
+  <div class="d-flex align-items-center">
+    <a data-bs-toggle="modal" data-bs-target="#new-project" (click)="openMyWorkNotesActivities(project?.id)"
+      class="d-flex align-items-center ms-32  fs-16 fw-400 text-c-2 text-decoration-none " data-bs-toggle="modal"
+      data-bs-target="#project-activity">
+      <span class="icon-activity fs-24 d-inline-block me-2"></span>
+      <span class="line-n">{{'Activity' | translate }}</span>
+    </a>
+  </div>
+</div>

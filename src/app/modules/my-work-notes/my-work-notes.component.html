@@ -1,0 +1,57 @@
+<app-side-nav></app-side-nav>
+<div class="page-wrapper pb-4">
+  <div class="px-4">
+    <div class="row">
+      <div class="col-lg-3 col-4">
+        <app-my-work></app-my-work>
+      </div>
+      <div class="col-lg-9 col-8">
+        <app-my-work-notes-header></app-my-work-notes-header>
+        <div class="widget-section bg-white  radius-8 mt-4 h-auto">
+          <div class="row project-header">
+            <div class="col-lg-2 col-md-6 d-flex flex-column justify-content-between">
+              <span class="fs-14 fw-500 text-c-4 mb-3 center">{{'Total-Tasks' | translate }}</span>
+              <div class="members d-flex justify-content-center">
+                <p class="fs-18 c-primary fw-400 d-flex justify-content-center">{{ userTasksInfo.tasksCount }}</p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 d-flex flex-column justify-content-between">
+              <span class="fs-14 fw-500 text-c-4 mb-3 center">{{'DueDate'| translate}}</span>
+              <p class="fs-18 c-primary fw-400 d-flex justify-content-center">{{ userTasksInfo.dueDate | date:"dd/MM/yyyy HH:mm a" }}</p>
+            </div>
+
+            <div class="col-lg-2 col-md-6 mt-lg-0 mt-md-4 d-flex flex-column justify-content-between">
+              <span class="fs-14 fw-500 text-c-4 center">{{'Progress' | translate}}</span>
+              <div class="d-flex justify-content-center">
+                <circle-progress
+                  [percent]="userTasksInfo.progressPercentage"
+                  [radius]="16"
+                  [outerStrokeWidth]="2"
+                  [innerStrokeWidth]="5"
+                  [outerStrokeColor]="'#FF7584'"
+                  [animation]="true"
+                  [animationDuration]="300"
+                  [showInnerStroke]="false"
+                  [animationDuration]="3300"
+                  [showSubtitle]="false"
+                  [unitsFontSize]="'12'"
+                  [titleFontSize]="'10'"
+                ></circle-progress>
+                <span class="fs-18 fw-400 c-primary  mt-12">{{'Completed' | translate}}</span>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mt-lg-0 mt-md-4 d-flex flex-column justify-content-between">
+              <span class="fs-14 fw-500 text-c-4 mb-3 center">{{'upcoming-meeting' | translate}}</span>
+              <p class="fs-20 c-primary fw-400 d-flex justify-content-center">
+                <span class="icon-alarm px-1"></span>
+                <span>{{ userTasksInfo.upcomingMeetingDate | date:"dd/MM/yyyy HH:mm a" }}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <app-my-work-notes-section></app-my-work-notes-section>
+        <app-tasks-list></app-tasks-list>
+      </div>
+    </div>
+  </div>
+</div>

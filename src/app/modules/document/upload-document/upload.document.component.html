@@ -1,0 +1,18 @@
+
+  <div class="drag-drop" >
+    <ngx-dropzone (change)="onSelect($event)" #fileInput [multiple]="multipleFiles">
+      <ngx-dropzone-label>
+        <div class="conent d-block">
+          <div class="c-gray-2 pb-13">
+            <span class="icon-cloud-upload fs-24"></span>
+          </div>
+          <div class="fs-14 c-gray-2">{{'Drag-DropHere' | translate }}</div>
+          <div class="fs-14 c-gray-2">{{'or' | translate }}</div>
+          <div class="c-primary fs-16">{{'BrowseFiles' | translate }}</div>
+        </div>
+      </ngx-dropzone-label>
+      <!-- <ngx-dropzone-preview *ngFor="let f of file" [removable]="true" (removed)="onRemove(f)">
+        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+      </ngx-dropzone-preview> -->
+    </ngx-dropzone>
+  </div>

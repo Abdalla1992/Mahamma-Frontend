@@ -1,0 +1,85 @@
+<app-side-nav></app-side-nav>
+<div class="page-wrapper">
+  <div class="container-fluid px-4">
+    <div class="row mt-27 align-items-center">
+      <div class="col-lg-8 col-6">
+        <span class="fs-32 fw-500 text-c-1 mb-0">{{company?.name}}</span>
+      </div>
+      <div class="col-lg-4">
+        <div class="" [formGroup]="filterGroup">
+          <div class="search position-relative">
+            <input type="text" class="form-control bg-white" formControlName="name" placeholder="{{'search' | translate}}">
+            <span class="icon-search-loupe"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="workspaces d-block mt-48">
+      <div class="d-flex justify-content-between align-items-center mb-35">
+        <div class="workspace-name">
+          <span class="fs-20 fw-500 text-c-3 mb-0">{{'Workspaces' | translate }} </span>
+        </div>
+        <div class="new-workspace d-flex">
+          <!-- <div class="" [formGroup]="filterGroup">
+            <div class="search position-relative mr-2 ml-2">
+              <input type="text" class="form-control bg-white" formControlName="name" placeholder="search">
+              <span class="icon-search-loupe position-absolute"></span>
+            </div>
+          </div> -->
+          <a class="fs-14 btn btn-secondary ms-1" data-bs-toggle="modal" (click)="create()"
+            data-bs-target="#new-workspace" *ngIf="CheckActionPrivilage(SystemActions.AddWorkspace)">
+            {{'NewWorkspaces' | translate}}
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 mb-24" *ngFor="let workspace of workspacesService.items$ | async; let i = index">
+          <div class="workspace d-flex bg-white justify-content-between">
+              <div class="workspace-dire d-flex" style="cursor: pointer;" (click)="openWorkspacProfile(workspace.id)">
+                <div class="avatar pointer bg-cta-primary" [style.background]="workspace.color">
+                  <span class="fs-24 mb-0 text-c-0 text-center">
+                    <img [src]="workspace.imageUrl"/></span>
+                </div>
+                <span class="fs-24 fw-400 text-c-1 px-3 py-2 pointer">
+                  {{workspace.name}}
+                </span>
+              </div>
+              <div class="workspace-dots">
+                <a data-bs-toggle="modal" data-bs-target="#new-workspace"
+                class="d-flex align-items-center  fs-16 fw-400 text-c-2 text-decoration-none dropdown-workspace"
+                data-bs-toggle="modal" data-bs-target="#project-activity">
+                <a class="d-flex align-items-center fs-16 fw-400 text-c-2 text-decoration-none">
+                  <div ngbDropdown class="d-inline-block dropdown-workspace ">
+                    <span id="workspace-action" ngbDropdownToggle>
+                      <span class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none mt-2"></span>
+                    </span>
+                    <div ngbDropdownMenu aria-labelledby="workspace-action">
+                      <button ngbDropdownItem>
+                        <div class="dropdown-item p-0 d-flex align-items-center mb-1"
+                          *ngIf="CheckActionPrivilage(SystemActions.UpdateWorkspace)" (click)="edit(workspace.id)">
+                          <span class="icon-pen-edit fs-18"></span>
+                          <a class="text-c-1 fs-16 px-2">{{'EditWorkspace' | translate }}</a>
+                        </div>
+                      </button>
+                      <button ngbDropdownItem>
+                        <div class="dropdown-item p-0 d-flex align-items-center mb-1"
+                          *ngIf="CheckActionPrivilage(SystemActions.DeleteWorkspace)" (click)="delete(workspace)">
+                          <span class="icon-trash fs-18"></span>
+                          <a class="text-c-1 px-2">{{'Delete' | translate }} </a>
+                          <!-- <button type="submit" class="btn btn-danger btn-elevate" (click)="Delete()" [hidden]="!showDelete">
+                                    Delete
+                                </button> -->
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </a>
+                </a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-company-members  [searchKeyword]="searchKeyword"></app-company-members>
+  </div>
+</div>

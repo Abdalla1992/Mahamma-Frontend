@@ -1,0 +1,15 @@
+<div class="header mt-4 d-flex align-items-center justify-content-between">
+  <span class="fs-32 fw-400 text-c-1 mb-0" >{{'notifications' | translate }}</span>
+  <div class="d-flex align-items-center">
+      <!-- <a href="#" class="d-flex align-items-center ms-32  fs-16 fw-400 text-c-2 text-decoration-none ">
+          <span class="icon-user-group fs-24 d-inline-block me-2"></span>
+          <span class="line-n">Meeting</span>
+      </a> -->
+      <div class="col-lg-12  col-6">
+        <div class="search position-relative fs-16">
+            <button *ngIf="!enabledDesktopNotification" class="btn btn-primary bg-light-success" (click)="enablePushNotification()">{{'enableDesktopNotification' | translate}}</button>
+            <button *ngIf="enabledDesktopNotification" class="btn btn-secondary bg-secondary" (click)="disablePushNotification()">{{'disableDesktopNotification' | translate}}</button>
+        </div>
+    </div>
+  </div>
+</div>

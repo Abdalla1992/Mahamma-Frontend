@@ -1,0 +1,44 @@
+<div class="account">
+  <form novalidate class="form-login" >
+    <div class="modal-body" id="login" tabindex="-1" aria-labelledby="new-projectLabel" aria-modal="true" role="dialog">
+      <div class="row mt-88">
+        <div class="col-8 offset-2">
+          <span class="fs-24 fw-500 text-c-1 mb-5 line-36">
+            {{'welcome' | translate}}<br>
+            {{'welcome-login' | translate}}
+          </span>
+          <div class="row mt-5">
+            <div class="col-12">
+              <a class="btn-create-with" >
+                <img src="assets/images/google-logo.svg" alt="" style="float: left;">
+                <span class="px-2">{{'google' | translate}}</span>
+              </a>
+            </div>
+          </div>
+          <div class="or-line fs-18 c-gray-4 m-24">
+            <span class="p-12">{{'or' | translate}}</span>
+          </div>
+          <div class="mb-16">
+            <label class="form-label text-c-1">{{'email' | translate}}</label>
+            <input type="text" formControlName="email" email class="form-control fs-16"
+              placeholder="Ex.Name@company.com"
+             >
+            <div class="invalid-feedback fs-14 py-1">
+              {{'email-required' | translate}}
+            </div>
+            <div class="invalid-feedback fs-14 py-1 ">
+              {{'valid-mail' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer d-block p-0">
+      <ng-container>
+        <button class="btn-primary btn btn-block w-62 fs-18">
+          {{'Submit' | translate }}
+        </button>
+      </ng-container>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,62 @@
+<nav class="side-nav">
+  <div class="logo img-container pointer" routerLink='/' routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+    <img src="assets/images/mahmma-logo.svg" alt="">
+  </div>
+  <div class="links">
+    <a routerLink='/workspace' routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="link pointer"
+    title="{{'my-company' | translate }}"><span
+        class="icon-workspace"></span></a>
+    <a routerLink='/dashboard' routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="link pointer"
+    title="{{'Dashboard' | translate}}">
+      <!-- <i class="fas fa-tachometer-alt"></i> -->
+      <span class="icon-chart-square"></span>
+    </a>
+    <a routerLink='/notifications' routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="link pointer"
+    title="{{'notifications' | translate }}">
+      <span class="icon-notification"></span>
+      <div *ngIf="notificationCount && notificationCount > 0" class="notification-count">
+        <span>{{notificationCount}}</span>
+      </div>
+    </a>
+
+    <a routerLink='/search' routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="link pointer" title="{{'search' | translate}}">
+      <span
+        class="icon-search-loupe"></span></a>
+    <a routerLink='/meeting' routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="link pointer" title="{{'Meetings' | translate}}">
+      <!-- <i class="far fa-handshake"></i> -->
+      <!-- <span class="icon-user-groupt"></span> -->
+      <span class="icon-user-group"></span>
+    </a>
+  </div>
+  <div ngbDropdown class="d-inline-block dropend dropup ">
+    <div id="project-action" ngbDropdownToggle>
+      <a class="link " routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" title="{{'my-profile' | translate}}">
+        <span class="icon-user-profile"></span>
+      </a>
+    </div>
+    <div ngbDropdownMenu aria-labelledby="user-action">
+      <button ngbDropdownItem>
+        <div class="dropdown-item p-0 d-flex align-items-center"  routerLink="/profile/{{currentUSer.id}}">
+          <!-- (click)="openMemberProfile(currentUSer.id)"> -->
+          <a class="user-profile ">
+            <img [src]="currentUSer?.profileImage" alt="">
+            <span class="c-primary fw-700">{{currentUSer?.fullName}}</span>
+          </a>
+        </div>
+      </button>
+      <button ngbDropdownItem>
+        <a class="dropdown-item p-0 d-flex align-items-center" routerLink='/setting/general-setting'
+          routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <span class="icon-setting fs-20 c-primary"></span>
+          <span class="c-primary fs-16">{{'settings' | translate }}</span>
+        </a>
+      </button>
+      <button ngbDropdownItem>
+        <a (click)="logout()" class="dropdown-item p-0 d-flex align-items-center">
+          <span class="icon-login-logout fs-20 c-primary"></span>
+          <span class="c-primary fs-16">{{'logout' | translate }}</span>
+        </a>
+      </button>
+    </div>
+  </div>
+</nav>

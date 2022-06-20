@@ -1,0 +1,99 @@
+<app-side-nav></app-side-nav>
+<div class="page-wrapper pb-4">
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col-lg-3 col-4">
+                <app-my-work *ngIf="!isReadOnly" [workspaceId]="id"></app-my-work>
+            </div>
+            <div class="col-lg-9 col-9">
+                <div class="row">
+                    <div class="col-lg-12" *ngIf="projectService.totalCount <= 0">
+                        <div class="add-section mt-4 fs-32 bg-white radius-8">
+                            <div class="content">
+                                <img src="assets/images/project-pic.png" alt="" class="">
+                                <p class="fs-32 c-gray-1 pt-33">{{'NoProject' | translate }}</p>
+                                <button *ngIf="!isReadOnly && CheckActionPrivilage(SystemActions.AddProject)" mat-button class="btn btn-primary mt-3" data-bs-toggle="modal" (click)="create()"
+                                    data-bs-target="#new-project">{{'CreateProject' | translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12" *ngIf="projectService.totalCount > 0">
+                        <div class="tasks-section mt-4 p-4 bg-white radius-8">
+                            <span class="fs-16 text-c-4">{{'Projects' | translate }} </span>
+                            <!-- <div class="view mt-24">
+                                <a href="#" class="text-decoration-none d-flex align-items-center text-c-1 active">
+                                    <span class="icon-bullet-list-text fs-24 me-2"></span>
+                                    <span class="fs-16">{{'ListView' | translate }}</span>
+                                </a>
+                            </div> -->
+                            <div class="d-flex align-items-center justify-content-between pt-24 pb-16">
+                                <!-- <a class="btn btn-primary px-2 d-flex align-items-center" (click)="create()">
+                                  <span class="icon-plus white fs-18 me-1"></span>
+                                  <span class=" fs-18 white" data-bs-toggle="modal" data-bs-target="#new-project">
+                                    {{'NewProject' | translate }}
+                                  </span>
+                                </a> -->
+                                <span class="d-flex align-items-center"></span>
+                                <div class="filter-sorts">
+                                    <span  class="text-decoration-none fs-16 fw-400 text-c-3 filter-section">
+                                        <span class="icon-filter me-1"></span>
+                                        <span class="">{{'filter' | translate }}</span>
+                                    </span>
+                                    <span  class="text-decoration-none fs-16 fw-400 text-c-3">
+                                        <span class="icon-sort me-1"></span>
+                                        <span class="">{{'Sort' | translate }}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="table-container">
+                                <div class="custom-table">
+                                    <div class="table-head">
+                                      <div class="row">
+                                        <div class="col-lg-8">
+                                          <div class="cell">
+                                            {{'Project' | translate }}
+                                          </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                          <div class="cell">
+                                            {{'Assignee' | translate }}
+                                          </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                          <div class="cell">
+                                            {{'DueDate' | translate }}
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="table-row" *ngFor="let project of projectService.items$ | async; let i = index">
+                                      <div class="row">
+                                        <div class="col-lg-8">
+                                          <div class="cell pointer" (click)="openProjectProfile(project.id)">
+                                            {{project.name}}
+                                          </div>
+                                        </div>
+                                        <div class="col-lg-2 d-flex justify-content-center">
+                                          <div class="cell assignee">
+                                            <span *ngFor="let member of project.members">
+                                              <img  [src]="member.profileImage" alt="">
+                                            </span>
+                                          </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                          <div class="cell due-date">
+                                            {{project.dueDate | date}}
+                                        </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

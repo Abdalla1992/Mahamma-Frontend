@@ -1,0 +1,65 @@
+<div class="disc-files-section bg-white p-4 radius-8 mt-4 ">
+  <div class="discription">
+    <div class="general-setting">
+      <div class="row">
+        <div class="col-12">
+          <h4 class="fs-16 fw-500 text-c-4 mb-3">{{'Preferences' | translate }}</h4>
+        </div>
+      </div>
+      <div class=" mt-5">
+        <div class="row">
+          <div class="col-lg-5">
+            <label  class="form-label text-c-1 secondary fs-14">{{'Language' | translate }}</label>
+            <select class="form-select fs-16 c-primary bg-gray-6" aria-label="Default select example" #langselect (change)="translate.use(langselect.value)">
+              <option  *ngFor="let lang of languages" [value]="lang.id">{{ lang.alias }}</option>
+            </select>
+          </div>
+          <!-- <div class="col-lg-5">
+            <label  class="form-label text-c-1 secondary fs-14">{{'TimeZone'| translate}}</label>
+            <select class="form-select fs-16 c-primary bg-gray-6" aria-label="Default select example">
+              <option selected>Egypt,Cairo</option>
+              <option value="1">Egypt,Alex</option>
+            </select>
+          </div> -->
+        </div>
+      </div>
+      <div class=" mt-5">
+        <div class="row">
+          <!-- <div class="col-lg-6">
+            <label  class="form-label text-c-1 secondary fs-14">{{'TFormat' | translate }}</label>
+            <div class="row">
+              <div class=" col-lg-3">
+                <input type="button" class="form-control" [value]="option1">
+              </div>
+              <div class=" col-lg-3">
+                <input type="button" class="form-control" [value]="option2">
+              </div>
+            </div>
+          </div> -->
+          <!-- <div class="col-lg-6">
+            <label  class="form-label text-c-1 secondary fs-14">{{'WeekStart' | translate}} </label>
+            <div class="row">
+              <div class=" col-lg-3">
+                <input type="button" class="form-control" [value]="option3">
+              </div>
+              <div class=" col-lg-3">
+                <input type="button" class="form-control" [value]="option4">
+              </div>
+            </div>
+          </div> -->
+          <!-- <div class="col-lg-6 mt-5">
+            <label  class="form-label text-c-1 secondary fs-14">{{'DateFormat' | translate}}</label>
+            <div class="row">
+              <div class=" col-lg-6">
+                <input type="button" class="form-control" [value]="option5">
+              </div>
+              <div class=" col-lg-6">
+                <input type="button" class="form-control" [value]="option6">
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

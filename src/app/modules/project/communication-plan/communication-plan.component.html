@@ -1,0 +1,199 @@
+<app-side-nav></app-side-nav>
+<div class="page-wrapper pb-4">
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div *ngIf="!isReadOnly" class="col-lg-3 col-4">
+                <app-my-work [workspaceId]="project.workSpaceId"></app-my-work>
+            </div>
+            <div class="col-lg-9 col-8">
+                <app-project-header [project]="project"></app-project-header>
+
+                <div class="disc-files-section bg-white p-4 radius-8 mt-4">
+                    <div class="row discription">
+                        <div class="col-12">
+                            <span class="fs-16 fw-500 text-c-4 mb-3">{{'Project.CommunicationPlan' | translate }}</span>
+                        </div>
+
+                        <form [formGroup]="formGroup">
+                            <div class="modal-body row">
+                                <div class="mb-4 col-12">
+                                    <label for="recipient" class="form-label">{{'Project.CommunicationPlan.recipient' |
+                                        translate }}</label>
+                                    <input type="text" formControlName="recipient" class="form-control" id="recipient"
+                                        [class.is-invalid]="isControlInvalid('recipient',formGroup)"
+                                        placeholder="Recipients">
+                                </div>
+                                <div class="mb-4 col-12">
+                                    <label for="communicationType"
+                                        class="form-label">{{'Project.CommunicationPlan.communicationType' | translate
+                                        }}</label>
+                                    <input type="text" formControlName="communicationType" class="form-control"
+                                        id="communicationType"
+                                        [class.is-invalid]="isControlInvalid('communicationType',formGroup)"
+                                        placeholder="Type of Communication">
+                                </div>
+                                <div class="mb-4 col-12">
+                                    <label for="frequency" class="form-label">{{'Project.CommunicationPlan.frequency' |
+                                        translate }}</label>
+                                    <input type="text" formControlName="frequency" class="form-control" id="frequency"
+                                        [class.is-invalid]="isControlInvalid('frequency',formGroup)"
+                                        placeholder="Frequency">
+                                </div>
+                                <div class="mb-4 col-12">
+                                    <label for="owner" class="form-label">{{'Project.CommunicationPlan.owner' |
+                                        translate }}</label>
+                                    <input type="text" formControlName="owner" class="form-control" id="owner"
+                                        [class.is-invalid]="isControlInvalid('owner',formGroup)" placeholder="Owner">
+                                </div>
+                                <div class="mb-4 col-12">
+                                    <label for="keyDates" class="form-label">{{'Project.CommunicationPlan.keyDates' |
+                                        translate }}</label>
+                                    <input type="text" formControlName="keyDates" class="form-control" id="keyDates"
+                                        [class.is-invalid]="isControlInvalid('keyDates',formGroup)" placeholder="Key Dates">
+                                </div>
+                                <div class="mb-4 col-12">
+                                    <label for="deliveryMethod"
+                                        class="form-label">{{'Project.CommunicationPlan.deliveryMethod' | translate
+                                        }}</label>
+                                    <input type="text" formControlName="deliveryMethod" class="form-control"
+                                        id="deliveryMethod"
+                                        [class.is-invalid]="isControlInvalid('deliveryMethod',formGroup)"
+                                        placeholder="Delivery Method">
+                                </div>
+                                <div class="mb-4 col-12">
+                                    <label for="goal" class="form-label">{{'Project.CommunicationPlan.goal' | translate
+                                        }}</label>
+                                    <input type="text" formControlName="goal" class="form-control" id="goal"
+                                        [class.is-invalid]="isControlInvalid('goal',formGroup)" placeholder="Goal">
+                                </div>
+                                <div class="mb-4 col-12">
+                                    <label for="resourceLinks"
+                                        class="form-label">{{'Project.CommunicationPlan.resourceLinks' | translate
+                                        }}</label>
+                                    <input type="text" formControlName="resourceLinks" class="form-control"
+                                        id="resourceLinks"
+                                        [class.is-invalid]="isControlInvalid('resourceLinks',formGroup)"
+                                        placeholder="Resource Links">
+                                </div>
+                                <div class="mb-4 col-12">
+                                    <label for="notes" class="form-label">{{'Project.CommunicationPlan.notes' |
+                                        translate }}</label>
+                                    <input type="text" formControlName="notes" class="form-control" id="notes"
+                                        [class.is-invalid]="isControlInvalid('notes',formGroup)" placeholder="Notes">
+                                </div>
+                            </div>
+                        </form>
+                        <div class="modal-footer">
+                            <ng-container>
+                                <button type="submit" class="btn btn-primary" (click)="save()"
+                                    [disabled]="formGroup.invalid">
+                                    {{'save' | translate }}
+                                </button>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="disc-files-section bg-white p-4 radius-8 mt-4">
+                    <div class="tasks-section mt-4 p-4 bg-white radius-8">
+                        <div *ngIf="!isReadOnly" class="d-flex align-items-center justify-content-between mb-4 col-4">
+                            <a class="btn btn-primary px-2 d-flex align-items-center" (click)="createNewPlan()">
+                                <span class="icon-plus fs-22 me-1 white"></span>
+                                <span class="white fs-18">{{'NewCommunicationPlan' | translate}}</span>
+                            </a>
+                        </div>
+                        <div class="table-container view-card">
+                            <div class="custom-table">
+                                <div class="table-head">
+                                    <div class="cell">
+                                        {{'Project.CommunicationPlan.recipient'| translate}}
+                                    </div>
+                                    <div class="cell">
+                                        {{'Project.CommunicationPlan.communicationType'| translate}}
+                                    </div>
+                                    <div class="cell">
+                                        {{'Project.CommunicationPlan.frequency'| translate}}
+                                    </div>
+                                    <div class="cell">
+                                        {{'Project.CommunicationPlan.owner'| translate}}
+                                    </div>
+                                    <div class="cell">
+                                        {{'Project.CommunicationPlan.keyDates'| translate}}
+                                    </div>
+                                    <div class="cell">
+                                        {{'Project.CommunicationPlan.deliveryMethod'| translate}}
+                                    </div>
+                                    <div class="cell">
+                                        {{'Project.CommunicationPlan.goal'| translate}}
+                                    </div>
+                                    <div class="cell">
+                                        {{'Project.CommunicationPlan.resourceLinks'| translate}}
+                                    </div>
+                                    <div class="cell">
+                                        {{'Project.CommunicationPlan.notes'| translate}}
+                                    </div>
+                                </div>
+                                <div *ngFor="let plan of communicationPlans" class="table-row">
+                                    <div class="cell">
+                                        <span>{{plan.recipient}}</span>
+                                    </div>
+                                    <div class="cell">
+                                        <span>{{plan.communicationType}}</span>
+                                    </div>
+                                    <div class="cell">
+                                        <span>{{plan.frequency}}</span>
+                                    </div>
+                                    <div class="cell">
+                                        <span>{{plan.owner}}</span>
+                                    </div>
+                                    <div class="cell">
+                                        <span>{{plan.keyDates}}</span>
+                                    </div>
+                                    <div class="cell">
+                                        <span>{{plan.deliveryMethod}}</span>
+                                    </div>
+                                    <div class="cell">
+                                        <span>{{plan.goal}}</span>
+                                    </div>
+                                    <div class="cell">
+                                        <span>{{plan.resourceLinks}}</span>
+                                    </div>
+                                    <div class="cell">
+                                        <span>{{plan.notes}}</span>
+                                    </div>
+                                    <div class="actions">
+                                        <a class="d-flex align-items-center fs-16 fw-400 text-c-2 text-decoration-none">
+                                            <div ngbDropdown class="d-inline-block ms-32 ">
+                                                <span id="project-action" ngbDropdownToggle>
+                                                    <span
+                                                        class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none"></span>
+                                                </span>
+                                                <div class="dropDownAppearance" ngbDropdownMenu
+                                                    aria-labelledby="project-action">
+                                                    <button ngbDropdownItem>
+                                                        <div class="dropdown-item p-0 d-flex align-items-center mb-1"
+                                                            (click)="updatePlan(plan)">
+                                                            <span class="icon-pen-edit fs-24 me-12"></span>
+                                                            <a class="text-c-1">{{'UpdateCommunicationPlan' | translate }}</a>
+                                                        </div>
+                                                    </button>
+                                                    <button ngbDropdownItem>
+                                                        <div class="dropdown-item p-0 d-flex align-items-center mb-1"
+                                                            (click)="deletePlan(plan.id)">
+                                                            <span class="icon-trash fs-24 me-12"></span>
+                                                            <a class="text-c-1">{{'DeleteCommunicationPlan' | translate }}</a>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

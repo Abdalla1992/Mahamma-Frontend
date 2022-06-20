@@ -1,0 +1,210 @@
+<app-side-nav></app-side-nav>
+<div class="page-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div *ngIf="!isReadOnly" class="col-lg-3">
+        <app-my-work [workspaceId]="task.workspaceId"></app-my-work>
+      </div>
+      <div class="col-lg-9">
+        <!-- task header -->
+        <div class="header mt-4 d-flex align-items-center justify-content-between">
+          <div>
+            <a class="fs-14 fw-400 text-c-4 mb-0" (click)="navigateToProject(task.projectId)">{{task?.projectName}}</a>
+            <div class="d-flex align-items-center">
+              <span class="icon-tree-connect fs-24 text-c-4 me-2"></span>
+              <h3 class="fs-18 fw-400 text-c-1 mb-0">{{task?.name}}</h3>
+            </div>
+          </div>
+          <div class="d-flex align-items-center">
+            <a *ngIf="!isReadOnly && canSubmit && CheckActionPrivilage(SystemActions.SubmitTask)"
+              class="d-flex align-items-center ms-32  fs-16 fw-400 text-c-2 text-decoration-none ">
+              <button (click)="openTaskSubmit()" class="btn btn-primary">{{'SubmitTask' | translate }}</button>
+            </a>
+            <a data-bs-toggle="modal" (click)="openActivity()" data-bs-target="#new-project"
+              class="d-flex align-items-center ms-32  fs-16 fw-400 text-c-2 text-decoration-none "
+              data-bs-toggle="modal" data-bs-target="#project-activity">
+              <span class="icon-activity fs-24 d-inline-block me-2"></span>
+              <span class="line-n">{{'Activity' | translate }}</span>
+            </a>
+            <a class="d-flex align-items-center fs-16 fw-400 text-c-2 text-decoration-none">
+              <div ngbDropdown class="d-inline-block ms-32 ">
+                <span id="project-action" ngbDropdownToggle>
+                  <span class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none"></span>
+                </span>
+                <div ngbDropdownMenu aria-labelledby="project-action">
+                  <div ngbDropdownItem *ngIf="CheckActionPrivilage(SystemActions.UpdateProject)">
+                    <div class="dropdown-item p-0 d-flex align-items-center mb-1" (click)="updateTask()">
+                      <span class="icon-pen-edit fs-18"></span>
+                      <span class="text-c-1 fs-16 px-2">{{'UpdateTask' | translate}}</span>
+                    </div>
+                  </div>
+                  <button *ngIf="!task.subTasks || task.subTasks.length <= 0" ngbDropdownItem>
+                    <div class="dropdown-item p-0 d-flex align-items-center mb-1"
+                      (click)="updateProgressPercentagePopup()">
+                      <span class="icon-pen-edit fs-18"></span>
+                      <span class="text-c-1  px-2 fs-16">{{'UpdateProgressPercentage' | translate}}</span>
+                    </div>
+                  </button>
+                  <button ngbDropdownItem *ngIf="CheckActionPrivilage(SystemActions.ArchiveProject)">
+                    <div class="dropdown-item p-0 d-flex align-items-center mb-1" (click)="archiveTask(task)">
+                      <span class="icon-folder-archive fs-18"></span>
+                      <span class="text-c-1  px-2 fs-16">{{'ArchiveTask' | translate }}
+                      </span>
+                    </div>
+                  </button>
+                  <button ngbDropdownItem *ngIf="CheckActionPrivilage(SystemActions.DeleteTask)">
+                    <div class="dropdown-item p-0 d-flex align-items-center mb-1" (click)="deleteTask(task)">
+                      <span class="icon-trash fs-18"></span>
+                      <span class="text-c-1 px-2 fs-16">{{'DeleteTask' | translate }}</span>
+                    </div>
+                  </button>
+                  <button ngbDropdownItem >
+                    <div class="dropdown-item p-0 d-flex align-items-center mb-1" *ngIf="canReview"
+                      (click)="reviewTaskPopup()">
+                      <span class="icon-trash fs-18"></span>
+                      <span class="text-c-1 px-2 fs-16">{{'ReviewTask' | translate }}</span>
+                    </div>
+
+                    <div class="dropdown-item p-0 d-flex align-items-center mb-1"
+                    (click)="rateMemberTaskPopup()">
+                    <span class="icon-trash fs-18"></span>
+                    <span class="text-c-1 px-2 fs-16">
+                      {{'RateMemberTask' | translate }}</span>
+                  </div>
+
+                  </button>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <!-- task Info -->
+        <div class="widget-section bg-white p-4 radius-8 mt-4 text-center">
+          <div class="row">
+            <div class="col-lg col-md-6 d-flex flex-column justify-content-between">
+              <span class="fs-14 fw-500 text-c-4 mb-3">{{'Members' | translate}}</span>
+              <div class="members">
+                <a *ngFor="let member of task?.members">
+                  <img [src]="member?.profileImage" alt="">
+                </a>
+                <a *ngIf="!isReadOnly && CheckActionPrivilage(SystemActions.AssignMember)" data-bs-toggle="modal" (click)="openInviteMember()"
+                  data-bs-target="#new-project">
+                  <span class="icon-plus"></span>
+                </a>
+              </div>
+            </div>
+            <div class="col d-flex flex-column justify-content-between d-xl-flex d-none">
+              <span class="fs-14 fw-500 text-c-4 mb-3">{{'StartDate' | translate }}</span>
+              <p class="fs-18 c-primary fw-400">{{task?.startDate | date}}</p>
+            </div>
+            <div class="col-lg col-md-6 d-flex flex-column justify-content-between">
+              <span class="fs-14 fw-500 text-c-4 mb-3">{{'DueDate' | translate}}</span>
+              <p class="fs-18 c-primary fw-400">{{task?.dueDate | date}}</p>
+            </div>
+            <div class="col-lg col-md-6 mt-lg-0 mt-md-4 d-flex flex-column justify-content-between">
+              <h4 class="fs-14 fw-500 text-c-4 mb-3">{{'Progress' | translate }}</h4>
+              <div class="d-flex align-items-center justify-content-center">
+                <!-- <div class="progress-circle">{{task?.progressPercentage}}%</div> -->
+                <circle-progress
+                [percent]="task.progressPercentage"
+                [radius]="16"
+                [outerStrokeWidth]="2"
+                [innerStrokeWidth]="5"
+                [outerStrokeColor]="'#FF7584'"
+                [animation]="true"
+                [animationDuration]="300"
+                [showInnerStroke]="false"
+                [animationDuration]="3300"
+                [showSubtitle]="false"
+                [unitsFontSize]="'12'"
+                [titleFontSize]="'10'"
+              ></circle-progress>
+                <span class="fs-18 fw-400 c-primary py-1">{{'Completed' | translate}}</span>
+              </div>
+            </div>
+            <div class="col-lg col-md-6 mt-lg-0 mt-md-4 d-flex flex-column justify-content-between">
+              <h4 class="fs-14 fw-500 text-c-4 mb-3">{{'upcoming-meeting' | translate}}</h4>
+              <div class="d-flex align-items-center justify-content-center">
+                <div class="progress-circle">{{task?.upComingMeetingDate | date}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- task-description -->
+        <div class="disc-files-section bg-white p-4 radius-8 mt-4">
+          <div class="row discription">
+            <div class="col-12">
+              <span class="fs-16 fw-500 text-c-4 mb-3">{{'Description' | translate}}</span>
+            </div>
+            <div class="col-xl-10 col-12 mt-4">
+              <p class="fs-16 text-c-1 fw-400 mb-0">
+                {{task?.description}}
+              </p>
+            </div>
+          </div>
+          <div class="files mt-5">
+            <div class="row">
+              <div class="col-12 d-flex align-items-center justify-content-between mb-3">
+                <span class="fs-16 fw-500 text-c-4 ">{{'Files' | translate}}</span>
+                <div class="d-flex align-items-center">
+                  <p class="mb-0 me-3 fs-14 text-c-3"><span class="fs-16 text-c-1">{{task?.filesCount}}</span> {{'File'
+                    | translate }}</p>
+                  <a (click)="vieaAllFiles()" *ngIf="CheckActionPrivilage(SystemActions.ViewFile)"
+                   class="fs-16 fw-500 text-c-link text-decoration-none px-2">{{'ViewAll' | translate}}</a>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div [ngClass]="{'col-lg-12': task && task.taskAttachments && task.taskAttachments.length <= 0, 'col-lg-6': task && task.taskAttachments && task.taskAttachments.length > 0}"
+                  *ngIf="task && (!task.taskAttachments||task.taskAttachments.length<=0)">
+                    <app-upload-document (filesUploaded)="handleUploadedFiles($event)"></app-upload-document>
+                  </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="row">
+                  <div [ngClass]="{'col-lg-12': task && task.taskAttachments && task.taskAttachments.length <= 0, 'col-lg-6': task && task.taskAttachments && task.taskAttachments.length > 0}"
+                    *ngIf="task && task.taskAttachments && task.taskAttachments.length > 0">
+                     <app-upload-document (filesUploaded)="handleUploadedFiles($event)"></app-upload-document>
+                   </div>
+                  <div class="col-lg-3" *ngFor="let file of task?.taskAttachments">
+                    <div class="show-file">
+                      <a [href]="file.fileUrl" target="_blank">
+                        <ngx-dropzone-preview>
+                          <ngx-dropzone-label class="img-profile">
+                            <img src="https://i1.wp.com/problogger.com/wp-content/uploads/2016/07/4-Rs-screenshot.jpg?ssl=1"
+                              alt="">
+                          </ngx-dropzone-label>
+                          <ngx-dropzone-label class="file-name c-primary fw-500">
+                            {{ file.fileName | slice:0:10 }}
+                          </ngx-dropzone-label>
+                        </ngx-dropzone-preview>
+                      </a>
+                      <span class="icon-documents-file-word fs-20"></span>
+                      <span class="icon-trash fs-20  c-gray-1 pointe"  *ngIf="CheckActionPrivilage(SystemActions.DeleteFile)"
+                       (click)="removeFile(file)"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <app-meeting-list [workspaceId]="workspaceId" [projectId]="projectId" [taskId]="id"></app-meeting-list>
+        <!-- sub-task -->
+        <app-sub-tasks-list [isReadOnly]="isReadOnly" *ngIf="task && task.id > 0" [parentTaskId]="task?.id || 0"
+          [projectId]="task?.projectId || 0"></app-sub-tasks-list>
+        <div class="comments-section mt-4 p-4 bg-white radius-8" *ngIf="!(task?.taskMinuteOfMeetings?.length)">
+          <span class="fs-16 fw-500 text-c-4 mb-4">{{'minuteOfMeeting' | translate }}</span>
+          <div>
+            <ul>
+              <li *ngFor="let tmom of task?.taskMinuteOfMeetings">{{tmom.description}}</li>
+            </ul>
+          </div>
+        </div>
+        <!-- task-comments -->
+        <app-tasks-comments *ngIf="CheckActionPrivilage(SystemActions.AddComment)" [isReadOnly]="isReadOnly" [taskId]="id" [commentList]="task?.taskComments || []"
+          [users]="task?.members || []"></app-tasks-comments>
+        <!-- <app-card-task-list></app-card-task-list> -->
+      </div>
+    </div>
+  </div>
+</div>

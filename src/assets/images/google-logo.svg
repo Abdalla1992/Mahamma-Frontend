@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23.455" height="24.001" viewBox="0 0 23.455 24.001">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path_1372" data-name="Path 1372" d="M-345.617,295.118H-356.8v4.637h6.437c-.6,2.946-3.109,4.637-6.437,4.637a7.077,7.077,0,0,1-7.091-7.091,7.077,7.077,0,0,1,7.091-7.091,6.937,6.937,0,0,1,4.418,1.582l3.491-3.491a11.946,11.946,0,0,0-7.909-3,11.966,11.966,0,0,0-12,12,11.966,11.966,0,0,0,12,12c6,0,11.455-4.364,11.455-12A9.954,9.954,0,0,0-345.617,295.118Z" transform="translate(368.8 -285.3)"/>
+    </clipPath>
+  </defs>
+  <g id="google-g-2015" transform="translate(368.8 -285.3)">
+    <g id="Group_1093" data-name="Group 1093" transform="translate(-368.8 285.3)">
+      <g id="Group_1087" data-name="Group 1087" clip-path="url(#clip-path)">
+        <path id="Path_1371" data-name="Path 1371" d="M-370.8,308.482V294.3l9.273,7.091Z" transform="translate(369.709 -289.391)" fill="#fbbc05"/>
+      </g>
+      <g id="Group_1088" data-name="Group 1088" clip-path="url(#clip-path)">
+        <path id="Path_1373" data-name="Path 1373" d="M-370.8,289.3l9.273,7.091,3.818-3.327,13.091-2.127V283.3H-370.8Z" transform="translate(369.709 -284.391)" fill="#ea4335"/>
+      </g>
+      <g id="Group_1090" data-name="Group 1090">
+        <g id="Group_1089" data-name="Group 1089" clip-path="url(#clip-path)">
+          <path id="Path_1375" data-name="Path 1375" d="M-370.8,303.483l16.364-12.546,4.309.546,5.509-8.182v26.183H-370.8Z" transform="translate(369.709 -284.391)" fill="#34a853"/>
+        </g>
+      </g>
+      <g id="Group_1092" data-name="Group 1092">
+        <g id="Group_1091" data-name="Group 1091" clip-path="url(#clip-path)">
+          <path id="Path_1377" data-name="Path 1377" d="M-338.708,314.483l-16.91-13.091-2.182-1.636,19.092-5.455Z" transform="translate(363.8 -289.391)" fill="#4285f4"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

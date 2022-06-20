@@ -1,0 +1,40 @@
+<!-- project activity Modal -->
+<div class="modal-content">
+    <div class="modal-header">
+        <a (click)="modal.close()" class="text-decoration-none fs-24 text-c-1" data-bs-dismiss="modal"
+            aria-label="Close"><span class="icon-delete-disabled"></span></a>
+        <h5 class="modal-title fs-32 fw-400 text-c-1 text-center w-100" id="project-activityLabel">{{'ProjectActivity' | translate}}</h5>
+    </div>
+    <div class="modal-body">
+        <div class="table-container">
+            <div class="custom-table">
+                <div class="table-head">
+                    <div class="cell">
+                        {{'Action' | translate }}
+                    </div>
+                    <div class="cell">
+                        {{'Members' | translate}}
+                    </div>
+                    <div class="cell">
+                        {{'Date' | translate }}
+                    </div>
+                </div>
+                <div *ngFor="let activity of projectActivities" class="table-row">
+                    <div class="cell">
+                        {{activity.action}}
+                    </div>
+                    <div class="cell assignee">
+                        <span><img [src]="activity.memberProfileImage" alt=""></span>
+                    </div>
+                    <div class="cell date">
+                        {{activity.creationDate | date}}
+                    </div>
+                    <div class="cell icon">
+                        <span class="icon-dots-menu"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer"></div>
+</div>

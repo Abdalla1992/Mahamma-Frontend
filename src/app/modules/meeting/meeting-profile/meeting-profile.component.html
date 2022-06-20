@@ -1,0 +1,86 @@
+<app-side-nav></app-side-nav>
+<div class="page-wrapper pb-4">
+  <div class="container-fluid px-4">
+    <div class="row">
+      <div class="col-lg-12 col-12">
+        <div class="header mt-4 d-flex align-items-center justify-content-between">
+          <span class="fs-20 fw-500 text-c-1 mb-2">{{'MeetingDetails' | translate }}</span>
+        </div>
+      </div>
+      <!-- <div class="col-lg-12 col-12">
+        <div class="header mt-4 d-flex align-items-center justify-content-between">
+          <span class="fs-24 fw-400 text-c-1 mb-0">{{'MeetingDetails' | translate }}</span>
+        </div>
+      </div> -->
+    </div>
+    <div class="meetings-section mt-4 p-16 bg-white radius-8">
+      <div class="row">
+        <!-- <div class="col-lg-12">
+          <span class="fs-14 fw-500 meeting-type white">{{ meeting.isOnline ? 'online' : 'offline' | translate }}</span>
+        </div> -->
+        <div class="mt-2 b-b">
+          <span class="fs-14 fw-500 meeting-type white">{{ meeting.isOnline ? 'online' : 'offline' | translate }}</span>
+          <p class="fs-24 fw-500 c-black mt-5 mb-4 ">{{meeting.title}}</p>
+        </div>
+        <!-- <div class="col-lg-12 mt-32">
+          <p class="fs-24 fw-500 c-black">{{meeting.title}}</p>
+        </div> -->
+      </div>
+      <div class="row mt-16">
+        <div class="col-lg-7 col-md-6 col-sm-12">
+          <div class="line-26 pb-10">
+            <span class="icon-Calendar fs-24 c-gray-2 meeting-icon"></span>
+              <span class="c-gray-1 fw-400 fs-16">{{'Timing' | translate}}:</span>
+              <span class="fw-500 secondary fs-16 px-2"> {{meeting.date | date:'shortTime'}} - {{meetingFinishDate | date:'shortTime'}}     |    {{meeting.date | date}}</span>
+          </div>
+          <!-- <div class="d-block pb-10">
+            <i class="fas fa-globe-africa fs-24 c-gray-2 meeting-icon"></i>
+            <span class="c-gray-1  fw-400 fs-16"> {{'TimeZone' | translate }}:</span>
+            <span class="fw-500 secondary fs-16 px-2">Riyadh</span>
+          </div> -->
+          <div class="ine-26 pb-10">
+            <span class="icon-bullet-list-text fs-24 c-gray-2 meeting-icon"></span>
+            <span class="c-gray-1  fw-400 fs-16"> {{'MeetingType' | translate }}:</span>
+            <span class="fw-500 secondary fs-16 px-2">{{ meeting.isOnline ? 'online' : 'offline' | translate }}</span>
+          </div>
+          <div class=" line-26 pb-10">
+            <span class="icon-bullet-list-text fs-24 c-gray-2 meeting-icon"></span>
+            <span class="c-gray-1  fw-400 fs-16"> {{'joinUrl' | translate }}:</span>
+            <span class="fw-500 secondary fs-16 px-2">
+              {{meeting.joinUrl}}
+            </span>
+          </div>
+        </div>
+        <div class="col-lg-5 col-md-6 col-sm-12">
+          <span class="fs-18 fw-500 c-black">{{'Agenda' | translate}}</span>
+          <div class="table-container mt-8">
+            <div class="custom-table">
+                <div class="table-head bg-gray-5">
+                    <div class="cell">
+                      <span class="icon-list-task-checkmark fs-18"></span>
+                      <span class="fs-16 px-1">{{'topic' | translate}}</span>
+                    </div>
+                    <div class="cell">
+                      <span class="icon-alarm  fs-18"></span>
+                      <span class="fs-16 px-1">{{'Duration' | translate}}</span>
+                    </div>
+                </div>
+                <div class="table-row bg-gray-5" *ngFor="let topic of meeting.agendaTopics">
+                    <div class="cell" >
+                      {{topic.topic}}
+                    </div>
+                    <div class="cell" >
+                      {{topic.durationInMinutes}}
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7 mt-16">
+          <app-attendee-list [members]="meeting.members || []" [membersRoles]="meeting.memberList || []"></app-attendee-list>
+        </div>
+      </div>
+    </div>
+    <app-action-list [meetingId]="meeting.id"></app-action-list>
+  </div>
+</div>

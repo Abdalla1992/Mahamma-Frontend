@@ -1,0 +1,160 @@
+// start forms
+.form-control{
+    border: none;
+    padding: 14px 12px;
+    background-color: $color-gray-5;
+    font-size: 16px;
+    line-height: 18px;
+    border-radius: 4px;
+    height: auto;
+    color: $color-primary;
+    border: 1px solid $color-gray-5;
+    transition: all .3s ease-in-out;
+    &::placeholder{
+        color: $color-gray-3;
+    }
+    &:focus{
+        outline: none;
+        box-shadow: none;
+        background-color: $color-gray-5;
+        border: 1px solid $color-gray-4;
+    }
+}
+
+%custom-dropzone{
+    .dropzone{
+        background-color: $color-gray-5;
+        padding: 16px;
+        text-align: center;
+        border: 2px dashed $color-gray-3;
+        border-radius: 8px;
+        height: 120px;
+        min-height: 120px;
+        .dz-message{
+            text-align: center;
+            max-width: 170px;
+            display: block;
+            margin: auto;
+        }
+    }
+}
+
+// bottons
+.btn{
+    font-size: 18px;
+    font-weight: 500;
+    color: $color-cta-primary;
+    border-radius: 4px;
+    padding: 12px 24px;
+    line-height: 22px;
+    transition: all .3s ease-in-out;
+    text-align: center;
+    &.w-140{
+        min-width: 140px;
+    }
+    &.w-188{
+        min-width: 188px;
+    }
+}
+.btn-primary{
+    color: $color-gray-6;
+    background-color: $color-cta-primary;
+    border-color: $color-cta-primary;
+    &:hover{
+        color: $color-gray-6;
+        background-color: $color-cta-primary-hover;
+        border-color: $color-cta-primary-hover;
+        
+    }
+    &:focus{
+        color: $color-gray-6;
+        background-color: $color-cta-primary-hover;
+        border-color: $color-cta-primary-hover;
+        outline: none;
+        box-shadow: none;
+    }
+    &.fs-16{
+        font-size: 16px;
+    }
+}
+.btn-secondary{
+    background-color: $color-cta-secondary;
+    border-color: $color-cta-secondary;
+    &:hover{
+        color: $color-cta-primary;
+        background-color: $color-cta-secondary-hover;
+        border-color: $color-cta-secondary-hover;
+        
+    }
+    &:focus{
+        color: $color-cta-primary;
+        background-color: $color-cta-secondary-hover;
+        border-color: $color-cta-secondary-hover;
+        outline: none;
+        box-shadow: none;
+    }
+}
+.btn-delete{
+    background-color: $color-error;
+    border-color: $color-error;
+    color: $color-gray-6;
+    &:hover{
+        color: $color-gray-6;
+        background-color: $color-error-hover;
+        border-color: $color-error-hover;
+        
+    }
+    &:focus{
+        color: $color-gray-6;
+        background-color: $color-error-hover;
+        border-color: $color-error-hover;
+        outline: none;
+        box-shadow: none;
+    }
+}
+.btn-cancel{
+    color: $color-gray-2;
+    &:hover{
+        color: $color-gray-1;
+    }
+    &:focus{
+        color: $color-gray-1;
+        outline: none;
+        box-shadow: none;
+    }
+}
+.btn-outline{
+    background-color: transparent;
+    border-color: $color-cta-primary;
+    &:hover{
+        color: $color-cta-primary;
+        background-color: $color-cta-secondary-hover;
+        border-color: $color-cta-primary;
+        
+    }
+    &:focus{
+        color: $color-cta-primary;
+        background-color: $color-cta-secondary-hover;
+        border-color: $color-cta-primary;
+        outline: none;
+        box-shadow: none;
+    }
+    &.fs-16{
+        font-size: 16px;
+    }
+}
+
+// dropdown
+.dropdown-toggle{
+    &::after{
+        display: none;
+    }
+}
+.dropdown-item{
+    &:focus{
+        background-color: $color-cta-secondary;
+    }
+    &:hover{
+        background-color: $color-gray-6;
+    }
+}

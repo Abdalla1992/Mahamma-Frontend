@@ -1,0 +1,54 @@
+<div *ngIf="isSetInFilter || (userService.items$ | async)?.length" class="mt-32">
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="workspace-name">
+      <span class="fs-20  c-gray-1 mb-0">{{'Members' | translate }} </span>
+    </div>
+  </div>
+  <div class="d-block pt-16">
+      <div class="row" *ngIf="(userService.items$ | async)?.length">
+        <div class="col-lg-4 col-6" *ngFor="let workspace of userService.items$ | async; let i = index">
+          <div class="workspace d-flex  bg-white p-3 mb-4" title="{{'Member' | translate}}">
+            <!-- <a class="d-flex align-items-center"> -->
+            <div class="avatar bg-cta-primary" >
+              <!-- [style.background]="workspace.color" -->
+              <span class="fs-24 mb-0 text-c-0 text-center">
+                <img [src]="workspace.profileImage" class="w-100"/></span>
+            </div>
+            <span class="mb-0 fs-24 fw-400 text-c-1 pointer line-initial"  (click)="openProfile(workspace.id)">
+              {{workspace.fullName}}</span>
+            <!-- </a> -->
+            <!-- <a data-bs-toggle="modal" data-bs-target="#new-workspace"
+              class="d-flex align-items-center fs-16 fw-400 text-c-2 text-decoration-none "
+              data-bs-toggle="modal" data-bs-target="#project-activity">
+              <a class="d-flex align-items-center fs-16 fw-400 text-c-2 text-decoration-none">
+                <div ngbDropdown class="d-inline-block  ">
+                  <span id="workspace-action" ngbDropdownToggle>
+                    <span class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none"></span>
+                  </span>
+                  <div ngbDropdownMenu aria-labelledby="workspace-action">
+                    <button ngbDropdownItem>
+                      <div class="dropdown-item p-0 d-flex align-items-center mb-3"
+                        *ngIf="CheckActionPrivilage(SystemActions.UpdateWorkspace)" (click)="edit(workspace.id)">
+                        <span class="icon-pen-edit"></span>
+                        <span class="text-c-1">{{'EditWorkspace' | translate }}</span>
+                      </div>
+                    </button>
+                    <button ngbDropdownItem>
+                      <div class="dropdown-item p-0 d-flex align-items-center mb-3"
+                        *ngIf="CheckActionPrivilage(SystemActions.DeleteWorkspace)" (click)="delete(workspace)">
+                        <span class="icon-trash"></span>
+                        <a class="text-c-1">{{'Delete' | translate }} </a>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </a>
+            </a> -->
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="!(userService.items$ | async)?.length">
+        <p>{{'no-data' | translate}}</p>
+      </div>
+  </div>
+</div>

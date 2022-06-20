@@ -1,0 +1,86 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <a (click)="modal.close()" class="text-decoration-none fs-24 text-c-1" data-bs-dismiss="modal"
+            aria-label="Close"><span class="icon-delete-disabled"></span></a>
+        <h5 class="modal-title fs-32 fw-400 text-c-1 text-center w-100" id="projectCharterLbl">
+            {{'Project.Charter' | translate}}</h5>
+    </div>
+    <form [formGroup]="formGroup">
+        <div class="modal-body row">
+            <div class="mb-4 col-12">
+                <label for="summary" class="form-label">{{'Project.Summary' | translate }}</label>
+                <div class="NgxEditor__Wrapper">
+                    <ngx-editor-menu [editor]="summaryEditor" [toolbar]="toolbar"></ngx-editor-menu>
+                    <ngx-editor id="summary" [editor]="summaryEditor" formControlName="summary"
+                        [class.is-invalid]="isControlInvalid('summary',formGroup)" [outputFormat]="'html'" [placeholder]="'Summary'">
+                    </ngx-editor>
+                </div>
+            </div>
+
+            <div class="mb-4 col-12">
+                <label for="goals" class="form-label">{{'Project.Goals' | translate }}</label>
+                <div class="NgxEditor__Wrapper">
+                    <ngx-editor-menu [editor]="goalsEditor" [toolbar]="toolbar"></ngx-editor-menu>
+                    <ngx-editor id="goals" [editor]="goalsEditor" formControlName="goals"
+                        [class.is-invalid]="isControlInvalid('goals',formGroup)" [outputFormat]="'html'" [placeholder]="'Goals'">
+                    </ngx-editor>
+                </div>
+            </div>
+
+            <div class="mb-4 col-12">
+                <label for="Deliverables" class="form-label">{{'Project.Deliverables' | translate }}</label>
+                <div class="NgxEditor__Wrapper">
+                    <ngx-editor-menu [editor]="deliverablesEditor" [toolbar]="toolbar"></ngx-editor-menu>
+                    <ngx-editor id="deliverables" [editor]="deliverablesEditor" formControlName="deliverables"
+                        [class.is-invalid]="isControlInvalid('deliverables',formGroup)" [outputFormat]="'html'" [placeholder]="'Deliverables'">
+                    </ngx-editor>
+                </div>
+            </div>
+
+            <div class="mb-4 col-12">
+                <label for="Scope" class="form-label">{{'Project.Scope' | translate }}</label>
+                <div class="NgxEditor__Wrapper">
+                    <ngx-editor-menu [editor]="scopeEditor" [toolbar]="toolbar"></ngx-editor-menu>
+                    <ngx-editor id="scope" [editor]="scopeEditor" formControlName="scope"
+                        [class.is-invalid]="isControlInvalid('scope',formGroup)" [outputFormat]="'html'" [placeholder]="'Scope'">
+                    </ngx-editor>
+                </div>
+            </div>
+
+            <div class="mb-4 col-12">
+                <label for="Project-Benefits" class="form-label">{{'Project.Benefits' | translate }}</label>
+                <div class="NgxEditor__Wrapper">
+                    <ngx-editor-menu [editor]="benefitsEditor" [toolbar]="toolbar"></ngx-editor-menu>
+                    <ngx-editor id="benefits" [editor]="benefitsEditor" formControlName="benefits"
+                        [class.is-invalid]="isControlInvalid('benefits',formGroup)" [outputFormat]="'html'" [placeholder]="'Benefits'">
+                    </ngx-editor>
+                </div>
+            </div>
+
+            <div class="mb-4 col-12">
+                <label for="Costs" class="form-label">{{'Project.Costs' | translate }}</label>
+                <div class="NgxEditor__Wrapper">
+                    <ngx-editor-menu [editor]="costsEditor" [toolbar]="toolbar"></ngx-editor-menu>
+                    <ngx-editor id="costs" [editor]="costsEditor" formControlName="costs"
+                        [class.is-invalid]="isControlInvalid('costs',formGroup)" [outputFormat]="'html'" [placeholder]="'Costs'">
+                    </ngx-editor>
+                </div>
+            </div>
+
+            <div class="mb-4 col-12">
+                <label for="misalignments" class="form-label">{{'Project.Misalignments' | translate }}</label>
+                <div class="NgxEditor__Wrapper">
+                    <ngx-editor-menu [editor]="misalignmentsEditor" [toolbar]="toolbar"></ngx-editor-menu>
+                    <ngx-editor id="misalignments" [editor]="misalignmentsEditor" formControlName="misalignments"
+                        [class.is-invalid]="isControlInvalid('misalignments',formGroup)" [outputFormat]="'html'" [placeholder]="'Project Misalignments'">
+                    </ngx-editor>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" (click)="save()" [disabled]="formGroup.invalid">
+            {{'Save' | translate }}
+        </button>
+    </div>
+</div>

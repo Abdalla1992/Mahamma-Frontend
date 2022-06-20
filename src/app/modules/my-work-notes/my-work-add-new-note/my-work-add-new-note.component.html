@@ -1,0 +1,39 @@
+<div class="modal-content">
+  <div class="modal-header" >
+    <a (click)="modal.close()" class="text-decoration-none fs-24 text-c-1" data-bs-dismiss="modal"
+      aria-label="Close"><span class="icon-delete-disabled"></span></a>
+    <h5  class="modal-title fs-32 fw-400 text-c-1 text-center w-100" id="new-projectLabel">{{'add-note' | translate}}</h5>
+  </div>
+  <form [formGroup]="formGroup">
+    <div class="modal-body row">
+      <div class="col-12 mb-24">
+        <label for="note-title" class="form-label">{{'title' | translate }}
+          <i style="color: red;"> *</i></label>
+        <input type="text" formControlName="title" class="form-control" id="note-title"
+          placeholder="{{'title' | translate}}">
+      </div>
+      <div class="col-12 mb-24 project-decrep">
+        <label for="note-body" class="form-label"> {{'Description' | translate }} <i style="color: red;"> *</i>
+        </label>
+        <textarea  type="text" formControlName="body" class="form-control" id="note-body"
+          placeholder="{{'Description' | translate}}"></textarea>
+      </div>
+      <div class="col-12 mb-24">
+        <label for="Project-Name" class="form-label">{{'Color' | translate }}
+          <i style="color: red;"> *</i></label>
+          <div class="d-flex">
+            <div *ngFor="let color of colors" class="px-1 pointer">
+              <div class="circle" [style.background]="color" (click)="pickColor(color)"></div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </form>
+  <div class="modal-footer">
+    <ng-container>
+      <button class="btn btn-primary w-178" (click)="submit()">
+        {{'Submit' | translate }}
+      </button>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+<div class="account">
+  <form novalidate class="form-login" [formGroup]="companyFormGroup" (ngSubmit)="createCompany()"
+    (keydown.enter)="$event.preventDefault()" (keydown.enter)="createCompany()">
+    <div class="modal-body" id="new-account" tabindex="-1" aria-labelledby="new-projectLabel" aria-modal="true"
+      role="dialog">
+      <div class="row mt-88">
+        <div class="col-8 offset-2 ">
+          <div class="mb-32">
+            <span class="fs-24 fw-500 text-c-1 ">
+              {{'company-info' | translate }}
+            </span>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label class="form-label secondary fs-16">{{'CompanyName' | translate}}<i style="color: red;"> *</i></label>
+              <input type="text" class="form-control fs-16" formControlName="name" placeholder="Ex. My Company">
+            </div>
+            <div class="mt-24 col-12">
+              <label for="Workspace-Name" class="form-label secondary fs-16">{{'InviteMember' | translate}}</label>
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Add Members mail" aria-label="add-member"
+                  aria-describedby="button-add" formControlName="member">
+                <button class="btn btn-secondary" type="button" (click)="addEmailToInvitationList()" id="button-add">{{'Invite' | translate}}</button>
+              </div>
+            </div>
+            <div *ngFor="let email of companyModel.invitationsEmails" class ="invited-member">
+              <div class="col-lg-12 mt-16">
+              <div class="form-control d-flex justify-content-between">
+                <span class="fs-16">{{email}}</span>
+                <span>
+                  <input type="button" value="Remove" (click)="remove(email)"/>
+                  <i class="fas fa-times color-gray-4 fs-12 fw-100"></i>
+                  <!-- <span class="icon-User-delete"></span> -->
+                </span>
+              </div>
+            </div>
+            </div>
+          </div>
+          <div class="row mt-24">
+            <div class=" col-lg-12">
+              <label class="form-label text-c-1 fs-18 m-2">{{'company-num' | translate}}</label>
+            </div>
+            <div class="col-lg-5 mt-8">
+              <div class="btn-group " role="group" aria-label="Basic radio toggle button group">
+                <a class="" (click)="setCompanySize(option1)" [ngClass]="{'active':selectNum}">
+                  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" [value]="option1">
+                  <label class="btn btn-outline-success" for="btnradio1">{{'Just-me' | translate}}</label>
+                 </a>
+
+                 <a class=""  (click)="setCompanySize(option2)" [ngClass]="{'active':selectNum}">
+                  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" [value]="option2" #focus>
+                  <label class="btn btn-outline-success" for="btnradio2">2-5</label>
+                 </a>
+                <a class="" (click)="setCompanySize(option3)" [ngClass]="{'active':selectNum}">
+                  <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off" [value]="option2" >
+                  <label class="btn btn-outline-success" for="btnradio5">6-20</label>
+                 </a>
+
+                 <a class="" (click)="setCompanySize(option4)" [ngClass]="{'active':selectNum}">
+                  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"  [value]="option3">
+                  <label class="btn btn-outline-success" for="btnradio3">21-50</label>
+                 </a>
+                 <br>
+              </div>
+              <div class="col-lg-5 mt-3">
+                <div class="btn-group " role="group" aria-label="Basic radio toggle button group">
+                  <a class="" (click)="setCompanySize(option5)" [ngClass]="{'active':selectNum}">
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" [value]="option4">
+                    <label class="btn btn-outline-success" for="btnradio4">51-200</label>
+                  </a>
+                  <a class="" (click)="setCompanySize(option6)" >
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off" [value]="option6">
+                    <label class="btn btn-outline-success  long-text" for="btnradio6">{{'un-selected-num' | translate}}</label>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="my_class" (click)="clickEvent()"  
+      [ngClass]="status ? 'success' : 'danger'">                
+      Some content
+    </div> -->
+    <div class="modal-footer d-block">
+      <ng-container>
+        <button class="btn-primary btn btn-block w-65 fs-18">
+          {{'next' | translate}}
+        </button>
+      </ng-container>
+    </div>
+  </form>
+</div>

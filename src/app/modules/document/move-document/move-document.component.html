@@ -1,0 +1,29 @@
+<div class="modal-content d-block">
+    <div class="modal-header" >
+      <a (click)="modal.close()" class="text-decoration-none fs-24 text-c-1" data-bs-dismiss="modal"
+        aria-label="Close"><span class="icon-delete-disabled"></span>
+      </a>
+      <span class="modal-title fw-400 text-c-1 text-center w-100" id="new-projectLabel">
+      {{'MoveFile' | translate }}
+      </span>
+    </div>
+    <div class="modal-body row">
+        <div class="col-12 mt-4">
+        <div class="comment mb-2">
+            <li *ngFor="let folderList of folderResponse">
+                <button [class.selected]="oldFolderIdInput == folderList.id" type="button" (click)="onSelect(folderList.id)">
+                  <span class="badge"></span>
+                  <span class="name">{{folderList.name}}</span>
+                </button>
+              </li>
+        </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <ng-container>
+        <button type="submit" class="btn btn-primary" (click)="save()" [disabled]="oldFolderIdInput == newFolderId">
+          {{'Move' | translate}}
+        </button>
+      </ng-container>
+    </div>
+  </div>

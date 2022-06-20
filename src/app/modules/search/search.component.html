@@ -1,0 +1,49 @@
+<app-side-nav></app-side-nav>
+<div class="page-wrapper">
+  <div class="container-fluid px-4">
+    <div class="row mt-4 ">
+      <div class="col-lg-12">
+        <div class="input-group search-input">
+          <input type="text" class="form-control" placeholder="{{'search-keyword' | translate}}"  [(ngModel)]="searchKeyword">
+        </div>
+        <div class="search-icon" title="{{'search-keyword' | translate}}">
+          <span class="icon-search-loupe"></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12 search-page">
+      <div class="btn-group " role="group" aria-label="Basic radio toggle button group">
+        <div class="mr-1 fs-12 ms-1" (click)="showAllCategories()">
+          <label class="btn btn-outline-success" [ngClass]="{'active' : showAll}" for="btnradio1">{{'All' | translate }}</label>
+         </div>
+
+        <div class="mr-1 fs-12 ms-1" (click)="toggleWorkspace()">
+          <label class="btn btn-outline-success" [ngClass]="{'active' : showWorkspace && !showAll}" for="btnradio2">{{'Workspace' | translate }}</label>
+         </div>
+
+         <div class="mr-1 fs-12 ms-1" (click)="toggleProject()">
+          <label class="btn btn-outline-success" [ngClass]="{'active' : showProject && !showAll}" for="btnradio3">{{'Project' | translate }}</label>
+         </div>
+
+         <div class="mr-1 fs-12 ms-1" (click)="toggleMember()" >
+          <label class="btn btn-outline-success" [ngClass]="{'active' : showMember && !showAll}" for="btnradio4">{{'Member' | translate }}</label>
+         </div>
+         <div class="mr-1 fs-12 ms-1" (click)="toggleTask()" >
+          <label class="btn btn-outline-success" [ngClass]="{'active' : showTask && !showAll}" for="btnradio6">{{'Task' | translate }}</label>
+        </div>
+    </div>
+    </div>
+    <div *ngIf="searchKeyword" class="search-list">
+      <app-search-workspace-list *ngIf="showWorkspace" [isSetInFilter]="!showAll && showWorkspace" [searchKeyword]="searchKeyword"></app-search-workspace-list>
+      <app-search-project-list *ngIf="showProject" [isSetInFilter]="!showAll && showProject" [searchKeyword]="searchKeyword"></app-search-project-list>
+      <app-search-member-list *ngIf="showMember" [isSetInFilter]="!showAll && showMember" [searchKeyword]="searchKeyword"></app-search-member-list>
+      <app-search-task-list *ngIf="showTask" [isSetInFilter]="!showAll && showTask" [searchKeyword]="searchKeyword"></app-search-task-list>
+    </div>
+    <div *ngIf="!searchKeyword">
+      <div class="center search-empty">
+        <img src="assets/images/search.svg" alt="">
+        <p class="fs-32 pt-24 c-gray-3">{{'startSearch' | translate }}</p>
+      </div>
+    </div>
+  </div>
+</div>

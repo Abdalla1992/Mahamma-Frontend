@@ -1,0 +1,26 @@
+.overlay {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(50, 161, 90, 0.49);
+  z-index: 99999;
+  color: #ffffff;
+}
+
+.spinner {
+  position: absolute;
+  top: 48%;
+  transform: translate(-50%, -50%);
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  border-color: #ffffff;
+}
+
+.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #ffffff;
+}/*# sourceMappingURL=loader.component.css.map */

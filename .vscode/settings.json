@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/32c8d197-a16d-4cb6-9e33-d63477e1ef6c/resourceGroups/mahammaCoreApi/providers/Microsoft.Web/sites/Mahamma",
+    "appService.deploySubpath": "dist\\Mahamma-Frontend"
+}

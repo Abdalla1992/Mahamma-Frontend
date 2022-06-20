@@ -1,0 +1,82 @@
+<app-side-nav></app-side-nav>
+<div class="page-wrapper pb-4">
+  <div class="container-fluid px-4">
+      <div class="row">
+          <div class="col-lg-3 col-4">
+              <app-my-work></app-my-work>
+          </div>
+          <div class="col-lg-9 col-8">
+            <app-project-header></app-project-header>
+            <div class="file-content">
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="file-header">
+                    <h2 class="fs-16 fw-400  mb-0">{{'AllFiles' | translate }}</h2>
+                    <div class="search position-relative">
+                      <input type="text" class="form-control bg-gray" placeholder="search" >
+                      <span class="icon-search-loupe position-absolute"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="drag-drop">
+                    <ngx-dropzone (change)="onSelect($event)" #fileInput>
+                      <ngx-dropzone-label>
+                        <div class="conent d-block">
+                          <div class="c-gray-2 pb-13">
+                            <span class="icon-cloud-upload fs-14"></span>
+                          </div>
+                          <div class="fs-14 c-gray-2">{{'Drag-DropHere' | translate }}</div>
+                          <div class="fs-14 c-gray-2">{{'or' | translate }}</div>
+                          <div class="c-primary fs-16">{{'BrowseFiles' | translate }}</div>
+                        </div>
+                      </ngx-dropzone-label>
+                      <!-- <ngx-dropzone-preview *ngFor="let f of file" [removable]="true" (removed)="onRemove(f)">
+                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                      </ngx-dropzone-preview> -->
+                    </ngx-dropzone>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="folders">
+                    <h2 class="fs-16 fw-500  mb-0">{{'Folders' | translate }}</h2>
+                    <div class="row">
+                      <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="folder" id="folder1">
+                          <span class="icon-Folder"></span>
+                          <span class="fs-18">{{'FolderName' | translate }}</span>
+                        </div>
+                      </div>
+                      <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="folder">
+                          <span class="icon-Folder"></span>
+                          <span class="fs-18">{{'FolderName'| translate }}</span>
+                        </div>
+                      </div>
+                      <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="folder">
+                          <span class="icon-Folder"></span>
+                          <span class="fs-18">{{'FolderName' | translate }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="files">
+                    <div class="row">
+                      <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="file" #folder1>
+                          <span class="icon-documents-file-word"></span>
+                          <p>{{'fileName' | translate }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+  </div>
+</div>

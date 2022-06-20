@@ -1,0 +1,177 @@
+<app-side-nav></app-side-nav>
+<div class="page-wrapper pb-4">
+  <div class="container-fluid px-4">
+    <div class="row">
+      <div class="col-lg-12 col-12">
+        <div class="header mt-4 d-flex align-items-center justify-content-between">
+          <span class="fs-20 fw-500 text-c-1 mb-2">{{'minutes-of-meeting' | translate}}</span>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="meetings-section mt-2 p-4 bg-white radius-8">
+          <div class="mt-2 b-b">
+            <span class="fs-14 fw-500 meeting-type white">{{ meeting.isOnline ? 'online' : 'offline' | translate }}</span>
+            <p class="fs-24 fw-500 c-black mt-5 mb-4 ">{{meeting.title}}</p>
+          </div>
+          <div class="container-fluid pl-0 mt-16">
+            <div class="row">
+              <div class="col-lg-7 mt-16">
+                <div class="d-flex pb-10">
+                  <span class="icon-Calendar fs-24 c-gray-2 meeting-icon"></span>
+                  <div class="line-26">
+                    <span class="c-gray-1 fw-400 fs-16">{{'Timing' | translate}} :</span>
+                    <span class="fw-500 secondary fs-16 px-2">
+                      {{meeting.date | date:'shortTime'}} -  {{meetingFinishDate | date:'shortTime'}}
+                      |    {{meeting.date | date}}
+                    </span>
+                  </div>
+                </div>
+                <!-- <div class="d-block fs-16 fw-400 py-2">
+                  <i class="fas fa-globe-africa px-1"></i> -->
+                <div class="d-flex fs-16 fw-400 py-2">
+                  <span class="icon-bullet-list-text fs-24 c-gray-2 meeting-icon"></span>
+                  <div class="line-26">
+                    <span class="c-gray-1 fw-400 fs-16"> {{'MeetingType' | translate }} :</span>
+                    <span class="fw-500 secondary fs-16 px-2">{{ meeting.isOnline ? 'online' : 'offline' | translate }}</span>
+                  </div>
+                </div>
+                <div class="d-flex fs-16 fw-400 py-2">
+                  <span class="icon-bullet-list-text fs-24 c-gray-2 meeting-icon"></span>
+                  <div class="line-26">
+                    <span class="c-gray-1 fw-400 fs-16"> {{'topic' | translate }} :</span>
+                    <span class="fw-500 secondary fs-16 px-2">{{meeting.title}}</span>
+                  </div>
+                </div>
+                <div class="mt-16">
+                  <app-attendee-list [members]="meeting.members || []" [attendees]="attendees" (attendanceCheck)="onAttendeeChecked($event)"></app-attendee-list>
+                </div>
+              </div>
+              <div class="col-lg-5 bg-menu p-16 radius-8 mt-16">
+              <div class="container-fluid">
+                <span class="fs-18 fw-500 c-black">{{'action-items' | translate}}</span>
+                <div class="row mom">
+                    <div class="col-lg-6 mt-16">
+                      <div class="btn-group " role="group" aria-label="Basic radio toggle button group">
+                        <div class="fs-12" (click)="noActionNeeded()">
+                          <input type="radio" class="btn-check" name="btnradio" id="btnradio0" autocomplete="off">
+                          <label class="btn btn-outline-success" for="btnradio0">{{'noActionNeeded' | translate }}</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 mt-16" *ngIf="meetingLevelIsGeneral || meetingLevelIsWorkspace">
+                      <div class="btn-group " role="group" aria-label="Basic radio toggle button group">
+                          <div class="col-lg-12">
+                            <div class="fs-12" (click)="newProjectAction()">
+                              <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                              <label class="btn btn-outline-success" for="btnradio2">{{'newProject' | translate }}</label>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 mt-16" *ngIf="meetingLevelIsGeneral || meetingLevelIsWorkspace || meetingLevelIsProject">
+                      <div class="btn-group " role="group" aria-label="Basic radio toggle button group">
+                          <div class="col-lg-12">
+                            <div class="fs-12" (click)="existingProjectAction()">
+                              <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+                              <label class="btn btn-outline-success" for="btnradio1">{{'existProject' | translate }}</label>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 mt-16" *ngIf="meetingLevelIsGeneral || meetingLevelIsWorkspace || meetingLevelIsProject">
+                      <div class="btn-group " role="group" aria-label="Basic radio toggle button group">
+                          <div class="col-lg-12">
+                            <div class="fs-12" (click)="newTaskAction()">
+                              <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+                              <label class="btn btn-outline-success" for="btnradio4">{{'newTask' | translate }}</label>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 mt-16" *ngIf="meetingLevelIsGeneral || meetingLevelIsWorkspace || meetingLevelIsProject || meetingLevelIsTask">
+                      <div class="btn-group " role="group" aria-label="Basic radio toggle button group">
+                          <div class="col-lg-12">
+                            <div class="fs-12" (click)="existingTaskAction()">
+                              <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                              <label class="btn btn-outline-success" for="btnradio3">{{'existTask' | translate }}</label>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 mt-16">
+                      <div class="btn-group " role="group" aria-label="Basic radio toggle button group">
+                          <div class="col-lg-12">
+                            <div class="fs-12" (click)="newSubTaskAction()">
+                              <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off">
+                              <label class="btn btn-outline-success" for="btnradio6">{{'newSubTask' | translate }}</label>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 mt-16">
+                      <div class="btn-group " role="group" aria-label="Basic radio toggle button group">
+                          <div class="col-lg-12">
+                            <div class="fs-12" (click)="existingSubTaskAction()">
+                              <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
+                              <label class="btn btn-outline-success" for="btnradio5">{{'existSubTask' | translate }}</label>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div *ngIf="meetingLevelIsGeneral && (targetNewProject || targetExistingProject || targetNewTask || targetExistingTask || targetNewSubTask || targetExistingSubTask)" class="mt-8" class="mt-8">
+                      <label class="fs-14 secondary py-2">{{'Workspace' | translate }}</label>
+                      <select class="form-select form-select-sm mb-2" *ngIf="workspaceList.length > 0" aria-label=".form-select-sm example" [(ngModel)]="workspaceId" (change)="onWorkspaceChange()">
+                        <option *ngFor="let work of workspaceList" [value]="work.id">{{work.name}}</option>
+                      </select>
+                      <select class="form-select form-select-sm mb-2" aria-label=".form-select-sm example" *ngIf="workspaceList.length <= 0">
+                        <option selected>{{'no-workspace' | translate}}</option>
+                      </select>
+                    </div>
+                    <div *ngIf="(meetingLevelIsWorkspace || workspaceId) && !meetingLevelIsProject && !meetingLevelIsTask && (targetExistingProject || targetNewTask || targetExistingTask || targetNewSubTask || targetExistingSubTask)" class="mt-8">
+                      <label class="fs-14 secondary py-2">{{'Project' | translate }}</label>
+                      <select class="form-select form-select-sm mb-2" *ngIf="projectList.length > 0" aria-label=".form-select-sm example" [(ngModel)]="projectId" (change)="onProjectChange()">
+                        <option *ngFor="let proj of projectList" [value]="proj.id">{{proj.name}}</option>
+                      </select>
+                      <select class="form-select form-select-sm mb-2" aria-label=".form-select-sm example" *ngIf="projectList.length <= 0">
+                        <option selected>{{'no-project' | translate}}</option>
+                      </select>
+                    </div>
+                    <div *ngIf="(meetingLevelIsProject || projectId) && !meetingLevelIsTask && (targetExistingTask || targetNewSubTask || targetExistingSubTask)" class="mt-8">
+                      <label class="fs-14 secondary py-2">{{'Task' | translate }}</label>
+                      <select class="form-select form-select-sm mb-2" *ngIf="taskList.length > 0" aria-label=".form-select-sm example" [(ngModel)]="taskId" (change)="onTaskChange()">
+                        <option *ngFor="let task of taskList" [value]="task.id">{{task.name}}</option>
+                      </select>
+                      <select class="form-select form-select-sm mb-2" aria-label=".form-select-sm example" *ngIf="taskList.length <= 0">
+                        <option selected>{{'no-task' | translate}}</option>
+                      </select>
+                    </div>
+                    <div *ngIf="(meetingLevelIsTask || taskId) && targetExistingSubTask" class="mt-8">
+                      <label class="fs-14 secondary py-2">{{'SubTask' | translate }}</label>
+                      <select class="form-select form-select-sm mb-2" *ngIf="subtaskList.length > 0" aria-label=".form-select-sm example" [(ngModel)]="subTaskId" (change)="onSubTaskChange()">
+                        <option *ngFor="let subtask of subtaskList" [value]="subtask.id">{{subtask.name}}</option>
+                      </select>
+                      <select class="form-select form-select-sm mb-2" aria-label=".form-select-sm example" *ngIf="subtaskList.length <= 0">
+                        <option selected>{{'no-subTask' | translate}}</option>
+                      </select>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <div class="btn btn-primary fs-14 mt-16" (click)="addNewAction()">
+                        {{'Add' | translate }}
+                      </div>
+                      <div class="btn btn-primary fs-14 mt-16" (click)="publishMinutesOfMeeting()">
+                        {{'Publish' | translate }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-action-list [meetingId]="meetingId"></app-action-list>
+  </div>
+</div>

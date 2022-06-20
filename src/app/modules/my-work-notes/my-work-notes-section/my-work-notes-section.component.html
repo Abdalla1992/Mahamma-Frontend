@@ -1,0 +1,60 @@
+<div class="disc-files-section bg-white p-4 radius-8 mt-4">
+  <div class="row discription">
+    <div class="col-12 d-flex justify-content-between">
+      <span class="fs-16 fw-500 text-c-4 mb-3">{{'notes' | translate }}</span>
+      <span class="fs-16 fw-500 cta-primary pointer" (click)="openMyWorkAddNewNote(project?.id)">
+        <span class="icon-plus fs-16 fw-800"></span>
+        add note
+      </span>
+    </div>
+    <div class="col-lx-12 col-lg-12 mt-3">
+      <div class="row">
+        <div class="col-lg-4" *ngFor="let note of noteList">
+          <div class="sticky-note bg-c-success p-16" [style.background]="note.colorCode">
+            <div class="note-title d-flex justify-content-between">
+              <div class="title fs-16 fw-800">{{ note.title }}</div>
+              <div class="action">
+                <div class="d-flex align-items-center fs-16 fw-400 text-c-2 text-decoration-none">
+                  <div ngbDropdown class="d-inline-block ms-32 ">
+                    <span id="project-action" ngbDropdownToggle>
+                      <span class="icon-dots-menu fs-18 fw-600 text-c-2 text-decoration-none"></span>
+                    </span>
+                    <div ngbDropdownMenu aria-labelledby="project-action">
+                      <button ngbDropdownItem> 
+                        <div class="dropdown-item mb-1 fs-16">
+                          <div class="d-flex">
+                            <div *ngFor="let color of colors" class="px-1">
+                              <div class="c-primary  px-2 circle-color" [style.background]="color" (click)="updateNoteColor(note, color)">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </button>
+                      <button ngbDropdownItem>
+                        <div class="dropdown-item p-0 d-flex align-items-center mb-1 fs-16" (click)="createNewTask(note.title, note.body)">
+                          <span class="icon-list-task-checkmark"></span>
+                          <span class="c-primary px-2">{{'make-task' | translate }}</span>
+                        </div>
+                      </button>
+                      <button ngbDropdownItem>
+                        <div class="dropdown-item p-0 d-flex align-items-center mb-1 fs-16" (click)="deleteNote(note)">
+                          <span class="icon-delete-disabled  c-primary"></span>
+                          <span class="c-primary px-2">{{'Delete' | translate }}</span>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="note-info mt-8 fs-14">
+              {{ note.body }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <p class="fs-16 text-c-1 fw-400 mb-0">
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,93 @@
+<app-side-nav></app-side-nav>
+<div class="page-wrapper pb-4">
+  <div class="container-fluid px-4">
+    <div class="row">
+      <div class="col-lg-3 col-4">
+        <app-setting-list></app-setting-list>
+      </div>
+      <div class="col-lg-9 col-8">
+        <app-permission-header></app-permission-header>
+        <div>
+          <form action="#" [formGroup]="formGroup">
+            <div class="disc-files-section bg-white p-4 radius-8 mt-4 mb-3 ">
+              <div class="discription">
+                <div class="general-setting">
+                  <div class="row">
+                    <div class="col-9">
+                      <span class="fs-16 fw-500 text-c-4 mb-9">{{'AdminPermissions' | translate}}<i style="color: red;">
+                          *</i></span>
+                      <input type="text" formControlName="name" class="form-control mt-8" id="Role-Name"
+                        [class.is-invalid]="isControlInvalid('name',form_Group)"
+                        placeholder="{{'permission-role' | translate }}">
+                    </div>
+                  </div>
+                  <div *ngIf="responseEntity?.id" class="tasks-section mt-4  bg-white radius-8">
+                    <div class="mb-4 col-12">
+                      <label for="Workspace-Name" class="form- fs-16 text-c-4 fw-500">{{'AddMembers' | translate
+                        }}</label>
+                      <div class="input-group mt-8">
+                        <mat-form-field class="width-100 m-b-20" appearance="outline"
+                          style="width: 72%; margin-left: 12px">
+                          <input [matAutocomplete]="userFullName" placeholder="{{'AddOneMember' | translate}}" matInput
+                            formControlName="member" name="member" (input)="AutoCompleteChange($event)">
+                        </mat-form-field>
+                        <mat-autocomplete #userFullName="matAutocomplete"
+                          (optionSelected)='Selectautocomplete($event.option.value)'>
+                          <ng-container>
+                            <mat-option class="span-autocomplete" *ngFor="let user of userList" [value]="user">
+                              <span>{{ user.fullName }} </span>
+                            </mat-option>
+                          </ng-container>
+                        </mat-autocomplete>
+                      </div>
+                      <div class="col-12 mt-8">
+                        <div *ngIf="selectedUserList" class="members d-flex">
+                          <div class="col-lg-1" *ngFor="let user of selectedUserList">
+                            <img [src]="user.profileImage" alt="">
+                            <span class="icon-delete-disabled pointer task-delete-icon"
+                              (click)="removeMember($event, user.userId)"></span>
+                            <!-- <i class="fas fa-times" (click)="removeMember($event, user.userId)"></i> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="responseEntity?.id" class="row mt-5">
+                    <div class="col-9">
+                      <h4 class="fs-16 fw-500 text-c-4 mb-3">{{'TypePermissions' | translate}}</h4>
+                    </div>
+                    <div class="table-container">
+                      <div class="custom-table">
+                        <div *ngFor="let pagepermission of pagePermissions" class="table-row">
+                          <div class="cell fw-500 fs-16 c-primary">
+                            {{pagepermission.pageName}} - {{pagepermission.permissionName}}
+                          </div>
+                          <div class="cell assignee  d-flex justify-content-center">
+                            <div class="form-check form-switch">
+                              <input class="form-check-input fs-24" type="checkbox" [value]="pagepermission.id"
+                                (change)="changeModel($event, selectedPagePermissions, pagepermission.id)"
+                                [checked]="selectedPagePermissions?.includes(pagepermission.id)"
+                                id="flexSwitchCheckDefault">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" *ngIf="!responseEntity?.id" class="btn btn-primary" (click)="save()"
+              [disabled]="formGroup.invalid">
+              {{'CreateRole' | translate }}
+            </button>
+            <button type="submit" *ngIf="responseEntity?.id" class="btn btn-primary" (click)="save()"
+              [disabled]="formGroup.invalid">
+              {{'UpdateRole' | translate }}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

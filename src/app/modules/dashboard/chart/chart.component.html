@@ -1,0 +1,26 @@
+    <div >
+      <div class="chart bg-white">
+        <div class="d-flex justify-content-between mb-32">
+          <span class="fs-16 c-gray-2">{{title}}</span>
+          <!-- <a  class="text-decoration-none">
+            <div ngbDropdown class="d-inline-block">
+              <span  id="notification-action" ngbDropdownToggle>
+                <span class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none"></span>
+              </span>
+              <div ngbDropdownMenu aria-labelledby="notification-action">
+                <button ngbDropdownItem class="bg-gray-7">
+                  <div class="dropdown-item d-flex align-items-center">
+                  </div>
+                </button>
+              </div>
+            </div>
+          </a> -->
+        </div>
+        <div style="display: block;">
+          <canvas height="300" width="400" baseChart [datasets]="barChartData" [labels]="barChartLabels " [options]="barChartOptions" [legend]="barChartLegend" [chartType]="Type" [colors]="colors"></canvas>
+        </div>
+      </div>
+    </div>
+
+
+

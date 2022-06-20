@@ -1,0 +1,146 @@
+<div class="modal-content">
+    <div class="modal-header" *ngIf="entity">
+        <a (click)="modal.close()" class="text-decoration-none fs-24 text-c-1" data-bs-dismiss="modal"
+            aria-label="Close"><span class="icon-delete-disabled"></span>
+        </a>
+        <span *ngIf="!responseEntity.id" class="modal-title fs-32 fw-400 text-c-1 text-center w-100" id="new-taskLabel">
+            {{'CreateNewSubTask' | translate }}</span>
+        <span *ngIf="responseEntity.id" class="modal-title fs-32 fw-400 text-c-1 text-center w-100" id="new-taskLabel">
+            {{'EditTask' | translate}}
+        </span>
+    </div>
+    <form action="#" [formGroup]="formGroup">
+        <div class="modal-body row">
+            <div class="mb-4 col-12">
+                <label for="Task-Name" class="form-label">{{'SubTaskName' | translate}}<i style="color: red;">*</i></label>
+                <input type="text" formControlName="name" class="form-control" id="Task-Name"
+                    [class.is-invalid]="isControlInvalid('name',form_Group)" placeholder="Ex. first Task">
+            </div>
+            <div class="mb-4  col-12">
+                <label for="subTask-Description" class="form-label">{{'Description' | translate }}</label>
+                <textarea  formControlName="description" class="form-control" id="subTask-Description"
+                    [class.is-invalid]="isControlInvalid('description',form_Group)" placeholder="Ex. subTask Description">
+                </textarea>
+            </div>
+            <!-- <div *ngIf="!responseEntity.id" class="mb-4 col-12">
+                <label for="Workspace-Name" class="form-label">{{'AddMembers' | translate }}</label>
+                <div class="input-group mb-3">
+                    <mat-form-field class="width-100 m-b-20" appearance="outline" class="form-control">
+                        <input [matAutocomplete]="userFullName" placeholder="Add One Member Or more" matInput
+                            formControlName="member" name="member" (input)="AutoCompleteChange($event)">
+                    </mat-form-field>
+                    <mat-autocomplete #userFullName="matAutocomplete"
+                        (optionSelected)='Selectautocomplete($event.option.value)'>
+                        <ng-container>
+                            <mat-option class="span-autocomplete" *ngFor="let user of userList" [value]="user">
+                                <span>{{ user.fullName }} </span>
+                                <span>{{ (user.workspaceName) }}</span>
+                            </mat-option>
+                        </ng-container>
+                    </mat-autocomplete>
+                </div>
+                <div class="col-12 " *ngIf="selectedUserList">
+                    <div class="members d-flex">
+                        <div *ngFor="let user of selectedUserList" class="member">
+                            <img [src]="user.profileImage" alt="">
+                            <i class="fas fa-times" (click)="removeMember(user.userId)"></i>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="mb-4">
+              <div class="add-members row">
+                <div class="col-12" *ngIf="!responseEntity.id">
+                  <label for="Workspace-Name" class="form-label mb-0">{{'AddMembers' | translate }}</label>
+                  <div class="input-group mb16">
+                    <mat-form-field class="width-100  form-control mt9" appearance="outline" style="background-color: transparent; border: none;">
+                      <input [matAutocomplete]="userFullName" placeholder="Add One Member Or more" matInput
+                      formControlName="member" name="member" (input)="AutoCompleteChange($event)">
+                    </mat-form-field>
+                    <mat-autocomplete #userFullName="matAutocomplete"
+                    (optionSelected)='Selectautocomplete($event.option.value)'>
+                    <ng-container>
+                        <mat-option class="span-autocomplete" *ngFor="let user of userList" [value]="user">
+                            <span>{{ user.fullName }} </span>
+                            <span>{{ (user.workspaceName) }}</span>
+                        </mat-option>
+                    </ng-container>
+                </mat-autocomplete>
+                  </div>
+                </div>
+                <div class="col-12" *ngIf="selectedUserList">
+                  <div class="members d-flex">
+                      <div *ngFor="let user of selectedUserList" class="member mb-2 mt-2">
+                        <img [src]="user.profileImage" alt="">
+                        <!-- <i class="fas fa-times" (click)="removeMember(user.userId)" style="position: relative;bottom: 13px;left: -9px;"></i> -->
+                        <span class="icon-delete-disabled pointer" (click)="removeMember(user.userId)" style="position: relative;
+                            bottom: 11px;
+                            right: 0;
+                            left: -8px;">
+                            </span>
+                      </div>
+                  </div>
+              </div>
+              </div>
+            </div>
+            <div class="mb-4 col-12" *ngIf="!responseEntity.id && subtaskDDL && subtaskDDL.length > 0">
+                <label class="form-label">{{'DependOn' | translate}}</label>
+                <select class="form-control form-control-lg" formControlName="dependencyTaskId">
+                    <option value="">{{'NotDepend' | translate}}</option>
+                    <option *ngFor="let item of subtaskDDL" value="{{ item.id }}">
+                        {{ item.name }}
+                    </option>
+                </select>
+            </div>
+            <div class="mb-4 col-lg-6">
+              <label class="form-label fs-16 text-c-2">{{'StartDate' | translate}}<i style="color: red;">*</i></label>
+              <div>
+                <input type="date" formControlName="startDate" class="form-control"
+                    [class.is-invalid]="isControlInvalid('startDate',form_Group)" placeholder="add start Date">
+              </div>
+              <!-- <div class="date mt23">
+                <span class="icon-Calendar"></span>
+                <ngx-datepicker [(ngModel)]="date" [class.is-invalid]="isControlInvalid('startDate',form_Group)"></ngx-datepicker>
+              </div> -->
+            </div>
+          <div class="mb-4 col-lg-6">
+              <label class="form-label fs-16 text-c-2">{{'DueDate' | translate }}<i style="color: red;">*</i></label>
+              <div>
+                <input type="date" formControlName="dueDate" class="form-control"
+                    [class.is-invalid]="isControlInvalid('dueDate',form_Group)" placeholder="add due Date">
+              </div>
+              <!-- <div class="date mt23">
+                <span class="icon-Calendar"></span>
+                <ngx-datepicker [(ngModel)]="date" [class.is-invalid]="isControlInvalid('dueDate',form_Group)"></ngx-datepicker>
+              </div> -->
+          </div>
+            <div class="mb-4 col-5">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" formControlName="reviewRequest" value=""
+                        id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        {{'ReviewRequest' | translate }}
+                    </label>
+                </div>
+            </div>
+            <div class="col-5">
+                <label for="customRange1" class="form-label fs-16 text-c-2 fw-500"> {{'Priority' | translate }}</label>
+                <!-- input type="range" class="form-range" id="customRange1"> -->
+                <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" step="1" min="1" max="3"
+                    aria-label="units"></mat-slider>
+            </div>
+        </div>
+    </form>
+    <div class="modal-footer">
+        <ng-container>
+            <button type="submit" *ngIf="!responseEntity.id" class="btn btn-primary" (click)="save()"
+                [disabled]="formGroup.invalid">
+                {{'CreateTask' | translate }}
+            </button>
+            <button type="submit" *ngIf="responseEntity.id" class="btn btn-primary" (click)="save()"
+                [disabled]="formGroup.invalid">
+                {{'Save' | translate }}
+            </button>
+        </ng-container>
+    </div>
+</div>

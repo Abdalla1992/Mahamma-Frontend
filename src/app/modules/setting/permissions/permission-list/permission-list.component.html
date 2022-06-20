@@ -1,0 +1,78 @@
+<div class="disc-files-section bg-white p-4 radius-8 mt-4 ">
+  <div class="discription">
+    <div class="general-setting">
+      <div class="row">
+        <div class="col-9">
+          <span class="fs-18 fw-600 text-c-4 mb-3">{{'UserTypes' | translate }}</span>
+        </div>
+        <div class="col-3">
+          <div (click)="navigateToAddRole()" class="btn btn-primary fs-14" *ngIf="CheckActionPrivilage(SystemActions.AddRole)">
+            <span class="icon-plus px-1"></span>
+            {{'NewType' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="tasks-section mt-4 p-4 bg-white radius-8">
+        <div class="table-container">
+          <div class="custom-table">
+            <div class="table-head">
+                <div class="cell">
+                    {{'Type' | translate }}
+                </div>
+                <div class="cell">
+                    {{'Members' | translate }}
+                </div>
+                <div class="cell"></div>
+            </div>
+            <div *ngFor="let role of roles" class="table-row">
+              <div class="cell fw-500">
+                  {{role.name}}
+              </div>
+              <div class="cell assignee">
+                  <span *ngFor="let user of role.users">
+                    <img [src]="user.profileImage" style="width:50px;height:50px;" alt=""></span>
+              </div>
+              <div class="cell due-date ">
+                <div class="d-flex">
+                  <a (click)="editRolePage(role.id)" title="{{'Edit' | translate}}" *ngIf="CheckActionPrivilage(SystemActions.UpdateRole)">
+                    <span class="icon-pen-edit fs-18 me-12 px-1"></span>
+                  </a>
+                  <a (click)="deleteRole(role.id)" title="{{'Delete'| translate}}" *ngIf="CheckActionPrivilage(SystemActions.DeleteRole)">
+                    <span class="icon-delete-disabled fs-22 me-12"></span>
+                  </a>
+                </div>
+                <!-- <a  class="d-flex align-items-center fs-16 fw-400 text-c-2 text-decoration-none permission">
+                  <div ngbDropdown class="d-inline-block ms-32 ">
+                    <span  id="project-action" ngbDropdownToggle>
+                      <span class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none"></span>
+                    </span>
+                    <div ngbDropdownMenu aria-labelledby="project-action" >
+                      <button (click)="editRolePage(role.id)" ngbDropdownItem>
+                        <div class="dropdown-item p-0 d-flex align-items-center mb-3">
+                          <span class="icon-pen-edit fs-20 me-12 px-2"></span>
+                          <span class="text-c-1" >
+                            {{'Edit' | translate }}
+                          </span>
+                        </div>
+                      </button>
+                      <button (click)="deleteRole(role.id)" ngbDropdownItem>
+                        <div class="dropdown-item p-0 d-flex align-items-center mb-3">
+                          <span class=" fs-18 me-12 px-2">
+                            <i class="fas fa-trash"></i>
+                          </span>
+                          <span class="text-c-1">
+                            {{'Delete' | translate}}
+                          </span>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </a> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+</div>

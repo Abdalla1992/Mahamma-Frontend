@@ -1,0 +1,22 @@
+<app-side-nav></app-side-nav>
+<div class="page-wrapper pb-4">
+  <div class="container-fluid px-4">
+      <div class="row">
+          <!-- <div class="col-lg-3 col-4">
+              <app-my-work></app-my-work>
+          </div> -->
+          <div class="col-lg-12 col-12">
+              <div class="add-section mt-4 fs-32 bg-white radius-8">
+                <div class="content">
+                  <img src="assets/images/project-pic.png" alt="">
+                  <h2 class="fs-32">
+                    {{'noProject' | translate }}
+                  </h2>
+                  <button  mat-button class="btn btn-primary" data-bs-toggle="modal" (click)="create()" data-bs-target="#new-project">{{'CreateProject' | translate}}</button>
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+

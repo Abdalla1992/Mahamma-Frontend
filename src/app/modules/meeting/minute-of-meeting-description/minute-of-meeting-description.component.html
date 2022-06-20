@@ -1,0 +1,65 @@
+<div class="modal-content d-block">
+  <div class="modal-header" >
+    <a (click)="modal.close()" class="text-decoration-none fs-24 text-c-1" data-bs-dismiss="modal"
+      aria-label="Close"><span class="icon-delete-disabled"></span>
+    </a>
+    <span *ngIf="!id "  class="modal-title  fw-400 text-c-1 text-center w-100" id="new-projectLabel">
+      {{'CreateNewMinuteOfMeeting' | translate}}
+    </span>
+    <span *ngIf="id " class="modal-title fw-400 text-c-1 text-center w-100" id="new-projectLabel">
+    {{'UpdateMinuteOfMeeting' | translate }}
+    </span>
+  </div>
+  <form action="#" class="mt-1" [formGroup]="formGroup">
+    <div class="modal-body row">
+      <!-- minute of meeting description -->
+      <!-- <div class="col-lg-12">
+        <div *ngIf="!meetingLevelIsWorkspace && (targetNewProject || targetExistingProject || targetNewTask || targetExistingTask || targetNewSubTask || targetExistingSubTask)">
+          <label>{{'Workspace' | translate }}</label>
+          <select class="form-select form-select-sm mb-2" aria-label=".form-select-sm example" [(ngModel)]="workspaceId" (change)="onWorkspaceChange()">
+            <option *ngFor="let work of workspaceList" [value]="work.id">{{work.name}}</option>
+          </select>
+        </div>
+        <div *ngIf="(meetingLevelIsWorkspace || workspaceId) && !meetingLevelIsProject && (targetExistingProject || targetNewTask || targetExistingTask || targetNewSubTask || targetExistingSubTask)">
+          <label>{{'Project' | translate }}</label>
+          <select class="form-select form-select-sm mb-2" aria-label=".form-select-sm example" [(ngModel)]="projectId" (change)="onProjectChange()">
+            <option *ngFor="let proj of projectList" [value]="proj.id">{{proj.name}}</option>
+          </select>
+        </div>
+        <div *ngIf="(meetingLevelIsWorkspace || workspaceId) && (meetingLevelIsProject || projectId) && !meetingLevelIsTask && (targetExistingTask || targetNewSubTask || targetExistingSubTask)">
+          <label>{{'Task' | translate }}</label>
+          <select class="form-select form-select-sm mb-2" aria-label=".form-select-sm example" [(ngModel)]="taskId" (change)="onTaskChange()">
+            <option *ngFor="let task of taskList" [value]="task.id">{{task.name}}</option>
+          </select>
+        </div>
+        <div *ngIf="(meetingLevelIsWorkspace || workspaceId) && (meetingLevelIsProject || projectId) && (meetingLevelIsTask || taskId) && targetExistingSubTask">
+          <label>{{'SubTask' | translate }}</label>
+          <select class="form-select form-select-sm mb-2" aria-label=".form-select-sm example" [(ngModel)]="subTaskId" (change)="onSubTaskChange()">
+            <option *ngFor="let subtask of subtaskList" [value]="subtask.id">{{subtask.name}}</option>
+          </select>
+        </div>
+        <div class="btn btn-primary fs-14" (click)="addNewAction()">
+          {{'Add' | translate }}
+        </div>
+      </div> -->
+        <div class="col-12 mt-4">
+          <div class="comment mb-2">
+            <div class="form-floating">
+              <textarea formControlName="description" class="form-control" placeholder="{{'desc-minute-of-meeting' | translate}}" id="floatingTextarea2" style="height: 100px"></textarea>
+              <label for="floatingTextarea2">{{'Description' | translate }}</label>
+            </div>
+          </div>
+        </div>
+    </div>
+  </form>
+  <div class="modal-footer">
+    <ng-container>
+      <button type="submit" *ngIf="!id" class="btn btn-primary" (click)="save()">
+        {{'CreateNewMinuteOfMeeting' | translate }}
+      </button>
+      <button type="submit" *ngIf="id"  class="btn btn-primary" (click)="save()">
+        {{'UpdateMinuteOfMeeting' | translate}}
+      </button>
+    </ng-container>
+  </div>
+</div>

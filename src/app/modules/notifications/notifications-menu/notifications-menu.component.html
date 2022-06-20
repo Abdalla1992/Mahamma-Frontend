@@ -1,0 +1,35 @@
+<div class="workspace-nav mt-4">
+  <div class="workspace-title d-flex align-items-center justify-content-between mb-3">
+      <div class="align-items-center">
+          <span class="mb-0 fs-16 fw-600 text-c-1">{{'notifications' | translate }}</span>
+      </div>
+      <div class="align-items-center">
+        <span class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none"></span>
+      </div>
+  </div>
+  <div class="radius-8" *ngIf="notificationList?.length || 0 <= 0" [hidden]="notificationList?.length || 0 <= 0">
+    <div class="add-section mt-4 fs-32 bg-white radius-8">
+        <div class="content">
+            <span class="fs-32">{{'NoNotification' | translate }}</span>
+        </div>
+    </div>
+  </div>
+  <div class="notifications radius-8" *ngIf="notificationList?.length || 0 > 0">
+    <a (click)="notificationClick(notification)" *ngFor="let notification of notificationList">
+      <div class="item">
+        <div class="d-flex align-items-center">
+          <div class="members d-flex pr-3">
+            <a><img style="width:50px; height:50px;" [src]="notification.notification?.receiverMember?.profileImage" alt=""></a>
+          </div>
+          <div class="content pt-4">
+            <div class="header pb-1">
+              <span class="c-primary fs-16 fw-600 pr-3">{{notification.title}}</span>
+              <span class="c-gray-1 fs-12 px-2">{{notification.creationDuration}}</span>
+            </div>
+            <p class="fs-14 c-gray-1 fw-500">{{notification.body}}</p>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>

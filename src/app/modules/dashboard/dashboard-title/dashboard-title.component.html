@@ -1,0 +1,44 @@
+<div class="header mt-4 d-flex align-items-center justify-content-between">
+  <span class="fs-32 fw-400 text-c-1 mb-0">{{'DashboardName' | translate}}</span>
+  <div class="d-flex align-items-center">
+      <!-- <a href="#" class="d-flex align-items-center ms-32  fs-16 fw-400 text-c-2 text-decoration-none ">
+          <span class="icon-user-group fs-24 d-inline-block me-2"></span>
+          <span class="line-n">Meeting</span>
+      </a> -->
+      <a href="#" class="d-flex align-items-center ms-32  fs-16 fw-400 text-c-2 text-decoration-none ">
+        <button class="btn btn-primary" >{{'SaveChanges' | translate }}</button>
+      </a>
+      <a href="#" class="d-flex align-items-center ms-32  fs-16 fw-400 text-c-2 text-decoration-none ">
+        <button class="btn btn-primary" (click)="create()">{{'AddNewWidget' | translate }}</button>
+      </a>
+      <!-- <a data-bs-toggle="modal"  data-bs-target="#new-project" class="d-flex align-items-center ms-32  fs-16 fw-400 text-c-2 text-decoration-none " data-bs-toggle="modal" data-bs-target="#project-activity">
+          <span class="icon-activity fs-24 d-inline-block me-2"></span>
+          <span class="line-n">Activity</span>
+      </a> -->
+
+      <a  class="d-flex align-items-center fs-16 fw-400 text-c-2 text-decoration-none">
+        <div ngbDropdown class="d-inline-block ms-32 ">
+          <span  id="project-action" ngbDropdownToggle>
+            <span class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none"></span>
+          </span>
+          <div ngbDropdownMenu aria-labelledby="project-action" >
+            <button ngbDropdownItem>
+              <div class="dropdown-item p-0 d-flex align-items-center mb-3">
+                <span class="icon-folder-archive fs-24 me-12"></span>
+                <span class="text-c-1" >{{'ArchiveDashboard' | translate }}</span>
+              </div>
+            </button>
+            <button ngbDropdownItem>
+              <div class="dropdown-item p-0 d-flex align-items-center mb-3">
+                <span class="icon-trash fs-24 me-12"></span>
+                <a class="text-c-1">{{'DeleteDashboard' | translate }}</a>
+                  <!-- <button type="submit" class="btn btn-danger btn-elevate" (click)="Delete()" [hidden]="!showDelete">
+                    Delete
+                </button> -->
+              </div>
+            </button>
+          </div>
+        </div>
+      </a>
+  </div>
+</div>

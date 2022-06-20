@@ -1,0 +1,35 @@
+<div class="modal-content">
+  <div div class="modal-header">
+      <a (click)="modal.close()" class="text-decoration-none fs-24 text-c-1" data-bs-dismiss="modal" aria-label="Close"><span
+              class="icon-delete-disabled"></span>
+      </a>
+      <h5 class="modal-title fs-32 fw-400 text-c-1 text-center w-100" id="new-taskLabel">
+          {{'RateMemberTask' | translate }}</h5>
+  </div>
+  <form action="#" [formGroup]="formGroup">
+      <div class="modal-body row">
+          <label for="Task-rating" class="form-label">{{'Rating' | translate}}</label>
+          <div class="mb-4 col-12" *ngFor="let member of members">
+              <label for="Task-rating" class="form-label">{{ member.fullName }}</label>
+              <div class="rating" style="float: right;">
+                  <ngb-rating [(rate)]="member.rating" aria-valuemin="1" [max]="5" aria-valuemax="5" _ngcontent-bxx-c162 class="fs-32"></ngb-rating>
+              </div>
+          </div>
+      </div>
+  </form>
+  <div class="modal-footer">
+
+      <ng-container>
+          <button type="submit" class="btn btn-primary w-178" (click)="cancelRate()"
+              [disabled]="formGroup.invalid">
+              {{'cancel' | translate }}
+          </button>
+      </ng-container>
+      <ng-container>
+        <button type="submit" class="btn btn-primary" (click)="saveRate()"
+            [disabled]="formGroup.invalid">
+            {{'Save' | translate }}
+        </button>
+    </ng-container>
+  </div>
+</div>

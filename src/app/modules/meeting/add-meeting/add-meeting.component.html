@@ -1,0 +1,401 @@
+<div class="modal-content d-block">
+  <div class="modal-header">
+    <a
+      (click)="modal.close()"
+      class="text-decoration-none fs-24 text-c-1"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+      ><span class="icon-delete-disabled"></span>
+    </a>
+    <span
+      *ngIf="!responseEntity.id"
+      class="modal-title fw-400 text-c-1 text-center w-100"
+      id="new-projectLabel"
+    >
+      {{ "CreateNewMeeting" | translate }}
+    </span>
+    <span
+      *ngIf="responseEntity.id"
+      class="modal-title fw-400 text-c-1 text-center w-100"
+      id="new-projectLabel"
+    >
+      {{ "UpdateMeeting" | translate }}
+    </span>
+  </div>
+  <form action="#" class="mt-1" [formGroup]="formGroup">
+    <div class="modal-body row">
+      <!-- Meeting level -->
+      <div class="add-meeting">
+        <div class="mt-1 col-12">
+          <div class="center">
+            <div
+              class="btn-group"
+              role="group"
+              aria-label="Basic radio toggle button group"
+            >
+              <div
+                class="ms-1"
+                (click)="selectGeneral()"
+                *ngIf="
+                  showWorkspace &&
+                  showProject &&
+                  showTask &&
+                  CheckActionPrivilage(SystemActions.AddMeetingGeneral)
+                "
+              >
+                <input
+                  type="radio"
+                  class="btn-check active"
+                  name="btnradio"
+                  id="btnradio4"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-success" for="btnradio4">{{
+                  "General" | translate
+                }}</label>
+              </div>
+              <div
+                class="ms-1"
+                (click)="selectWorkspace()"
+                *ngIf="
+                  (showWorkspace || workspaceId) &&
+                  showProject &&
+                  showTask &&
+                  CheckActionPrivilage(SystemActions.AddMeetingWorkspace)
+                "
+              >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnradio"
+                  id="btnradio1"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-success" for="btnradio1">{{
+                  "Workspacelevel" | translate
+                }}</label>
+              </div>
+              <div
+                class="ms-1"
+                (click)="selectProject()"
+                *ngIf="
+                  (showProject || projectId) &&
+                  showTask &&
+                  CheckActionPrivilage(SystemActions.AddMeetingProject)
+                "
+              >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnradio"
+                  id="btnradio2"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-success" for="btnradio2">{{
+                  "ProjectLevel" | translate
+                }}</label>
+              </div>
+              <div
+                class="ms-1"
+                (click)="selectTask()"
+                *ngIf="
+                  (showTask || taskId) &&
+                  CheckActionPrivilage(SystemActions.AddMeetingTask)
+                "
+              >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnradio"
+                  id="btnradio3"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-success" for="btnradio3">{{
+                  "TaskLevel" | translate
+                }}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-12 mt-3"
+          *ngIf="
+            (targetWrokspace || targetProject || targetTask) && showWorkspace
+          "
+        >
+          <label for="" class="secondary fs-16 fw-400"
+            >{{ "Workspace" | translate
+            }}<span class="danger fs-16 fw-500">*</span>
+          </label>
+          <select
+            class="form-select form-select-sm mb-2 mt-8"
+            aria-label=".form-select-sm example"
+            [(ngModel)]="workspaceId"
+            (change)="onWorkspaceChange($event)"
+          >
+            <option *ngFor="let work of workspaceList" [value]="work.id">
+              {{ work.name }}
+            </option>
+          </select>
+        </div>
+        <div
+          class="col-12 mt-3"
+          *ngIf="(targetProject || targetTask) && showProject && workspaceId"
+        >
+          <label for="" class="secondary fs-16 fw-400"
+            >{{ "Project" | translate
+            }}<span class="danger fs-16 fw-500">*</span>
+          </label>
+          <select
+            class="form-select form-select-sm mb-2 mt-8"
+            aria-label=".form-select-sm example"
+            [(ngModel)]="projectId"
+            (change)="onProjectChange($event)"
+          >
+            <option *ngFor="let proj of projects$ | async" [value]="proj.id">
+              {{ proj.name }}
+            </option>
+          </select>
+        </div>
+        <div
+          class="col-12 mt-3"
+          *ngIf="targetTask && showTask && workspaceId && projectId"
+        >
+          <label for="" class="secondary fs-16 fw-400"
+            >{{ "Task" | translate }}<span class="danger fs-16 fw-500">*</span>
+          </label>
+          <select
+            class="form-select form-select-sm mb-2 mt-8"
+            aria-label=".form-select-sm example"
+            [(ngModel)]="taskId"
+            (change)="onTaskChange($event)"
+          >
+            <option *ngFor="let task of taskList" [value]="task.id">
+              {{ task.name }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Invitees * -->
+        <div class="mt-3 col-12">
+          <section class="example-section">
+            <span class="secondary fs-16 fw-00">{{
+              "Invitees" | translate
+            }}</span>
+            <div class="form-control radius-4 mt-8">
+              <label *ngIf="userList.length <= 0">{{
+                "NoAvailableUsers" | translate
+              }}</label>
+              <div
+                class="form-check px-4 py-2"
+                *ngFor="let member of membersWithMeetingRoles"
+              >
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  [value]="member.user.userId"
+                  [id]="member.user.userId"
+                  (change)="onUserChecked($event)"
+                  [checked]="isInvited(member.user.userId)"
+                />
+                <label class="form-check-label" [for]="member.user.userId">
+                  {{ member.user.fullName }}
+                </label>
+                <mat-form-field>
+                  <mat-select
+                    stryle='width:"100px"'
+                    [(value)]="member.meetingRole"
+                    name="meetingRole"
+                    placeholder="Meeting Role"
+                    multiple
+                  >
+                    <mat-option
+                      *ngFor="let role of meetingRoles"
+                      [value]="role"
+                    >
+                      {{ MeetingRole[role] }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- Meeting Date -->
+      <div class="col-12 mt-4">
+        <label class="form-label secondary fs-16 fw-400">{{
+          "MeetingDate" | translate
+        }}</label>
+        <div>
+          <input
+            type="date"
+            class="form-control"
+            formControlName="date"
+            placeholder="{{ 'add-date' | translate }}"
+          />
+        </div>
+      </div>
+      <!-- Meeting Start -->
+      <div class="col-12 mt-4">
+        <label class="form-label secondary fs-16 fw-400">{{
+          "MeetingStart" | translate
+        }}</label>
+        <div>
+          <input
+            type="time"
+            class="form-control"
+            formControlName="time"
+            placeholder="{{ 'add-date' | translate }}"
+          />
+        </div>
+      </div>
+      <!-- Meeting End -->
+      <div class="col-12 mt-4 meeting-unit">
+        <label class="form-label secondary fs-16 fw-400">{{
+          "MeetingEndTime" | translate
+        }}</label>
+        <div class="d-flex">
+          <div class="col-lg-6">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="duration"
+              id="formGroupExampleInput"
+              placeholder="60"
+            />
+          </div>
+          <div class="col-lg-6 unit-select">
+            <select
+              class="form-select"
+              formControlName="durationUnitType"
+              aria-label="Default select example"
+            >
+              <option [value]="1">{{ "minute" | translate }}</option>
+              <option [value]="2">{{ "hour" | translate }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <!-- meeting category -->
+      <div class="col-12 mt-4 meeting-unit">
+        <label for="" class="secondary fs-16 fw-400">{{
+          "MeetingType" | translate
+        }}</label>
+        <select
+          class="form-select mt-8"
+          formControlName="meetingType"
+          aria-label="Default select example"
+        >
+          <option value="true">{{ "online" | translate }}</option>
+          <option value="false">{{ "offline" | translate }}</option>
+        </select>
+      </div>
+      <!-- meeting-title -->
+      <div class="col-12 mt-4">
+        <label class="secondary fs-16 fw-400">{{
+          "MeetingTitle" | translate
+        }}</label>
+        <input
+          type="text"
+          formControlName="title"
+          class="form-control fs-16 mt-8"
+          placeholder="{{ 'MeetingTitle' | translate }}"
+        />
+      </div>
+      <!-- Agenda -->
+      <div class="mt-4 col-12">
+        <div class="row">
+          <div class="col-lg-12">
+            <span class="secondary fs-16 fw-400">{{
+              "Agenda" | translate
+            }}</span>
+          </div>
+          <div class="mt-2 col-12" *ngFor="let item of agendaTopics">
+            <div class="row">
+              <div class="col-5">
+                <span class="form-control">{{ item.topic }}</span>
+              </div>
+              <div class="col-5">
+                <span class="form-control">{{ item.durationInMinutes }}</span>
+              </div>
+              <div class="col-2 pointer" (click)="removeAgenda(item)">
+                <span class="form-control center">{{
+                  "remove" | translate
+                }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-lg-5">
+            <label for="fs-16">{{ "topic" | translate }}</label>
+            <input
+              type="text"
+              class="form-control fs-16 mt-8"
+              #topicInput
+              placeholder="{{ 'topic-title' | translate }}"
+            />
+          </div>
+          <div class="col-lg-5">
+            <label for="fs-16">{{ "Duration" | translate }}</label>
+            <input
+              type="number"
+              class="form-control fs-16 mt-8"
+              #durationInput
+              placeholder="{{ 'topic-duration' | translate }}"
+            />
+          </div>
+          <div class="col-lg-2 d-flex justify-content-center pt-38">
+            <span
+              class="icon-plus-add fs-24 cta-primary pointer"
+              (click)="addAgenda(topicInput.value, durationInput.value)"
+            ></span>
+            <!-- <i class="fas fa-plus-circle fs-24 cta-primary mt-4 pointer"  (click)="addAgenda(topicInput.value, durationInput.value)"></i> -->
+          </div>
+        </div>
+      </div>
+      <!-- meeting-attachments -->
+      <div class="col-12 mt-4">
+        <label class="secondary fs-16 fw-400">{{
+          "MeetingAttach" | translate
+        }}</label>
+        <input
+          type="file"
+          (change)="processWebDataFile(webFileInput)"
+          #webFileInput
+          class="form-control ta-primary"
+        />
+        <ul class="form-control fa-ul" *ngFor="let item of meetingFiles">
+          <li><i class="fa fa-paperclip" aria-hidden="true"></i>
+            {{ item.name }} |
+
+            <a  href="{{item.url}}" target="_blank"><i class="fa fa-cloud-download" aria-hidden="true"></i></a>|
+            <i (click)="removeMeetingFile(item)" class="fa fa-trash" aria-hidden="true"></i>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </form>
+  <div class="modal-footer">
+    <ng-container>
+      <button
+        type="submit"
+        *ngIf="!responseEntity.id"
+        class="btn btn-primary"
+        (click)="save()"
+      >
+        {{ "create-new-meeting" | translate }}
+      </button>
+      <button
+        type="submit"
+        *ngIf="responseEntity.id"
+        class="btn btn-primary"
+        (click)="save()"
+        [disabled]="formGroup.invalid"
+      >
+        {{ "update-meeting" | translate }}
+      </button>
+    </ng-container>
+  </div>
+</div>

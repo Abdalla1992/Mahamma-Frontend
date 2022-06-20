@@ -1,0 +1,14 @@
+<app-side-nav></app-side-nav>
+<div class="page-wrapper">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-6">
+            <app-notifications-menu (seleteNotification)="loadComponent($event)"></app-notifications-menu>
+          </div>
+          <div class="col-lg-8 col-md-6 col-sm-6 notifications-answer">
+            <app-dynamic-loader [componentKey]="key" [id]="id" [isReadOnly]="isReadOnly">
+            </app-dynamic-loader>
+        </div>
+      </div>
+  </div>
+</div>

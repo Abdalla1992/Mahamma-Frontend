@@ -1,0 +1,234 @@
+<div class="profile">
+  <app-side-nav></app-side-nav>
+  <div class="page-wrapper pb-4">
+    <div class="container-fluid px-4">
+      <div class="row">
+        <div class="col-lg-4 col-4">
+          <!-- <app-user-info></app-user-info> -->
+          <div class="workspace-nav mt-4">
+            <div class="space-nav bg-white p-4 radius-8" style="max-height: 96vh; overflow: initial;">
+              <div class="user-profile">
+                <div class="profile-pic">
+                  <img [src]="user?.profileImage" alt="">
+                </div>
+                <div class="user-info">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="rating text-center mt-3">
+                        <ngb-rating *ngIf="userProfileTaskHistory" [(rate)]="userProfileTaskHistory.rating"
+                          aria-valuemin="1" [max]="5" aria-valuemax="5" _ngcontent-bxx-c162 class="fs-32"></ngb-rating>
+                      </div>
+                    </div>
+                    <div class="col-12 mt-3">
+                      <span class="fs-32 fw-500 mt-1">{{user?.fullName}}</span>
+                      <p class="fs-16 fw-500 text-c-4 mb-3 mt-2">{{user?.jobTitle}}</p>
+                      <p class="fs-16 fw-500 text-c-4 mb-3 mt-2">{{user?.email}}</p>
+                    </div>
+                    <div class="col-12">
+                      <!-- <div class="btn btn-primary">Chat</div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8 col-8 ">
+          <div class="widget-section bg-white p-4 radius-8 mt-4 text-center">
+            <div class="row">
+              <div class="col-lg col-md-6 d-flex flex-column justify-content-between">
+                <h4 class="fs-14 fw-500 text-c-4 mb-3">{{'Total-Tasks' | translate }}</h4>
+                <p class="fs-48">{{userProfileTaskHistory?.totalTasks}}</p>
+              </div>
+              <div class="col-lg col-md-6 d-flex flex-column justify-content-between">
+                <h4 class="fs-14 fw-500 text-c-4 mb-3">{{'completed-tasks'| translate }}</h4>
+                <p class="fs-48">{{userProfileTaskHistory?.completedTasks}}</p>
+                <div class="precentage success d-flex pt-20 justify-content-center">
+                  <div class="precentage-success profile-precentage">
+                    <span class="icon-left-arrow fs-14"></span>
+                  </div>
+                  <span class="fs-16">+<span>{{userProfileTaskHistory?.completedTaskPercentage}}%</span></span>
+                  <!-- <span>-
+                    <span>{{userProfileTaskHistory?.completedTaskPercentage}}%</span>
+                  </span> -->
+                </div>
+                <!-- <div class="precentage success d-flex pt-20 ">
+                  <div class="precentage-icon">
+                    <span class="icon-left-arrow fs-14"></span>
+                  </div>
+                  <span class="fs-16">+<span>10%</span></span>
+                </div> -->
+              </div>
+              <div class="col d-flex flex-column justify-content-between d-xl-flex d-none">
+                <h4 class="fs-14 fw-500 text-c-4 mb-3">{{'Pending-Tasks' | translate }} </h4>
+                <p class="fs-48">{{userProfileTaskHistory?.pendingTasks}}</p>
+                <div class="precentage danger d-flex pt-20 danger justify-content-center">
+                  <div class="precentage-icon precentage-danger">
+                    <span class="icon-left-arrow fs-14"></span>
+                  </div>
+                  <span class="fs-16">-<span>{{userProfileTaskHistory?.pendingTaskPercentage}}%</span></span>
+                  <!-- <span>+ <span>{{userProfileTaskHistory?.pendingTaskPercentage}}%</span></span> -->
+                </div>
+                <!-- <div class="precentage  d-flex pt-20 danger">
+                  <div class="precentage-icon precentage-danger">
+                    <span class="icon-left-arrow fs-14"></span>
+                  </div>
+                  <span class="fs-16">-<span>5%</span></span>
+                </div> -->
+              </div>
+              <!-- <div class="col-lg col-md-6 mt-lg-0 mt-md-4 d-flex flex-column justify-content-between">
+                <h4 class="fs-14 fw-500 text-c-4 mb-3">{{'Working-Hours' | translate}}</h4>
+                <p class="fs-48">350</p>
+                <div class="d-flex align-items-center justify-content-center">
+                  <div class="precentage danger">
+                    <i class="fas fa-arrow-down"></i>
+                    <span>-
+                      <span>1.250%</span>
+                    </span>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+          <div class="disc-files-section bg-white p-4 radius-8 mt-4">
+            <div class="row discription">
+              <div class="col-12">
+                <h4 class="fs-16 fw-500 text-c-4 mb-3">{{'Bio' | translate}}</h4>
+              </div>
+              <div class="col-xl-10 col-12">
+                <p class="fs-16 text-c-1 fw-400 mb-0">
+                  {{user?.bio}}
+                </p>
+              </div>
+
+              <div class="col-12 mt-4">
+                <h4 class="fs-16 fw-500 text-c-4 mb-3">{{'Skills' | translate }}</h4>
+              </div>
+              <div class="row">
+                <div class="col-lg-3" *ngFor="let skill of skills">
+                  <span class="p-2 bg-gray-5">{{skill}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tasks-section mt-4 p-4 bg-white radius-8">
+            <h4 class="fs-16 fw-500 text-c-4 mb-4">{{'WorkHistory' | translate }}</h4>
+            <div class="table-container">
+              <div class="custom-table">
+                <div class="table-head">
+                  <div class="cell">
+                    {{'Task' | translate }}
+                  </div>
+                  <div class="cell">
+                    {{'Project' | translate }}
+                  </div>
+                  <div class="cell">
+                    {{'Workspace' | translate }}
+                  </div>
+                  <div class="cell">
+                    {{'Status' | translate }}
+                  </div>
+                  <div class="cell">
+                    {{'DueDate' | translate }}
+                  </div>
+                  <!-- <div class="cell">
+                    <span class="icon-plus-add fs-18"></span>
+                  </div> -->
+                </div>
+                <div *ngFor="let task of userProfileTaskHistory.userTasks" class="table-row">
+                  <div class="cell profile-task-list">
+                    {{ task.taskName }}
+                  </div>
+                  <div class="cell assignee">
+                    <p class="fs-16 text-c-4 fw-500">{{task.projectName}}</p>
+                  </div>
+                   <div class="cell assignee">
+                    <p class="fs-16 text-c-4 fw-500">{{task.workspaceName}}</p>
+                  </div>
+                  <div class="cell status">
+                    <span
+                      [ngClass]="{'done':task.taskStatusId==TaskStatus.CompletedOnTime||task.taskStatusId==TaskStatus.CompletedEarly,
+                    'pending':task.taskStatusId==TaskStatus.New||task.taskStatusId==TaskStatus.InProgress,
+                    'cancel':task.taskStatusId==TaskStatus.InProgressWithDelay||task.taskStatusId==TaskStatus.CompletedLate}">{{TaskStatus[task.taskStatusId] | translate | translate}}</span>
+                  </div>
+                  <div class="cell due-date">
+                    {{task?.taskDueDate | date}}
+                  </div>
+                  <!-- <div class="cell action">
+                    <div ngbDropdown class="d-inline-block ms-32 ">
+                      <span id="project-action" ngbDropdownToggle>
+                        <span class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none"></span>
+                      </span>
+                      <div ngbDropdownMenu aria-labelledby="project-action">
+                        <button ngbDropdownItem>
+                          <div class="dropdown-item p-0 d-flex align-items-center mb-3">
+                            <span class="icon-folder-archive fs-24 me-12"></span>
+                            <span class="text-c-2">{{'Edit' | translate }}</span>
+                          </div>
+                        </button>
+                        <button ngbDropdownItem>
+                          <div class="dropdown-item p-0 d-flex align-items-center mb-3">
+                            <span class="icon-trash fs-24 me-12"></span>
+                            <a class="text-c-2">{{'Delete' | translate }} </a>
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rejected Tasks -->
+          <div class="tasks-section mt-4 p-4 bg-white radius-8">
+            <h4 class="fs-16 fw-500 text-c-4 mb-4">{{'RejectedTask' | translate }}</h4>
+            <div class="table-container">
+              <div class="custom-table">
+                <div class="table-head">
+                  <div class="cell">
+                    {{'Task' | translate }}
+                  </div>
+                  <div class="cell">
+                    {{'Project' | translate }}
+                  </div>
+                  <div class="cell">
+                    {{'Workspace' | translate }}
+                  </div>
+                  <div class="cell">
+                    {{'Status' | translate }}
+                  </div>
+                  <div class="cell">
+                    {{'DueDate' | translate }}
+                  </div>
+                </div>
+                <div *ngFor="let rejectedTaskes of userTaskesRejected" class="table-row">
+                  <div class="cell profile-task-list">
+                    {{ rejectedTaskes.taskName }}
+                  </div>
+                  <div class="cell assignee">
+                    <p class="fs-16 text-c-4 fw-500">{{rejectedTaskes.projectName}}</p>
+                  </div>
+                   <div class="cell assignee">
+                    <p class="fs-16 text-c-4 fw-500">{{rejectedTaskes.workspaceName}}</p>
+                  </div>
+                  <div class="cell status">
+                    <span
+                      [ngClass]="{'done':rejectedTaskes.taskStatusId==TaskStatus.CompletedOnTime||rejectedTaskes.taskStatusId==TaskStatus.CompletedEarly,
+                    'pending':rejectedTaskes.taskStatusId==TaskStatus.New||rejectedTaskes.taskStatusId==TaskStatus.InProgress,
+                    'cancel':rejectedTaskes.taskStatusId==TaskStatus.InProgressWithDelay||rejectedTaskes.taskStatusId==TaskStatus.CompletedLate}">{{TaskStatus[rejectedTaskes.taskStatusId] | translate | translate}}</span>
+                  </div>
+                  <div class="cell due-date">
+                    {{rejectedTaskes?.taskDueDate | date}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

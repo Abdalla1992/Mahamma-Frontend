@@ -1,0 +1,72 @@
+<div class="account">
+  <form novalidate class="form-login" [formGroup]="loginFormGroup" (ngSubmit)="login()"
+    (keydown.enter)="$event.preventDefault()" (keydown.enter)="login()">
+    <div class="modal-body" id="login" tabindex="-1" aria-labelledby="new-projectLabel" aria-modal="true" role="dialog">
+      <div class="row mt-88">
+        <div class="col-8 offset-2">
+          <span class="fs-24 fw-500 text-c-1 mb-5 line-36">
+            {{'welcome' | translate}}<br>
+            {{'welcome-login' | translate}}
+          </span>
+          <div class="row mt-5">
+            <div class="col-12">
+              <a class="btn-create-with" (click)="onSignIn()">
+                <img src="assets/images/google-logo.svg" alt="" style="float: left;">
+                <span class="px-2">{{'google' | translate}}</span>
+              </a>
+            </div>
+          </div>
+          <div class="or-line fs-18 c-gray-4 m-24">
+            <span class="p-12">{{'or' | translate}}</span>
+          </div>
+          <div class="mb-16">
+            <label class="form-label text-c-1">{{'email' | translate}}</label>
+            <input type="text" formControlName="email" email class="form-control fs-16"
+              placeholder="Ex.Name@company.com"
+              [class.is-invalid]="isControlInvalid('email',loginFormGroup)">
+            <div class="invalid-feedback fs-14 py-1" *ngIf="controlHasError('required', 'email', loginFormGroup)">
+              {{'email-required' | translate}}
+            </div>
+            <div class="invalid-feedback fs-14 py-1 " *ngIf="controlHasError('pattern', 'email', loginFormGroup)">
+              {{'valid-mail' | translate }}
+            </div>
+          </div>
+          <div class="show-password">
+            <label class="form-label text-c-1">{{'Password' | translate }}</label>
+            <input [type]="fieldTextType ? 'text' : 'password'" formControlName="password" class="form-control fs-16"
+              placeholder="Enter password"
+              [class.is-invalid]="isControlInvalid('password',loginFormGroup)">
+            <i href="#" class="fs-12 fa" [ngClass]="{
+          'fa-eye-slash': !fieldTextType,
+          'fa-eye': fieldTextType
+        }" (click)="toggleFieldTextType()"></i>
+
+            <div class="invalid-feedback fs-14 " *ngIf="controlHasError('minlength', 'password', loginFormGroup)">
+              - {{'passwordLengthValidation' | translate}}
+            </div>
+            <div class="invalid-feedback fs-14 py-1 pb-2" *ngIf="controlHasError('pattern', 'password', loginFormGroup)">
+              - {{'passwordValidation' | translate}}
+            </div>
+          </div>
+          <div class="m10">
+            <span class="pointer forget-password text-c-1 fs-14 mt-8" (click)="openForgetPasswordComponent()">
+              {{'forget-password' | translate }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer d-block p-0">
+      <ng-container>
+        <button class="btn-primary btn btn-block w-62 fs-18">
+          {{'login' | translate }}
+        </button>
+        <p>{{'havenot-account' | translate}}
+          <a data-bs-toggle="modal" (click)="openCreateAccount()" data-bs-target="#login">
+            {{'CreateAccount' | translate}}
+          </a>
+        </p>
+      </ng-container>
+    </div>
+  </form>
+</div>

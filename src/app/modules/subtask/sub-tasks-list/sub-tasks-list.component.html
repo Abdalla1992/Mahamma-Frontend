@@ -1,0 +1,342 @@
+<div class="tasks-section mt-4 p-4 bg-white radius-8">
+  <span class="fs-16 text-c-4">{{'SubTasks' | translate }}</span>
+  <div class="view  d-flex mt-24">
+    <a class="text-decoration-none d-flex align-items-center pointer" [ngClass]="{'active':listView}"
+      (click)="showListView($event)">
+      <span class="icon-bullet-list-text fs-24 pr-8"></span>
+      <span class="fs-16">{{'ListView' | translate}}</span>
+    </a>
+    <a class="text-decoration-none d-flex align-items-center pointer" [ngClass]="{'active':cardView}"
+      (click)="showCardView($event)">
+      <span class="icon-grid-layout-3 fs-24 pr-8"></span>
+      <span class="fs-16">{{'CardView' | translate }}</span>
+    </a>
+    <!-- <a class="text-decoration-none d-flex align-items-center pointer" [ngClass]="{'active':calender}"
+      (click)="showCalender($event)">
+      <span class="fs-24 pr-8 icon-calendar-time"></span>
+      <span class="fs-16">{{'calender' | translate }}</span>
+    </a> -->
+  </div>
+  <div *ngIf="!isReadOnly" class="d-flex align-items-center justify-content-between pt-24 pb-16">
+    <button (click)="createNewSubTask()" class="btn btn-primary px-2 d-flex align-items-center">
+      <span class="icon-plus fs-16 me-1"></span>
+      <span class="fs-16">{{'NewSubTask' | translate }}</span>
+    </button>
+    <div class="filter-sorts">
+      <span class="text-decoration-none fs-16 fw-400 text-c-3 filter-section">
+        <span class="icon-filter me-1"></span>
+        <span class="">{{'filter' | translate }}</span>
+      </span>
+      <span class="text-decoration-none fs-16 fw-400 text-c-3">
+        <span class="icon-sort me-1"></span>
+        <span class="">{{'Sort' | translate }}</span>
+      </span>
+    </div>
+  </div>
+  <div class="table-container flow-scroll" *ngIf="listView">
+    <div class="custom-table">
+      <div class="table-head">
+        <div class="cell">
+          {{'Task'| translate}}
+        </div>
+        <div class="cell d-flex justify-content-flex-start">
+          {{'Status'| translate}}
+        </div>
+        <div class="cell">
+          {{'Assignee'| translate}}
+        </div>
+        <div class="cell">
+          {{'Priority'| translate}}
+        </div>
+        <div class="cell d-flex justify-content-flex-start">
+          {{'DueDate'| translate}}
+        </div>
+        <div class="cell">
+          {{'Progress' | translate }}
+        </div>
+        <div class="cell">
+          {{'Actions'| translate}}
+        </div>
+      </div>
+      <div *ngFor="let task of taskService.items$ | async;" class="table-row">
+        <div class="cell pointer  task-name" (click)="navigateToSubTaskProfile(task.id)">
+          {{task.name}}
+        </div>
+        <div class="cell status d-flex justify-content-flex-start">
+          <span [ngClass]="{'done':task.taskStatusId==TaskStatus.CompletedOnTime||task.taskStatusId==TaskStatus.CompletedEarly,
+            'pending':task.taskStatusId==TaskStatus.New||task.taskStatusId==TaskStatus.InProgress,
+            'cancel':task.taskStatusId==TaskStatus.InProgressWithDelay||task.taskStatusId==TaskStatus.CompletedLate}">
+            {{TaskStatus[task.taskStatusId] | translate }}</span>
+        </div>
+        <div class="cell assignee">
+          <span *ngFor="let member of task.members"><img [src]="member.profileImage" alt=""></span>
+        </div>
+        <div class="cell priority">
+          <span class="icon-flag urgent fs-16 fw-500">{{TaskPriority[task.taskPriorityId]}}</span>
+        </div>
+        <div class="cell due-date">
+          {{task.dueDate | date}}
+        </div>
+        <div class="cell due-date">
+          {{task.progressPercentage}}%
+        </div>
+        <div class = "cell">
+          <a *ngIf="task.taskStatusId != TaskStatus.CompletedOnTime && task.taskStatusId != TaskStatus.CompletedLate && task.taskStatusId != TaskStatus.CompletedEarly"
+            class="d-flex align-items-center fs-16 fw-400 text-c-2 text-decoration-none actions">
+            <div class="actions d-flex">
+              <div *ngIf="task.taskStatusId == TaskStatus.InProgress || task.taskStatusId == TaskStatus.InProgressWithDelay">
+                <a class="decoration-none" (click)="updateProgressPercentagePopup(task)" title="{{'update-progress-percentage' | translate}}">
+                  <span class="icon-activity fs-20 text-c-3  px-1"></span>
+                  <!-- <span class="text-c-1 fs-16">{{'UpdateProgressPercentage' | translate}}</span> -->
+                </a>
+              </div>
+              <div *ngIf="task.taskStatusId == TaskStatus.InProgress || task.taskStatusId == TaskStatus.InProgressWithDelay">
+                <a class="decoration-none" (click)="openTaskSubmit(task)"  title="{{'submit-task' | translate}}">
+                  <span class="icon-send fs-20 text-c-3 px-1"></span>
+                  <!-- <span class="text-c-1 fs-16">{{'SubmitTask' | translate}} </span> -->
+                </a>
+              </div>
+              <div>
+                <a class="decoration-none" (click)="openInviteMember(task)" title="{{'assign-member' | translate }}">
+                  <!-- <i class="fas fa-user-plus "></i> -->
+                  <span class="icon-User-add fs-20 px-1 text-c-3"></span>
+                  <!-- <a class="text-c-1 fs-16">{{'AssignMember' | translate }}</a> -->
+                </a>
+              </div>
+            </div>
+            <!-- <div ngbDropdown class="d-inline-block ms-32 ">
+              <span id="project-action" ngbDropdownToggle>
+                <span class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none"></span>
+              </span>
+              <div class="dropDownAppearance" ngbDropdownMenu aria-labelledby="project-action">
+                <button
+                  *ngIf="task.taskStatusId == TaskStatus.InProgress || task.taskStatusId == TaskStatus.InProgressWithDelay"
+                  ngbDropdownItem>
+                  <div class="dropdown-item p-0 d-flex align-items-center"
+                    (click)="updateProgressPercentagePopup(task)">
+                    <i class="fas fa-chart-line fs-16 px-1"></i>
+                      <span class="text-c-1 fs-16">{{'UpdateProgressPercentage' | translate}}</span>
+                  </div>
+                </button>
+                <button
+                  *ngIf="task.taskStatusId == TaskStatus.InProgress || task.taskStatusId == TaskStatus.InProgressWithDelay"
+                  ngbDropdownItem>
+                  <div class="dropdown-item p-0 d-flex align-items-center" (click)="openTaskSubmit(task)">
+                    <span class="icon-send fs-16  px-1"></span>
+                    <span class="text-c-1 fs-16">{{'SubmitTask' | translate}}</span>
+                  </div>
+                </button>
+                <button ngbDropdownItem>
+                  <div class="dropdown-item p-0 d-flex align-items-center" (click)="openInviteMember(task)">
+                    <i class="fas fa-user-plus fs-16  px-1"></i>
+                    <a class="text-c-1 fs-16">{{'AssignMember' | translate }}</a>
+                  </div>
+                </button>
+              </div>
+            </div> -->
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-container flow-x" *ngIf="cardView">
+    <div class="row">
+      <div class="col-lg-4">
+        <mat-card class="example-card" style="border-top: solid;">
+          <div class="header bg-gray-5 radius-8" style="padding: 16px 0px;">
+            <span class="px-3 fs-16 fw-500 c-primary">{{'InActive' | translate }}</span>
+          </div>
+          <div *ngFor="let task of inActiveTask" class="card-body radius-8">
+            <mat-card-content>
+              <div class="row card-list">
+                <div (click)="navigateToSubTaskProfile(task.id)"
+                  class="col-8  d-flex justify-content-first c-gray-1 fw-500 fs-16 pointer">{{task.name}}
+                </div>
+                <div class="col-4 d-flex justify-content-end">
+                  <span class="icon-flag px-2 fs-22 danger"></span>
+                  <div ngbDropdown class="d-inline-block">
+                    <span id="project-action" ngbDropdownToggle>
+                      <span class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none"></span>
+                    </span>
+                    <div ngbDropdownMenu aria-labelledby="project-action">
+                      <button ngbDropdownItem>
+                        <div class="dropdown-item p-0 d-flex align-items-center"
+                          (click)="updateProgressPercentagePopup(task)">
+                          <span class="icon-activity fs-20 text-c-1  px-1"></span>
+                          <span class="text-c-1 fs-16">{{'UpdateProgressPercentage' | translate}}</span>
+                        </div>
+                      </button>
+                      <button ngbDropdownItem>
+                        <div class="dropdown-item p-0 d-flex align-items-center" (click)="openTaskSubmit(task)">
+                          <span class="icon-send fs-20 text-c-1 px-1"></span>
+                          <span class="text-c-1 fs-16">{{'SubmitTask' | translate}}</span>
+                        </div>
+                      </button>
+                      <button ngbDropdownItem>
+                        <div class="dropdown-item p-0 d-flex align-items-center" (click)="openInviteMember(task)">
+                          <span class="icon-User-add fs-20 px-1 text-c-1"></span>
+                          <a class="text-c-1 fs-16">{{'AssignMember' | translate }}</a>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                  <!-- <div class="actions d-flex">
+                    <div>
+                      <a class="decoration-none" (click)="updateProgressPercentagePopup(task)">
+                        <span class="icon-activity fs-20 text-c-3  px-1"></span>
+                      </a>
+                    </div>
+                    <div>
+                      <a class="decoration-none"  (click)="openTaskSubmit(task)">
+                        <span class="icon-send fs-20 text-c-3 px-1"></span>
+                      </a>
+                    </div>
+                    <div>
+                      <a class="decoration-none" (click)="openInviteMember(task)">
+                        <span class="icon-User-add fs-20 px-1 text-c-3"></span>
+                      </a>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+              <p class="pt-16 fs-16 fw-400 c-primary">{{task.description}}</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <div class="members">
+                <div class="widget-section radius-12">
+                  <div class="row">
+                    <div class="col-lg-6 pl-0 d-flex justify-content-first">
+                      <div class="members d-flex  me-2">
+                        <a *ngFor="let member of task.members"><img [src]="member.profileImage" alt=""></a>
+                      </div>
+                      <div class="header  d-flex  justify-content-between text-c-4">
+                        <div class="d-flex align-items-center">
+                          <span class="icon-tree-connect fs-24 me-2"></span>
+                          <span class="fs-16 text-c-4">{{task.subTasks?.length}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 d-flex justify-content-end align-items-center c-gray-1 fw-400 pr-0 fs-14">
+                      <!-- {{task.startDate|date}} - -->
+                      {{task.dueDate|date}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card-actions>
+          </div>
+        </mat-card>
+      </div>
+      <div class="col-lg-4">
+        <mat-card class="example-card" style="border-top: solid; border-color: yellow;">
+          <div class="header bg-gray-5 radius-8" style="padding: 16px 0px;">
+            <mat-card-subtitle>
+            </mat-card-subtitle>
+            <span class="px-3 fs-16 fw-500 c-primary">{{'pending' | translate }}</span>
+          </div>
+          <div *ngFor="let pendingTask of pendingTask">
+            <mat-card-content>
+              <div class="row card-list">
+                <div (click)="navigateToSubTaskProfile(pendingTask.id)" style="cursor: pointer;"
+                  class="col-8  d-flex justify-content-first c-gray-1 fw-500 fs-16">
+                  {{pendingTask.name}}</div>
+                <div class="col-4 d-flex justify-content-end">
+                  <span class="icon-flag px-2 fs-22 danger"></span>
+                  <div ngbDropdown class="d-inline-block">
+                    <span id="project-action" ngbDropdownToggle>
+                      <span class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none"></span>
+                    </span>
+                    <div ngbDropdownMenu aria-labelledby="project-action">
+                      <button ngbDropdownItem>
+                        <div class="dropdown-item p-0 d-flex align-items-center"
+                          (click)="openInviteMember(pendingTask)">
+                          <span class="icon-User-add fs-20 px-1 text-c-1"></span>
+                          <span class="text-c-1">{{'AssignMember' | translate }}</span>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="pt-16 fs-16 fw-400 c-primary">{{pendingTask.description}}</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <div class="members">
+                <div class="widget-section radius-12">
+                  <div class="row">
+                    <div class="col-lg-6 pl-0 d-flex justify-content-first">
+                      <div class="members d-flex  me-2">
+                        <a *ngFor="let member of pendingTask.members"><img [src]="member.profileImage" alt=""></a>
+                      </div>
+                      <div class="header  d-flex  justify-content-between text-c-4">
+                        <div class="d-flex align-items-center">
+                          <span class="icon-tree-connect fs-24  me-2"></span>
+                          <span class="fs-16 text-c-4">{{pendingTask.subTasks?.length}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 d-flex justify-content-end align-items-center c-gray-1 fw-400 pr-0 fs-16">
+                      <!-- {{pendingTask.startDate|date}} -  -->
+                      {{pendingTask.dueDate|date}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card-actions>
+          </div>
+        </mat-card>
+      </div>
+      <div class="col-lg-4">
+        <mat-card class="example-card" style="border-top: solid; border-color: rgb(88, 170, 196);">
+          <div class="header bg-gray-5 radius-8" style="padding: 16px 0px;">
+            <mat-card-subtitle>
+            </mat-card-subtitle>
+            <span class="px-3 fs-16 fw-500 c-primary">{{'done' | translate }}</span>
+          </div>
+          <div *ngFor="let doneTask of doneTask" class="card-body radius-8">
+            <mat-card-content>
+              <div class="row card-list">
+                <div (click)="navigateToSubTaskProfile(doneTask.id)" style="cursor: pointer;"
+                  class="col-8  d-flex justify-content-first c-gray-1 fw-500 fs-16">{{doneTask.name}}
+                </div>
+                <div class="col-4 d-flex justify-content-end">
+                  <span class="icon-flag px-2 fs-22 danger"></span>
+                  <div ngbDropdown class="d-inline-block">
+                    <span id="project-action" ngbDropdownToggle>
+                      <span class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none"></span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <p class="pt-16 fs-16 fw-400 c-primary">{{doneTask.description}}</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <div class="members">
+                <div class="widget-section radius-12">
+                  <div class="row">
+                    <div class="col-lg-6 pl-0 d-flex justify-content-first">
+                      <div class="members d-flex  me-2">
+                        <a *ngFor="let member of doneTask.members"><img [src]="member.profileImage" alt=""></a>
+                      </div>
+                      <div class="header  d-flex  justify-content-between text-c-4">
+                        <div class="d-flex align-items-center">
+                          <span class="icon-tree-connect fs-24  me-2"></span>
+                          <span class="fs-16 text-c-4">{{doneTask.subTasks?.length}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 d-flex justify-content-end align-items-center c-gray-1 fw-400 pr-0 fs-16">
+                      <!-- {{doneTask.startDate|date}} -  -->
+                      {{doneTask.dueDate|date}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card-actions>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <app-calender *ngIf="calender"></app-calender>
+</div>

@@ -1,0 +1,219 @@
+<div class="account">
+  <form novalidate class="form-login" (keydown.enter)="$event.preventDefault()" [formGroup]="formGroup">
+    <div class="modal-body" id="new-account" tabindex="-1" aria-labelledby="new-projectLabel" aria-modal="true"
+      role="dialog">
+      <div class="row mt-88">
+        <div class="col-8 offset-2 ">
+          <div class="mb-32">
+            <span class="fs-24 fw-500 text-c-1 ">
+              {{'SetupFirstWorkspace' | translate }}
+            </span>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label class="form-label secondary fs-16">{{'WorkspaceName' | translate }} </label>
+              <input type="text" class="form-control fs-16" formControlName="name" placeholder="Ex. My workspace">
+            </div>
+            <div class="mt-24 col-12">
+              <div class="">
+                <label for="Workspace-avatar" class="form-label text-c-1 fs-16">{{'WorkspaceAvatar' | translate }}
+                </label>
+                <div class="row Workspace-avatar">
+                  <div class="col-lg-4">
+                    <div class="avatar-addspace" [style.background]="color">
+                      <img [src]="imageUrl" *ngIf="imageUrl" alt="">
+                    </div>
+                  </div>
+                  <div class="col-lg-8">
+                    <span class="fs-14 fw-500 text-c-3">{{'Color' | translate }}</span>
+                    <div class="color mt-8">
+                      <input type="color" (change)="changeColor()" formControlName="color"
+                        class="form-control form-control-color fs-18" id="exampleColorInput" title="Choose your color">
+                    </div>
+                    <div class="mt-24">
+                      <span class="fs-14 fw-500 text-c-3">{{'Avatar' | translate }}</span>
+                      <div class="avatars mt-8 col-12">
+                        <div class="row">
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-1.svg')">
+                              <img src="assets/images/avatars/avatar-1.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-2.svg')">
+                              <img src="assets/images/avatars/avatar-2.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-3.svg')">
+                              <img src="assets/images/avatars/avatar-3.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-4.svg')">
+                              <img src="assets/images/avatars/avatar-4.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-5.svg')">
+                              <img src="assets/images/avatars/avatar-5.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-6.svg')">
+                              <img src="assets/images/avatars/avatar-6.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-7.svg')">
+                              <img src="assets/images/avatars/avatar-7.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-8.svg')">
+                              <img src="assets/images/avatars/avatar-8.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-9.svg')">
+                              <img src="assets/images/avatars/avatar-9.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-10.svg')">
+                              <img src="assets/images/avatars/avatar-10.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-11.svg')">
+                              <img src="assets/images/avatars/avatar-11.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-12.svg')">
+                              <img src="assets/images/avatars/avatar-12.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-13.svg')">
+                              <img src="assets/images/avatars/avatar-13.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-14.svg')">
+                              <img src="assets/images/avatars/avatar-14.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-15.svg')">
+                              <img src="assets/images/avatars/avatar-15.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-16.svg')">
+                              <img src="assets/images/avatars/avatar-16.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-17.svg')">
+                              <img src="assets/images/avatars/avatar-17.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-18.svg')">
+                              <img src="assets/images/avatars/avatar-18.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-19.svg')">
+                              <img src="assets/images/avatars/avatar-19.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-20.svg')">
+                              <img src="assets/images/avatars/avatar-20.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-21.svg')">
+                              <img src="assets/images/avatars/avatar-21.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-22.svg')">
+                              <img src="assets/images/avatars/avatar-22.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-23.svg')">
+                              <img src="assets/images/avatars/avatar-23.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-24.svg')">
+                              <img src="assets/images/avatars/avatar-24.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-25.svg')">
+                              <img src="assets/images/avatars/avatar-25.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-26.svg')">
+                              <img src="assets/images/avatars/avatar-26.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-27.svg')">
+                              <img src="assets/images/avatars/avatar-27.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-28.svg')">
+                              <img src="assets/images/avatars/avatar-28.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-29.svg')">
+                              <img src="assets/images/avatars/avatar-29.svg" alt="">
+                            </span>
+                          </div>
+                          <div class="col-1 mr-12">
+                            <span (click)="setAvatar($event,'assets/images/avatars/avatar-30.svg')">
+                              <img src="assets/images/avatars/avatar-30.svg" alt="">
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 cta-primary workspace-file mt-2">
+                      <div class="d-flex file-upload">
+                        <span class="icon-cloud-upload"></span>
+                        <span class="cta-primary upload px-1">{{'upload-img' | translate}}</span>
+                      </div>
+                      <input type="file" (change)="processWebDataFile(webFileInput)" #webFileInput
+                        class="cta-primary file">
+                      <!-- <span class="fs-16">Upload Profile Image
+                            </span> -->
+                    </div>
+                    <div class="invalid-feedback">
+                      {{'ImageReq' | translate }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer d-block pt-0">
+      <ng-container>
+        <button class="btn-primary btn btn-block fs-18 w-65" (click)="save()" [disabled]="formGroup.invalid">
+          {{'CreateWorkspace' | translate }}
+        </button>
+      </ng-container>
+    </div>
+  </form>
+</div>

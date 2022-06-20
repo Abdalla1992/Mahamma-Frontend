@@ -1,0 +1,100 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <a class="text-decoration-none fs-24 text-c-1" data-bs-dismiss="modal" (click)="modal.dismiss()"
+      aria-label="Close"><span class="icon-delete-disabled"></span>
+    </a>
+    <!-- <h5 *ngIf="!entity.id" class="modal-title fs-32 fw-400 text-c-1 text-center w-100"
+                  id="new-projectLabel">Create New Project</h5> -->
+    <h5 class="modal-title fs-32 fw-400 text-c-1 text-center w-100" id="new-projectLabel">{{'subtask-members' | translate}}</h5>
+    <!-- <h5 *ngIf="entity.id" class="modal-title fs-32 fw-400 text-c-1 text-center w-100"
+                  id="new-projectLabel">Edit Project</h5> -->
+  </div>
+    <div class="modal-body row">
+      <!-- <div class="mb-4 col-12" [formGroup]="formGroup">
+        <label for="Workspace-Name" class="form-label">Add Members</label>
+        <div class="input-group mb-3">
+          <mat-form-field class="width-100 m-b-20" appearance="outline" class="form-control">
+            <input formControlName="member" [matAutocomplete]="userFullName" placeholder="AddOneMember"
+              matInput (input)="AutoCompleteChange($event)">
+          </mat-form-field>
+          <mat-autocomplete #userFullName="matAutocomplete" (optionSelected)='Selectautocomplete($event.option.value)'>
+            <ng-container>
+              <mat-option class="span-autocomplete" *ngFor="let user of userList" [value]="user">
+                <span>{{ user.fullName }} </span>
+                <span>{{ (user.workspaceName) }}</span>
+              </mat-option>
+            </ng-container>
+          </mat-autocomplete>
+        </div>
+        <div class="col-12 ">
+          <div *ngIf="members" class="members d-flex">
+            <div class="col-lg-1" *ngFor="let user of selectedUserList">
+              <img [src]="user.profileImage" style="width: 100%;height: 100%;" alt="">
+              <i class="fas fa-times" (click)="removeMember($event, user.userId)"></i>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="">
+        <div class="add-members row">
+          <div class="col-12" [formGroup]="formGroup">
+            <label for="Workspace-Name" class="form-label mb-0">{{'AddMembers' | translate }}</label>
+            <div class="input-group mb16">
+              <mat-form-field class="width-100  form-control mt9" appearance="outline" style="background-color: transparent; border: none;">
+                <input [matAutocomplete]="userFullName" placeholder="{{'member-placeholder' | translate}}" matInput
+                  formControlName="member" name="member" (input)="AutoCompleteChange($event)">
+              </mat-form-field>
+              <mat-autocomplete #userFullName="matAutocomplete"
+              (optionSelected)='Selectautocomplete($event.option.value)'>
+              <ng-container>
+                  <mat-option class="span-autocomplete" *ngFor="let user of userList" [value]="user">
+                      <span>{{ user.fullName }} </span>
+                      <span>{{ (user.workspaceName) }}</span>
+                  </mat-option>
+              </ng-container>
+          </mat-autocomplete>
+            </div>
+          </div>
+          <!-- <div class="col-12 " *ngIf="selectedUserList">
+            <div class="members d-flex">
+              <div *ngFor="let user of selectedUserList" class="member row">
+                <div class="col-lg-2">
+                  <img [src]="user.profileImage" alt="">
+                  <i class="fas fa-times" (click)="removeMember($event, user.userId)"></i>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <div class="col-12 invite-member mt-2">
+            <div *ngIf="selectedUserList" class="members d-flex">
+              <div *ngFor="let user of selectedUserList">
+                <div class="d-flex">
+                  <img [src]="user.profileImage"  alt="">
+                  <span class="icon-delete-disabled fs-14" (click)="removeMember($event, user.userId)"></span>
+                  <!-- <i class="fas fa-times" (click)="removeMember($event, user.userId)"
+                  style="position: relative;
+                    height: 15px;
+                    bottom: 1px;
+                    left: -9px;
+                    background-color: #575454;
+                    font-size: 9px;
+                    padding: 3px 4px;
+                    color: #D6D7D7;
+                    font-weight: 300;
+                    border-radius: 8px;">
+                  </i> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="modal-footer">
+    <ng-container>
+      <button type="submit" class="btn btn-primary w-178" (click)="saveMembers()">
+        {{'Save' | translate}}
+      </button>
+    </ng-container>
+  </div>
+</div>

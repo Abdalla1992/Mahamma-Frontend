@@ -1,0 +1,36 @@
+<div class="modal-content d-block">
+    <div class="modal-header" >
+      <a (click)="modal.close()" class="text-decoration-none fs-24 text-c-1" data-bs-dismiss="modal"
+        aria-label="Close"><span class="icon-delete-disabled"></span>
+      </a>
+      <span *ngIf="!id"  class="modal-title  fw-400 text-c-1 text-center w-100" id="new-projectLabel">
+        {{'FolderName' | translate}}
+      </span>
+      <span *ngIf="id" class="modal-title fw-400 text-c-1 text-center w-100" id="new-projectLabel">
+      {{'RenameFolder' | translate }}
+      </span>
+    </div>
+    <form action="#" class="mt-1" [formGroup]="formGroup">
+      <div class="modal-body row">
+          <div class="col-12 mt-4">
+            <div class="comment mb-2">
+              <div class="form-floating">
+                <input formControlName="folderName" class="form-control" placeholder="{{'FOlderName' | translate}}" type="text" style="height: 100px"/>
+                <label for="floatingTextarea2">{{'FolderName' | translate }}</label>
+              </div>
+            </div>
+          </div>
+      </div>
+    </form>
+    <div class="modal-footer">
+      <ng-container>
+        <button type="submit" *ngIf="!id" class="btn btn-primary" (click)="save()">
+            {{'Create' | translate }}
+          </button>
+        <button type="submit" *ngIf="id" class="btn btn-primary" (click)="save()">
+          {{'Save' | translate}}
+        </button>
+      </ng-container>
+    </div>
+  </div>
+  

@@ -1,0 +1,148 @@
+<app-side-nav></app-side-nav>
+<div class="page-wrapper pb-4">
+  <div class="px-4">
+    <div class="row">
+      <div *ngIf="!isReadOnly" class="col-lg-3 col-4">
+        <app-my-work [workspaceId]="responseEntity.workSpaceId"></app-my-work>
+      </div>
+      <div class="col-lg-9 col-8">
+        <app-project-header [project]="responseEntity" (onUpdateProject)="projectUpdated()"></app-project-header>
+
+        <div class="widget-section bg-white  radius-8 mt-4 h-auto">
+          <div class="row project-header">
+            <div class="col-lg-3 col-md-6 d-flex flex-column justify-content-between">
+              <span class="fs-14 fw-500 text-c-4 mb-3 center">{{'Members' | translate }}</span>
+              <div class="members d-flex justify-content-center">
+                <a *ngFor="let member of responseEntity?.members">
+                  <img [src]="member?.profileImage" alt="">
+                </a>
+                <a *ngIf="!isReadOnly && CheckActionPrivilage(SystemActions.AssignMember)" data-bs-toggle="modal"
+                  (click)="openInviteMember(responseEntity.id,responseEntity.members)" data-bs-target="#new-project">
+                  <span class="icon-plus"></span>
+                </a>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 d-flex flex-column justify-content-between">
+              <span class="fs-14 fw-500 text-c-4 mb-3 center">{{'DueDate'| translate}}</span>
+              <p class="fs-18 c-primary fw-400 d-flex justify-content-center">{{responseEntity?.dueDate | date}}</p>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mt-lg-0 mt-md-4 d-flex flex-column justify-content-between">
+              <span class="fs-14 fw-500 text-c-4 center">{{'Progress' | translate}}</span>
+              <div class="d-flex justify-content-center">
+                <!-- <div class="progress-circle">{{responseEntity?.progressPercentage}}%</div> -->
+                <circle-progress
+                  [percent]="responseEntity.progressPercentage"
+                  [radius]="16"
+                  [outerStrokeWidth]="2"
+                  [innerStrokeWidth]="5"
+                  [outerStrokeColor]="'#FF7584'"
+                  [animation]="true"
+                  [animationDuration]="300"
+                  [showInnerStroke]="false"
+                  [animationDuration]="3300"
+                  [showSubtitle]="false"
+                  [unitsFontSize]="'12'"
+                  [titleFontSize]="'10'"
+                ></circle-progress>
+                <span class="fs-18 fw-400 c-primary  mt-12">{{'Completed' | translate}}</span>
+              </div>
+
+            </div>
+            <div class="col-lg-3 col-md-6 mt-lg-0 mt-md-4 d-flex flex-column justify-content-between">
+              <span class="fs-14 fw-500 text-c-4 mb-3 center">{{'upcoming-meeting' | translate}}</span>
+              <p class="fs-18 c-primary fw-400 d-flex justify-content-center">{{responseEntity?.upComingMeetingDate | date}}</p>
+              <!-- <div class="d-flex align-items-center justify-content-center">
+                <div class="fs-18 c-primary fw-400 mb-2">{{responseEntity?.upComingMeetingDate | date}}</div>
+              </div> -->
+            </div>
+            <!-- <div class="col-lg col-md-6 mt-lg-0 mt-md-4 d-flex flex-column justify-content-between">
+              <h4 class="fs-14 fw-500 text-c-4 mb-3">Coming Meeting</h4>
+              <p class="fs-24 fw-400 text-c-1 mb-0 line-36"><span
+                  class="icon-alarm fw-500 d-inline-block me-1"></span>01.05.00</p>
+            </div> -->
+          </div>
+        </div>
+        <div class="disc-files-section bg-white p-4 radius-8 mt-4">
+          <div class="row discription">
+            <div class="col-12">
+              <span class="fs-16 fw-500 text-c-4 mb-3">{{'Description' | translate }}</span>
+            </div>
+            <div class="col-xl-10 col-12 mt-3">
+              <p class="fs-16 text-c-1 fw-400 mb-0">
+                {{responseEntity?.description}}
+              </p>
+            </div>
+          </div>
+          <div class="files mt-5">
+            <div class="row">
+              <div class="col-12 d-flex align-items-center justify-content-between mb-3">
+                <span class="fs-16 fw-500 text-c-4 ">{{'Files' | translate}}</span>
+                <div class="d-flex align-items-center">
+                  <p class="mb-0 me-3 fs-14 text-c-3"><span class="fs-16 text-c-1">{{responseEntity?.filesCount}}</span>
+                    {{'File' | translate }}</p>
+                  <a (click)="vieaAllFiles()" class="fs-16 fw-500 text-c-link text-decoration-none px-1" *ngIf="CheckActionPrivilage(SystemActions.ViewFile)">
+                    {{'ViewAll' | translate}}
+                  </a>
+                </div>
+              </div>
+              <!-- all files page -->
+              <div class="col-lg-12">
+                <div  [ngClass]="{'col-lg-12': responseEntity.projectAttachments.length <= 0, 'col-lg-4': responseEntity.projectAttachments.length > 0}"
+                  *ngIf="responseEntity && (!responseEntity.projectAttachments || responseEntity.projectAttachments.length <= 0)">
+                  <app-upload-document (filesUploaded)="handleUploadedFiles($event)"></app-upload-document>
+                </div>
+              </div>
+              <!-- project-profile component -->
+              <div class="col-lg-12">
+                <div class="row">
+                  <div  [ngClass]="{'col-lg-12': responseEntity.projectAttachments.length <= 0, 'col-lg-6': responseEntity.projectAttachments.length > 0}"
+                    *ngIf="responseEntity && responseEntity.projectAttachments && responseEntity.projectAttachments.length > 0">
+                    <app-upload-document (filesUploaded)="handleUploadedFiles($event)"></app-upload-document>
+                  </div>
+                  <div class="col-lg-3" *ngFor="let projectFile of responseEntity?.projectAttachments">
+                    <div class=" show-file">
+                      <a [href]="projectFile.fileUrl" target="_blank">
+                        <ngx-dropzone-preview>
+                          <ngx-dropzone-label class="img-profile">
+                            <img src="https://i1.wp.com/problogger.com/wp-content/uploads/2016/07/4-Rs-screenshot.jpg?ssl=1"
+                              alt="">
+                          </ngx-dropzone-label>
+                          <ngx-dropzone-label class="file-name c-primary fw-500">
+                            {{ projectFile.fileName | slice:0:10}}
+                          </ngx-dropzone-label>
+                        </ngx-dropzone-preview>
+                      </a>
+                      <span class="icon-documents-file-word"></span>
+                      <!-- <i class="fas fa-file-contract fs-16 c-gray-1 px-2"></i> -->
+                      <span class="icon-trash fs-20  c-gray-1 pointer" *ngIf="CheckActionPrivilage(SystemActions.DeleteFile)"
+                       (click)="removeFile(projectFile)"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <app-meeting-list [projectId]="id" [workspaceId]="responseEntity?.workSpaceId"></app-meeting-list>
+        <div class="comments-section mt-4 p-4 bg-white radius-8" *ngIf="!(responseEntity?.projectMinuteOfMeetings?.length)">
+          <span class="fs-16 fw-500 text-c-4 mb-4">{{'minutes-of-meeting' | translate}}</span>
+          <div>
+            <ul>
+              <li *ngFor="let pmom of responseEntity?.projectMinuteOfMeetings">{{pmom.description}}</li>
+            </ul>
+          </div>
+        </div>
+        <app-tasks-list [isReadOnly]="isReadOnly" *ngIf="responseEntity && responseEntity.id > 0"
+          [projectId]="responseEntity.id">
+        </app-tasks-list>
+        <!-- project-comments -->
+        <app-project-comments  [isReadOnly]="isReadOnly" [projectId]="id" [commentList]="responseEntity?.projectComments || []"
+          [users]="responseEntity?.members || []"></app-project-comments>
+           <!-- <app-project-comments [isReadOnly]="isReadOnly"
+           ></app-project-comments> -->
+        <!-- </form> -->
+      </div>
+    </div>
+  </div>
+</div>

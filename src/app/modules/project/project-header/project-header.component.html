@@ -1,0 +1,116 @@
+<div class="header mt-4 d-flex align-items-center justify-content-between">
+  <span class="fs-32 fw-400 text-c-1 mb-0">{{ project?.name }}</span>
+  <div class="d-flex align-items-center">
+    <a
+      data-bs-toggle="modal"
+      data-bs-target="#new-project"
+      (click)="openProjectActivities(project?.id)"
+      class="d-flex align-items-center ms-32 fs-16 fw-400 text-c-2 text-decoration-none"
+      data-bs-toggle="modal"
+      data-bs-target="#project-activity"
+    >
+      <span class="icon-activity fs-24 d-inline-block me-2"></span>
+      <span class="line-n">{{ "Activity" | translate }}</span>
+    </a>
+    <div
+      class="d-flex align-items-center fs-16 fw-400 text-c-2 text-decoration-none"
+    >
+      <div ngbDropdown class="d-inline-block ms-32">
+        <span id="project-action" ngbDropdownToggle>
+          <span
+            class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none"
+          ></span>
+        </span>
+        <div ngbDropdownMenu aria-labelledby="project-action">
+          <button
+            ngbDropdownItem
+            *ngIf="CheckActionPrivilage(SystemActions.UpdateProject)"
+          >
+            <div
+              class="dropdown-item p-0 d-flex align-items-center mb-1"
+              (click)="updateProject(project?.id)"
+            >
+              <span class="icon-pen-edit fs-16 c-primary"></span>
+              <span class="px-2 c-primary fs-16">{{
+                "UpdateProject" | translate
+              }}</span>
+            </div>
+          </button>
+          <button
+            ngbDropdownItem
+            *ngIf="CheckActionPrivilage(SystemActions.ArchiveProject)"
+          >
+            <div
+              class="dropdown-item p-0 d-flex align-items-center mb-1"
+              (click)="archiveProject(project)"
+            >
+              <span class="icon-folder-archive fs-16 c-primary"></span>
+              <span class="c-primary px-2 fs-16">{{
+                "ArchiveProject" | translate
+              }}</span>
+            </div>
+          </button>
+          <button
+            ngbDropdownItem
+            *ngIf="CheckActionPrivilage(SystemActions.DeleteProject)"
+          >
+            <div
+              class="dropdown-item p-0 d-flex align-items-center mb-1"
+              (click)="deleteProject(project)"
+            >
+              <span class="icon-trash fs-16 c-primary"></span>
+              <span class="c-primary px-2 fs-16">{{
+                "DeleteProject" | translate
+              }}</span>
+            </div>
+          </button>
+          <button ngbDropdownItem>
+            <div
+              class="dropdown-item p-0 d-flex align-items-center mb-1"
+              (click)="viewProjectCharter(project?.id)"
+            >
+              <span class="icon-list-task-checkmark fs-16"></span>
+              <span class="c-primary px-2 fs-16">{{
+                "Project.Charter" | translate
+              }}</span>
+            </div>
+          </button>
+          <button ngbDropdownItem>
+            <div
+              class="dropdown-item p-0 d-flex align-items-center mb-1"
+              (click)="viewRiskPlan(project?.id)"
+            >
+              <span class="icon-suitcase-portfolio fs-16 c-primary"></span>
+              <span class="c-primary px-2 fs-16">{{
+                "Project.RiskPlan" | translate
+              }}</span>
+            </div>
+          </button>
+          <button ngbDropdownItem>
+            <div
+              class="dropdown-item p-0 d-flex align-items-center mb-1"
+              (click)="viewCommunicationPlan(project?.id)"
+            >
+              <span class="icon-suitcase-portfolio fs-16 c-primary"></span>
+              <span class="c-primary px-2 fs-16">{{
+                "Project.CommunicationPlan" | translate
+              }}</span>
+            </div>
+          </button>
+
+          <button ngbDropdownItem>
+            <div
+              class="dropdown-item p-0 d-flex align-items-center mb-1"
+              (click)="ViewMemberRating(project)"
+            >
+              <span class="icon-suitcase-portfolio fs-16 c-primary"></span>
+              <span class="c-primary px-2 fs-16">
+                {{ "ViewMembersRate" | translate }}</span
+              >
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

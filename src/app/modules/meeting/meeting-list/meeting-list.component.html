@@ -1,0 +1,127 @@
+<div class="header mt-4 d-flex align-items-center justify-content-between">
+  <span class="fs-32 fw-400 text-c-1 mb-0">{{'AllMeetings' | translate}}</span>
+  <div class="d-flex align-items-center">
+      <a class="d-flex align-items-center ms-32  fs-16 fw-400 text-c-2 text-decoration-none ">
+        <a class="fs-14 btn btn-secondary" data-bs-toggle="modal" (click)="newMeeting()"
+            data-bs-target="#new-meeting" *ngIf="CheckActionPrivilage(SystemActions.AddMeeting)">
+            <!-- <span class="icon-plus"></span> -->
+            {{'NewMeeting' | translate}}
+        </a>
+      </a>
+  </div>
+</div>
+<div class="meetings-section mt-4 p-4 bg-white radius-8">
+  <div class="d-flex align-items-center justify-content-between">
+    <span class="fs-18 fw-500 text-c-4 mb-4">{{'Meetings' | translate }}</span>
+    <!-- <span class=" btn btn-primary d-flex align-items-center" routerLink="/minutes-meeting">Minutes of meeting</span> -->
+  </div>
+  <div class="table-container">
+
+    <div *ngIf="(meetingService.items$ | async)?.length || 0 > 0">
+      <div class="custom-table">
+          <div class="table-head">
+              <div class="cell">
+                  {{'title' | translate }}
+              </div>
+              <div class="cell">
+                {{'MeetingAttach' | translate }}
+            </div>
+              <div class="cell">
+                  {{'Members' | translate}}
+              </div>
+              <div class="cell">
+                  {{'Date' | translate }}
+              </div>
+              <div class="cell">
+                {{'Time' | translate }}
+              </div>
+              <div class="cell">
+                {{'type' | translate }}
+              </div>
+              <div class="cell">
+                {{'minutes-of-meeting' | translate}}
+              </div>
+              <div class="cell">
+
+              </div>
+          </div>
+          <div *ngFor="let meeting of meetingService.items$ | async;" class="table-row">
+              <div class="cell pointer"  routerLink="/meeting/{{meeting.id}}">
+                  <!-- {{'MeetingTitle' | translate }} -->
+                  {{meeting.title}}
+              </div>
+              <div class="cell pointer" >
+                <ul class="fa-ul" >
+                  <li *ngFor="let file of meeting.meetingFiles"><i class="fa fa-paperclip" aria-hidden="true"></i>
+                    {{ file.name }} |
+
+                    <a  href="{{file.url}}" target="_blank"><i class="fa fa-cloud-download" aria-hidden="true"></i></a>
+                  </li>
+                </ul>
+            </div>
+              <div class="cell assignee">
+                 <span *ngFor="let member of meeting.members"  title="{{'Members' | translate}}"><img [src]="member.profileImage" alt=""></span>
+                <!-- <span><img src="assets/images/profile-pic.png" alt=""></span> -->
+              </div>
+              <div class="cell date">
+                  <!-- Aug 3 -->
+                  {{meeting.date | date}}
+              </div>
+              <div class="cell time">
+                  {{meeting.date | date:'shortTime'}}
+                  <!-- 02:30 pm -->
+              </div>
+              <div class="cell date">{{ meeting.isOnline ? 'online' : 'offline' | translate}}</div>
+              <div class="cell pointer" [routerLink]="['/meeting/'+meeting.id+'/minutes-meeting']">
+                <!-- <i class="fas fa-info-circle fa-2x cta-primary"></i> -->
+                <span class="icon-grid-layout-3 text-c-4 fs-22" title="{{'show-minute-of-meeting' | translate}}"></span>
+              </div>
+              <div class="cell">
+                <div class="d-flex">
+                  <a class="decoration-none"   title="{{'update-meeting' | translate}}" *ngIf="CheckActionPrivilage(SystemActions.UpdateMeeting)"
+                     (click)="updateMeeting(meeting.id, meeting.workspaceId, meeting.projectId, meeting.taskId)">
+                    <span class="icon-pen-edit fs-18 text-c-3  px-2"></span>
+                  </a>
+                  <a class="decoration-none"
+                    (click)="delete(meeting)" title="{{'delete-meeting' | translate}}" *ngIf="CheckActionPrivilage(SystemActions.DeleteMeeting)">
+                    <span class="icon-User-delete fs-20 text-c-3"></span>
+                  </a>
+                </div>
+                <!-- <a  class="d-flex align-items-center fs-16 fw-400 text-c-2 text-decoration-none">
+                  <div ngbDropdown class="d-inline-block ms-32 ">
+                    <span  id="project-action" ngbDropdownToggle>
+                      <span class="icon-dots-menu fs-24 fw-600 text-c-2 text-decoration-none"></span>
+                    </span>
+                    <div ngbDropdownMenu aria-labelledby="project-action">
+                      <button ngbDropdownItem>
+                        <div class="dropdown-item d-flex align-items-center" (click)="updateMeeting(meeting.id, meeting.workspaceId, meeting.projectId, meeting.taskId)">
+                          <span class="icon-pen-edit fs-20 me-12"></span>
+                          <span class="text-c-1" >{{'UpdateMeeting' | translate}}</span>
+                        </div>
+                      </button>
+                      <button ngbDropdownItem>
+                        <div class="dropdown-item  d-flex align-items-center" (click)="delete(meeting)">
+                          <span class="icon-trash fs-20 me-12"></span>
+                          <a class="text-c-1">{{'DeleteMeeting' | translate}} </a>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </a> -->
+              </div>
+          </div>
+      </div>
+    </div>
+    <div *ngIf="!(meetingService.items$ | async)?.length">
+      <!-- <p>There's No Available Meetings</p> -->
+      <div class="add-section bg-white radius-8">
+        <div class="content">
+            <img src="assets/images/project-pic.png" alt="" class="">
+            <p class="fs-32 c-gray-1">
+              {{'no-meeting' | translate}}
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

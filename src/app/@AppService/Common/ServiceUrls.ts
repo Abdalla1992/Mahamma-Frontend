@@ -95,6 +95,7 @@ export const UserUrls = {
   DeleteUser: 'Account/Delete',
   GetMemberList: 'Account/GetMemberList',
   UpdateUserProfileSettingUrl: 'Account/UpdateUserProfileSetting',
+  updateUserProfileSectionUrl: 'Account/UpdateProfileSection',
 };
 
 export const AuthenticationUrls = {

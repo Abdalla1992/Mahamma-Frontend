@@ -8,6 +8,7 @@ import { BaseService } from './Base/base.service';
 import { GenericService } from './Base/GenericService';
 import { Observable } from 'rxjs';
 import { ApiResponse } from '../models/response.model';
+import { UserProfileSectionDto } from 'src/app/@core/auth/app-user';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,7 @@ export class UserService extends BaseService<User, User> implements OnDestroy {
   mahammaIdentityBaseUrl: string = environment.mahammaIdentityApiBaseUrl;
   updateUserProfileSettingsUrl: string;
   userProfileId: number;
+  updateUserProfileSectionUrl: string;
 
   constructor(
     @Inject(HttpClient) http,
@@ -36,6 +38,8 @@ export class UserService extends BaseService<User, User> implements OnDestroy {
     this.updateUserProfileSettingsUrl =
       environment.mahammaIdentityApiBaseUrl +
       UserUrls.UpdateUserProfileSettingUrl;
+   this.updateUserProfileSectionUrl =
+      environment.mahammaIdentityApiBaseUrl + UserUrls.updateUserProfileSectionUrl;
   }
   ngOnDestroy() {
     this.subscriptions.forEach((sb) => sb.unsubscribe());
@@ -59,5 +63,14 @@ export class UserService extends BaseService<User, User> implements OnDestroy {
 
   getUserById(id: number): Observable<ApiResponse<User>> {
     return this.genericService.get<ApiResponse<User>>(this.Urls.GetByIdUrl + '?id=' + id);
+  }
+
+  updateUserProfileSection( userId:number,
+    userProfileSection: UserProfileSectionDto[]
+  ): Observable<ApiResponse<boolean>> {
+    return this.genericService.post<ApiResponse<boolean>>(
+      this.updateUserProfileSectionUrl,
+      {userId : userId , userProfileSections: userProfileSection}
+    );
   }
 }

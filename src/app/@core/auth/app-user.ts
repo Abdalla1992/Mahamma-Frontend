@@ -14,4 +14,10 @@ export class User {
   languageId: number;
   bio: string;
   skills: string;
+  userProfileSections?:UserProfileSectionDto[];
+}
+
+export interface UserProfileSectionDto {
+  sectionId: number;
+  orderId: number;
 }

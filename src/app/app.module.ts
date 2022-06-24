@@ -89,7 +89,8 @@ export function createTranslateLoader(http: HttpClient) {
     ToastrModule.forRoot(),
     MeetingModule,
     BrowserAnimationsModule ,
-    MyWorkNotesModule
+    MyWorkNotesModule,
+    
   ],
   providers: [
     NgbActiveModal,

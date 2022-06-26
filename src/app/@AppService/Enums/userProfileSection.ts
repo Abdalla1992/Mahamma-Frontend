@@ -4,3 +4,4 @@ export enum userProfileSectionEnum {
   WorkHistory = 3,
   RejectedTask = 4,
 }
+
